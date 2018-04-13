@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    title TobiaS
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /
+    meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport" /
+    meta content="/" name="turbolinks-root"
+    //meta name="turbolinks-cache-control" content="no-cache"
+    meta name="turbolinks-cache-control" content="no-preview"
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': true
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
+    = toast
+    - swatch = %w(lighten darken accent).sample
+  body
+    header.navbar-fixed
+      nav class="#{@color} darken-1"
+       .nav-wrapper.container
+          a#sidenav href="#" data-target="slide-out" class="button-collapse sidenav-trigger show-on-large" data-turbolinks="false"
+            i class="material-icons right" apps
+
+          a#logo-container.brand-logo href="/"
+            = inline_svg "logo.svg", class: "main-logo"
+
+          ul#nav-mobile.right
+            li
+              a href="/"
+                | Home
+                span.new.badge =Organization.first.meetings.count
+            li
+              a.dropdown-trigger data-target="dropdown2" href="#!"
+                span Organisation
+                i.material-icons.right arrow_drop_down
+              ul#dropdown2.dropdown-content
+                - Organization.all.each do |org|
+                  li
+                    = link_to org.name, organization_path(org)
+                li
+                  .divider
+                  = link_to "Alle",controller: 'organizations'
+
+    aside
+      = render "layouts/sidebar"
+
+    main
+      .container
+        == yield
+
+
+
+    footer.page-footer class="#{@color}"
+      = render "layouts/footer"
