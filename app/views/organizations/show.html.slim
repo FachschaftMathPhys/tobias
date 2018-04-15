@@ -1,0 +1,25 @@
+h1
+  = @organization.name
+.fixed-action-btn.horizontal.direction-top.direction-left
+  = link_to new_organization_meeting_path(@organization), class:"btn-floating btn-large waves-effect waves-light light-blue" do
+    i.material-icons add
+p
+  strong Beschreibung:
+  = @organization.description
+  h3 Aktuelle Sitzungen
+  table
+    tr
+      th Name
+      th Beschreibung
+      th Datum
+      th colspan=2 Optionen
+    - @organization.meetings.order("date DESC").each do |meeting|
+      tr
+        td =meeting.name
+        td =meeting.description
+        td =meeting.date
+        td
+          = link_to "Anzeigen", organization_meeting_path(meeting.organization,meeting)
+        td = link_to "Bearbeiten", edit_organization_meeting_path(meeting.organization,meeting)
+
+= link_to 'Zurück!', organizations_path

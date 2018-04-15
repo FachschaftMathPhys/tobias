@@ -11,5 +11,5 @@ table
       td =meeting.description
       td =meeting.date
       td
-        = link_to "Anzeigen", meeting_path(meeting)
-      td = link_to "Bearbeiten", edit_meeting_path(meeting)
+        = link_to "Anzeigen", organization_meeting_path(meeting.organization,meeting)
+      td = link_to "Bearbeiten", edit_organization_meeting_path(meeting.organization,meeting)

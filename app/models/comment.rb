@@ -1,3 +1,3 @@
 class Comment < ApplicationRecord
-  belongs_to :Top
+  belongs_to :top
 end

@@ -3,3 +3,10 @@ span.badge =@meeting.date
 strong Beschreibung:
 p
   =@meeting.description
+h2 TOPs
+p
+  - unless @meeting.tops.empty?
+    = render @meeting.tops
+.fixed-action-btn.horizontal.direction-top.direction-left
+  = link_to new_organization_meeting_top_path(@meeting.organization,@meeting), class:"btn-floating btn-large waves-effect waves-light light-blue" do
+    i.material-icons add

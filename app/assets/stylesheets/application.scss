@@ -2,6 +2,6 @@
 *= require material_icons
 */
 @import "materialize/components/color-variables";
-$primary-color: color("red", "lighten-2") !default;
-$secondary-color: color("blue", "base") !default;
+$primary-color: color("red", "base") !default;
+$secondary-color: color("blue gray", "base") !default;
 @import "materialize";

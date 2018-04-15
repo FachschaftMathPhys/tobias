@@ -26,7 +26,8 @@ html
             li
               a href="/"
                 | Home
-                span.new.badge =Organization.first.meetings.count
+                - unless Organization.first.nil?
+                  span.new.badge =Organization.first.meetings.count
             li
               a.dropdown-trigger data-target="dropdown2" href="#!"
                 span Organisation

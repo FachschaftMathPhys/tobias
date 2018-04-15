@@ -6,7 +6,7 @@
       ul
         - @meeting.errors.full_messages.each do |msg|
           li = msg
-= form_with model:@meeting, local: true do |form|
+= form_with model:[@meeting.organization,@meeting], local: true do |form|
   p
     = form.label :organization
     br
@@ -24,4 +24,4 @@
     br
     =form.datetime_field :date, class:"datepicker"
   p
-    = form.submit
+    = form.submit class:"btn waves-effect waves-light"
