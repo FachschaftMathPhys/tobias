@@ -10,44 +10,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416091250) do
+ActiveRecord::Schema.define(version: 20180416142851) do
 
-  create_table "comments", force: :cascade do |t|
-    t.string "title"
-    t.string "content"
-    t.string "author"
+  create_table "actions", force: :cascade do |t|
     t.integer "top_id"
+    t.integer "meeting_id"
+    t.integer "protocol_id"
+    t.bigint "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["top_id"], name: "index_comments_on_top_id"
+    t.index ["meeting_id"], name: "index_actions_on_meeting_id"
+    t.index ["protocol_id"], name: "index_actions_on_protocol_id"
+    t.index ["top_id"], name: "index_actions_on_top_id"
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "author"
+    t.binary "content"
+    t.string "name"
+    t.string "attachable_type"
+    t.integer "attachable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "author"
+    t.text "content"
+    t.string "title"
+    t.string "commentable_type"
+    t.integer "commentable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
   create_table "meetings", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
     t.datetime "date"
+    t.datetime "begin"
+    t.datetime "end"
+    t.string "moderation"
+    t.string "clerk"
     t.integer "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "moderation"
+    t.string "title"
+    t.string "description"
     t.index ["organization_id"], name: "index_meetings_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "protocols", force: :cascade do |t|
+    t.text "content"
+    t.string "result"
+    t.bigint "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "tops", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
+    t.string "submitter"
     t.string "author"
-    t.integer "meeting_id"
+    t.string "submitted_at"
+    t.integer "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["meeting_id"], name: "index_tops_on_meeting_id"
+    t.index ["organization_id"], name: "index_tops_on_organization_id"
   end
 
 end

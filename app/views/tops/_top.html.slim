@@ -6,6 +6,6 @@
         = "@"+top.author
     p =top.description
   .card-action
-    = link_to top.comments.count.to_s+' Kommentar(e)', organization_meeting_top_path(top.meeting.organization,top.meeting,top)
-    = link_to 'Bearbeiten', edit_organization_meeting_top_path(top.meeting.organization.id,top.meeting.id, top)
-    = link_to 'Löschen',[top.meeting.organization,top.meeting,top], method: :delete, data: {confirm:"Bist du sicher diesen Top zulöschen?"}
+    = link_to top.comments.count.to_s+' Kommentar(e)', organization_top_path(top.organization,top)
+    = link_to 'Bearbeiten', edit_organization_top_path(top.organization, top)
+    = link_to 'Löschen',[top.organization,top], method: :delete, data: {confirm:"Bist du sicher diesen Top zulöschen?"}

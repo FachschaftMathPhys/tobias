@@ -16,14 +16,19 @@ class TopsController < ApplicationController
     end
   end
   def new
+    @organization = Organization.find(params[:organization_id])
     @meeting = Meeting.find(params[:meeting_id])
-    @top = @meeting.tops.build
+    @top = @organization.tops.build
   end
   def create
     @meeting = Meeting.find(params[:meeting_id])
-    @top = @meeting.tops.create top_params
-    @top.author = current_user
+    @organization = Organization.find(params[:organization_id])
+    t = top_params
+    t[:author] = current_user
+    @top = @organization.tops.create t
     if @top.save!
+        action= Action.create(meeting:@meeting,top:@top, protocol:Protocol.create)
+        action.save
         redirect_to [@meeting.organization,@meeting]
     else
       render 'new'

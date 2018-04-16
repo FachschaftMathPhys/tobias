@@ -1,10 +1,10 @@
 class CreateComments < ActiveRecord::Migration[5.1]
   def change
     create_table :comments do |t|
-      t.string :title
-      t.string :content
       t.string :author
-      t.references :top, foreign_key: true
+      t.text :content
+      t.string :title
+      t.references :commentable, polymorphic: true
 
       t.timestamps
     end

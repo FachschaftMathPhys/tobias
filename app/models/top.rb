@@ -1,5 +1,6 @@
 class Top < ApplicationRecord
-  belongs_to :meeting
-  has_many :comments, dependent: :destroy
-  validates :author, presence: true
+  belongs_to :organization
+  has_many :comments, as: :commentable
+  has_many :actions
+  has_many :meetings, through: :actions
 end

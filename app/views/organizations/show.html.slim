@@ -1,5 +1,5 @@
 h1
-  = @organization.name
+  = @organization.title
 .fixed-action-btn.horizontal.direction-top.direction-left
   = link_to new_organization_meeting_path(@organization), class:"btn-floating btn-large waves-effect waves-light light-blue" do
     i.material-icons add
@@ -16,7 +16,7 @@ p
       th colspan=2 Optionen
     - @organization.meetings.order("date DESC").each do |meeting|
       tr
-        td =meeting.name
+        td =meeting.title
         td =meeting.description
         td =meeting.date
         td =meeting.moderation

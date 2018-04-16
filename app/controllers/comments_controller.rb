@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   def new
-    @comment = Comment.new(top_id:params[:top_id])
+    @comment = Comment.new(commentable:Top.find(params[:top_id]))
   end
   def index
   end
@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     c = comment_params
     c[:author]= current_user
     @comment = @top.comments.create c
-    redirect_to organization_meeting_top_path(@comment.top.meeting.organization,@comment.top.meeting,@comment.top)
+    redirect_to organization_top_path(@comment.commentable.organization,@comment.commentable)
   end
   def edit
     @comment =Comment.find(params[:id])

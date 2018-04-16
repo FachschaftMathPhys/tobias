@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   resources :organizations do
+    resources :tops do
+      resources :comments
+    end
     resources :meetings do
       resources :tops do
         resources :comments

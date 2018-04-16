@@ -10,11 +10,11 @@
   p
     = form.label :organization
     br
-    = form.collection_select :organization_id, Organization.all, :id, :name
+    = form.collection_select :organization_id, Organization.all, :id, :title
   p
-    = form.label :name
+    = form.label :title
     br
-    = form.text_field :name
+    = form.text_field :title
   p
     = form.label :description
     br

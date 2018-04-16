@@ -1,4 +1,4 @@
 class Organization < ApplicationRecord
-   validates :name, presence: true
-   has_many :meetings
+  has_many :meetings, dependent: :destroy
+  has_many :tops
 end

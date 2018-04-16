@@ -2,12 +2,16 @@
 
 one:
   title: MyString
-  description: MyString
+  description: MyText
+  submitter: MyString
   author: MyString
-  meeting: one
+  submitted_at: MyString
+  organization: one
 
 two:
   title: MyString
-  description: MyString
+  description: MyText
+  submitter: MyString
   author: MyString
-  meeting: two
+  submitted_at: MyString
+  organization: two
