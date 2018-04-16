@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415145721) do
+ActiveRecord::Schema.define(version: 20180416091250) do
 
   create_table "comments", force: :cascade do |t|
     t.string "title"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180415145721) do
     t.integer "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "moderation"
     t.index ["organization_id"], name: "index_meetings_on_organization_id"
   end
 

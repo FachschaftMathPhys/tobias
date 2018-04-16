@@ -20,6 +20,10 @@
     br
     = form.text_area :description, class:"materialize-textarea"
   p
+    = form.label :moderation
+    br
+    = form.text_field :moderation
+  p
     = form.label :date
     br
     =form.datetime_field :date, class:"datepicker"

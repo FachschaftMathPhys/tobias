@@ -6,7 +6,9 @@ class CommentsController < ApplicationController
   end
   def create
     @top = Top.find(params[:top_id])
-    @comment = @top.comments.create comment_params
+    c = comment_params
+    c[:author]= current_user
+    @comment = @top.comments.create c
     redirect_to organization_meeting_top_path(@comment.top.meeting.organization,@comment.top.meeting,@comment.top)
   end
   def edit
@@ -14,11 +16,14 @@ class CommentsController < ApplicationController
   end
   def update
     @comment = Comment.find(params[:id])
-
-    if @comment.update(comment_params)
-      redirect_to organization_meeting_top_path( @comment.top.meeting.organization, @comment.top.meeting,@comment.top)
+    if is_current_user?(@comment.author)
+      if @comment.update(comment_params)
+        redirect_to organization_meeting_top_path( @comment.top.meeting.organization, @comment.top.meeting,@comment.top)
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      redirect_to organization_meeting_top_path( @comment.top.meeting.organization, @comment.top.meeting,@comment.top)
     end
   end
   def destroy

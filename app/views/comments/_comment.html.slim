@@ -1,8 +1,11 @@
 .card
   .card-content
-    .card-title = comment.title
+    .card-title
+      = comment.title
+      .right.grey-text
+        = "@"+comment.author
     p =comment.content
   .card-action
-    -if is_current_user(comment)
+    -if is_current_user?(comment.author)
       = link_to 'Bearbeiten', edit_organization_meeting_top_comment_path(comment.top.meeting.organization,comment.top.meeting,comment.top,comment)
       = link_to 'Löschen',[comment.top.meeting.organization,comment.top.meeting,comment.top,comment], method: :delete, data: {confirm:"Bist du sicher diesen Top zulöschen?"}

@@ -12,12 +12,14 @@ p
       th Name
       th Beschreibung
       th Datum
+      th Moderation
       th colspan=2 Optionen
     - @organization.meetings.order("date DESC").each do |meeting|
       tr
         td =meeting.name
         td =meeting.description
         td =meeting.date
+        td =meeting.moderation
         td
           = link_to "Anzeigen", organization_meeting_path(meeting.organization,meeting)
         td = link_to "Bearbeiten", edit_organization_meeting_path(meeting.organization,meeting)

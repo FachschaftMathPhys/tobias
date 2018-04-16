@@ -22,7 +22,8 @@ class TopsController < ApplicationController
   def create
     @meeting = Meeting.find(params[:meeting_id])
     @top = @meeting.tops.create top_params
-    if @top.save
+    @top.author = current_user
+    if @top.save!
         redirect_to [@meeting.organization,@meeting]
     else
       render 'new'

@@ -1,4 +1,6 @@
-h1 =@meeting.name
+h1
+  =@meeting.name
+  small.right.grey-text ="@"+@meeting.moderation
 span.badge =@meeting.date
 strong Beschreibung:
 p
@@ -7,6 +9,8 @@ h2 TOPs
 p
   - unless @meeting.tops.empty?
     = render @meeting.tops
+  -else
+    h3 Keine Tops vorhanden
 .fixed-action-btn.horizontal.direction-top.direction-left
   = link_to new_organization_meeting_top_path(@meeting.organization,@meeting), class:"btn-floating btn-large waves-effect waves-light light-blue" do
     i.material-icons add
