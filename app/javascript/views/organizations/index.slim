@@ -1,0 +1,10 @@
+App
+  h1 Organisationen
+  v-container fluid=true grid-list-md=true
+    v-data-iterator content-tag="v-layout" row=true wrap=true :items="organizations" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination"
+      v-flex slot="item" slot-scope="props" xs12=true sm6=true md4=true lg3=true
+        v-card
+          v-card-title
+            h4 v-html="props.item.title"
+          v-card-actions
+            v-btn flat=true color="accent" href="'organizations/'+props.item.id" Anschauen

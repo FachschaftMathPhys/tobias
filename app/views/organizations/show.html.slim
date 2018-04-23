@@ -1,27 +1,30 @@
-h1
-  = @organization.title
-.fixed-action-btn.horizontal.direction-top.direction-left
-  = link_to new_organization_meeting_path(@organization), class:"btn-floating btn-large waves-effect waves-light light-blue" do
-    i.material-icons add
-p
-  strong Beschreibung:
-  = @organization.description
-  h3 Aktuelle Sitzungen
-  table
-    tr
-      th Name
-      th Beschreibung
-      th Datum
-      th Moderation
-      th colspan=2 Optionen
-    - @organization.meetings.order("date DESC").each do |meeting|
-      tr
-        td =meeting.title
-        td =meeting.description
-        td =meeting.date
-        td =meeting.moderation
-        td
-          = link_to "Anzeigen", organization_meeting_path(meeting.organization,meeting)
-        td = link_to "Bearbeiten", edit_organization_meeting_path(meeting.organization,meeting)
+= javascript_pack_tag 'organizations/show'
+= stylesheet_pack_tag 'organizations/show'
+div#app
+  App
+    h1
+      = @organization.title
+    v-speed-dial bottom=true right=true direction="top" fixed=true open-on-hover=true
+      v-btn slot="activator" color="blue darken-2" dark=true fab=true hover=true
+        v-icon menu
+        v-icon close
+      v-btn fab=true dark=true small=true color="green" href=edit_organization_path(@organization)
+        v-icon edit
+      v-btn fab=true dark=true small=true color="indigo" href=new_organization_top_path(@organization)
+        v-icon add
 
-= link_to 'Zurück!', organizations_path
+    p
+      strong Beschreibung:
+      = @organization.description
+      .row
+        .col.l6.s12
+          h5 Aktuelle Tops
+          .dd#dd-first
+            ol class="dd-list"
+              - @organization.tops.each do |t|
+                li.dd-item data-id=t.id =render t
+        .col.l6.s12
+          h5 Aktuelle Sitzungen
+          - @organization.meetings.each do |t|
+            li.dd-item data-id=t.id =render t
+    = link_to 'Zurück!', organizations_path

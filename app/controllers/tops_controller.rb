@@ -10,15 +10,17 @@ class TopsController < ApplicationController
     @top = Top.find(params[:id])
 
     if @top.update(top_params)
-      redirect_to organization_meeting_top_path( @top.meeting.organization, @top.meeting,@top)
+      redirect_to organization_top_path( @top.organization,@top)
     else
       render 'edit'
     end
   end
   def new
     @organization = Organization.find(params[:organization_id])
-    @meeting = Meeting.find(params[:meeting_id])
+    @meeting = Meeting.find(params[:meeting_id]) unless params[:meeting_id].nil?
     @top = @organization.tops.build
+    @model = [@organization,@meeting,@top]
+    @model = [@organization,@top] if params[:meeting_id].nil?
   end
   def create
     @meeting = Meeting.find(params[:meeting_id])
@@ -35,14 +37,20 @@ class TopsController < ApplicationController
     end
   end
   def edit
-    @meeting = Meeting.find(params[:meeting_id])
+    @organization = Organization.find(params[:organization_id])
+    unless params[:organization_id].nil?
+      @meeting = Organization.find(params[:organization_id])
+    else
+
+    end
     @top = Top.find(params[:id])
+    @model = [@organization,@top]
   end
   def destroy
-    @meeting = Meeting.find(params[:meeting_id])
-    @top = @meeting.tops.find(params[:id])
+    @organization = Organization.find(params[:organization_id])
+    @top = Top.find(params[:id])
     @top.destroy
-    redirect_to organization_meeting_path(@meeting.organization,@meeting)
+    redirect_to organization_path(@organization)
   end
   private
     def top_params

@@ -1,0 +1,18 @@
+v-card
+  v-card-title
+    h3.headline = meeting.title
+    .right.grey-text.dd-handle
+      = "@"+meeting.moderation
+  v-card-text
+    span=meeting.description
+    .dd#dd-second
+        ol.dd-list.collapsible
+          - meeting.tops.each do |topitem|
+            li.dd-item data-id=topitem.id =render :partial => "tops/topitem", locals: {top: topitem}
+  v-card-actions
+    v-btn flat=true href=organization_meeting_path(meeting.organization,meeting)
+      =meeting.comments.count.to_s+' Kommentar(e)'
+    v-btn flat=true href=edit_organization_meeting_path(meeting.organization,meeting)
+      |Bearbeiten
+    = link_to 'Bearbeiten', edit_organization_meeting_path(meeting.organization, meeting)
+    = link_to 'Löschen',[meeting.organization,meeting], method: :delete, data: {confirm:"Bist du sicher dieses Meeting zulöschen?"}

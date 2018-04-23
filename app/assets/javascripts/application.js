@@ -16,5 +16,4 @@
 //= require materialize/extras/nouislider
 //= require materialize
 //= require turbolinks
-//= require init
 //= require_tree .

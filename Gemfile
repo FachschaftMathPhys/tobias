@@ -63,3 +63,5 @@ gem 'turbolinks', '~> 5'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'activestorage'
+# Gemfile
+gem 'webpacker', '~> 3.4'

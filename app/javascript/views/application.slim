@@ -1,0 +1,43 @@
+.page-container
+  v-app dark=true
+    v-navigation-drawer  app=true hide-overlay=true mini-variant=true permanent=true
+      slot name="drawer"
+        v-toolbar.transparent flat=true
+          v-list.pa-0
+            v-list-tile avatar=true
+              v-list-tile-avatar
+                img src="https://randomuser.me/api/portraits/men/85.jpg"
+              v-list-tile-content
+                v-list-tile-title John Leider
+              v-list-tile-action
+                v-btn icon=true @click.native.stop="menuVisible = !menuVisible"
+                  v-icon chevron_left
+        v-list
+          v-list-tile
+            v-list-tile-action
+              v-icon move_to_inbox
+            v-list-tile-content
+              v-list-tile-title Inbox
+          v-list-tile
+            v-list-tile-action
+              v-icon send
+            v-list-tile-content
+              v-list-tile-title Sent Mail
+          v-list-tile
+            v-list-tile-action
+              v-icon delete
+            v-list-tile-content
+              v-list-tile-title Trash
+          v-list-tile href="https://github.com/fachschaftmathphys/tobias"
+            v-list-tile-action
+              v-icon extension
+            v-list-tile-content
+              v-list-tile-title Erweiterung anfordern
+    v-toolbar app=true color="primary"
+          v-toolbar-title TobiaS
+          v-spacer
+          v-toolbar-items.hidden-sm-and-down
+            v-btn flat=true Link One
+    v-content
+      v-container fluid=true
+        slot

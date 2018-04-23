@@ -18,12 +18,12 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if is_current_user?(@comment.author)
       if @comment.update(comment_params)
-        redirect_to organization_meeting_top_path( @comment.top.meeting.organization, @comment.top.meeting,@comment.top)
+        redirect_to organization_top_path( @comment.commentable.organization,@comment.commentable)
       else
         render 'edit'
       end
     else
-      redirect_to organization_meeting_top_path( @comment.top.meeting.organization, @comment.top.meeting,@comment.top)
+      redirect_to organization_top_path( @comment.commentable.organization,@comment.commentable)
     end
   end
   def destroy

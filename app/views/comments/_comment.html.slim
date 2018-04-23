@@ -1,11 +1,10 @@
-.card
-  .card-content
-    .card-title
-      = comment.title
+v-card
+  v-card-title
+    h3.headline = comment.title
       .right.grey-text
         = "@"+comment.author
-    p =comment.content
-  .card-action
+  v-card-text =comment.content
+  v-card-actions
     -if is_current_user?(comment.author)
-      = link_to 'Bearbeiten', edit_organization_top_comment_path(comment.commentable.organization,comment.commentable,comment)
-      = link_to 'Löschen',[comment.commentable.organization,comment.commentable,comment], method: :delete, data: {confirm:"Bist du sicher diesen Top zulöschen?"}
+      v-btn flat=true color="accent" href=edit_organization_top_comment_path(comment.commentable.organization,comment.commentable,comment) Bearbeiten
+      v-btn flat=true color="accent" href=edit_organization_top_comment_path(comment.commentable.organization,comment.commentable,comment) Löschen

@@ -8,7 +8,10 @@ p
 h4 TOPs
 p
   - unless @meeting.tops.empty?
-    = render @meeting.tops
+    .dd#dd-second
+      ol.dd-list
+        - @meeting.tops.each do |t|
+          li.dd-item data-id=t.id =render t
   -else
     h5 Keine Tops vorhanden
 .fixed-action-btn.horizontal.direction-top.direction-left
