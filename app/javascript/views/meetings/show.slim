@@ -1,0 +1,109 @@
+v-container grid-list-md=true
+  v-layout row=true wrap=true
+    v-flex sm6=true
+      Meeting  :meeting="m"
+    v-flex sm6=true
+      v-card
+        v-card-title class="headline" Sonstige Informationen
+        v-card-text
+          v-list two-line=true subheader=true
+            v-list-tile avatar=true
+              v-list-tile-content
+                v-list-tile-title
+                  | {{m.date}}
+                v-list-tile-sub-title Date
+            v-list-tile avatar=true
+              v-list-tile-content
+                v-list-tile-title
+                  | {{m.clerk}}
+                v-list-tile-sub-title Protokollant
+            v-list-tile avatar=true
+              v-list-tile-content
+                v-list-tile-title
+                  | {{m.begin}}
+                v-list-tile-sub-title Beginn
+            v-list-tile avatar=true
+              v-list-tile-content
+                v-list-tile-title
+                  | {{m.end}}
+                v-list-tile-sub-title Ende
+  v-speed-dial bottom=true right=true direction="top" fixed=true open-on-hover=true
+    v-btn slot="activator" color="blue darken-2" dark=true fab=true hover=true
+      v-icon menu
+      v-icon close
+    v-tooltip left=true
+      v-btn fab=true dark=true small=true color="green" slot="activator" :to='{name:"edit_org_meeting",params:{org_id:$route.params.org_id,meeting_id:$route.params.meeting_id}}'
+        v-icon edit
+      span Bearbeiten
+    v-tooltip left=true
+      v-btn fab=true dark=true small=true color="indigo" slot="activator" @click.native.stop="topdialog = true"
+        v-icon note_add
+      span TOP hinzufügen
+    v-tooltip left=true
+      v-btn fab=true dark=true small=true color="indigo" slot="activator" @click.native.stop="linkdialog = true"
+        v-icon link
+      span TOP verlinken
+    v-tooltip left=true
+      v-btn fab=true dark=true small=true color="indigo" slot="activator" @click.native.stop="dialog = true"
+        v-icon chat
+      span Kommentar hinzufügen
+  v-container grid-list-md=true
+    v-layout row=true wrap=true
+      v-flex md6=true
+        h3 Aktuelle Tops
+        div v-for="top in m.tops"
+          v-flex xs12=true
+            Top :top="top"
+      v-flex md6=true
+        h3 Aktuelle Kommentare
+        v-expansion-panel popout=true
+          v-expansion-panel-content hide-actions=true v-if="m.comments" v-for="(comment, i) in m.comments" :key="i"
+            v-layout align-center=true row=true spacer=true slot="header"
+              v-flex xs4=true sm2=true md1=true
+                v-avatar size="36px" slot="activator"
+                  img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" alt="comment.author" v-if="comment.avatar"
+                  v-icon color="orange" account_circle
+              v-flex sm5=true md3=true hidden-xs-only=true
+                strong v-html="comment.author"
+              v-flex no-wrap=true xs5=true sm3=true
+                strong v-html="comment.title"
+              v-flex class="grey--text" ellipsis=true hidden-sm-and-down=true v-if="comment.excerpt"
+                | &mdash;
+                | {{ content.excerpt }}
+            v-card
+              v-divider
+              v-card-text v-text="comment.content"
+          v-dialog v-model="dialog" persistent=true max-width="400"
+            v-card
+              v-card-title class="headline" Kommentar hinzufügen
+              v-card-text
+                v-form  ref="form"
+                  v-text-field label="Titel" v-model="title" required=true
+                  v-text-field label="Inhalt" v-model="content" multi-line=true
+              v-card-actions
+                v-spacer
+                v-btn color="green darken-1" flat=true @click.native="dialog = false" Abbrechen
+                v-btn color="green darken-1" flat=true @click="submitComment" Hinzufügen
+          v-dialog v-model="topdialog" persistent=true max-width="400"
+            v-card
+              v-card-title class="headline" TOP hinzufügen
+              v-card-text
+                v-form  ref="form"
+                  v-text-field label="Titel" v-model="title" required=true
+                  v-text-field label="Beschreibung" v-model="description" multi-line=true
+              v-card-actions
+                v-spacer
+                v-btn color="green darken-1" flat=true @click.native="dialog = false" Abbrechen
+                v-btn color="green darken-1" flat=true @click="submitTOP" Hinzufügen
+          v-dialog v-model="linkdialog" persistent=true max-width="400"
+            v-card
+              v-card-title class="headline" Bestehenden TOP hinzufügen
+              v-card-text
+                v-container fluid=true
+                  v-layout
+                    v-flex
+                      v-select label="Name des TOPs" autocomplete=true :loading="loading" cache-items=true required=true :items="items" :search-input.sync="search" v-model="select" item-text="title" item-value="id" return-object=true
+              v-card-actions
+                v-spacer
+                v-btn color="green darken-1" flat=true @click.native="linkdialog = false" Abbrechen
+                v-btn color="green darken-1" flat=true @click="linkTop" Hinzufügen

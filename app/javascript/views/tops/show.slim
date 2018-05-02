@@ -1,2 +1,5 @@
-App
-  slot
+div
+  Top :top="t"
+  h3 Kommentare
+  div v-for="c in t.comments"
+    Comment :comment='c'

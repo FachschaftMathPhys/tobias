@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
   helper_method :current_user, :is_current_user?
   def current_user
     request.headers['X-Forwarded-User']
@@ -14,5 +13,11 @@ class ApplicationController < ActionController::Base
   end
   def set_current_user_name
     @current_user_name="Henrik Reinstädtler"
+  end
+  def index
+    render inline: '', layout: 'application' # Avoid having an empty view file.
+  end
+  def context
+    {current_user: current_user}
   end
 end

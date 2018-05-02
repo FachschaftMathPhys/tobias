@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416142851) do
+ActiveRecord::Schema.define(version: 20180501225821) do
 
   create_table "actions", force: :cascade do |t|
     t.integer "top_id"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20180416142851) do
   end
 
   create_table "meetings", force: :cascade do |t|
-    t.datetime "date"
+    t.date "date"
     t.datetime "begin"
     t.datetime "end"
     t.string "moderation"

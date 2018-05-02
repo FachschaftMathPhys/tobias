@@ -15,5 +15,4 @@
 //= require rails-ujs
 //= require materialize/extras/nouislider
 //= require materialize
-//= require turbolinks
 //= require_tree .

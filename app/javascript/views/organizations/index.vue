@@ -3,10 +3,11 @@
 
 <script>
 import template from './index.slim'
+console.log(template);
 import App from '../application.vue'
+import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
-  name: 'Organizations',
-  props:["organizations"],
+  name: 'orgs',
   mixins: [template],
   data: () => ({
     menuVisible: false,
@@ -15,6 +16,16 @@ export default {
         rowsPerPage: 4
       }
   }),
-  components:{App}
+  computed: {...mapGetters({
+    orgs: 'allOrganizations'
+  }),
+  allOrgs:{cache:false,get () {
+   return this.$store.getters.allOrganizations
+ }}
+},
+  components:{App},
+  created () {
+    this.$store.dispatch('getAllOrganizations')
+  }
 }
 </script>

@@ -1,10 +1,15 @@
-App
+div
   h1 Organisationen
+  v-btn color="blue darken-2" dark=true fab=true hover=true bottom=true right=true fixed=true :to='{name:"new_org"}'
+    v-icon add
   v-container fluid=true grid-list-md=true
-    v-data-iterator content-tag="v-layout" row=true wrap=true :items="organizations" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination"
+    v-data-iterator content-tag="v-layout" row=true wrap=true :items="orgs" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination"
       v-flex slot="item" slot-scope="props" xs12=true sm6=true md4=true lg3=true
         v-card
-          v-card-title
-            h4 v-html="props.item.title"
+          v-card-title primary-title=true
+            h3.headline.mb-0
+              | {{props.item.title}}
+          v-card-text
+            | {{props.item.description}}
           v-card-actions
-            v-btn flat=true color="accent" href="'organizations/'+props.item.id" Anschauen
+            v-btn (flat=true color="accent" :to='{name:"organization",params:{org_id:props.item.id}}') Anschauen

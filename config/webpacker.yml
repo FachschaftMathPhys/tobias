@@ -14,9 +14,10 @@ default: &default
   cache_manifest: false
 
   extensions:
-    - .vue
     - .erb
     - .coffee
+    - .vue
+    - .slim
     - .js
     - .sass
     - .scss
