@@ -71,7 +71,7 @@ const actions = {
         top: top,
         meeting: model.meeting
       }, (action) => {
-        commit('addTOP', top)
+        commit('addTOP', action)
       });
     })
   },
@@ -82,8 +82,13 @@ const actions = {
       top: model.top,
       meeting: model.meeting
     }, (action) => {
-      commit('addTOP', model.top)
+      commit('addTOP', action)
     });
+  },
+  removeAction({commit,rootState},model){
+    api.deleteAction(model,(data)=>{
+      commit('removeAction',model);
+    })
   },
   updateField
 }
@@ -109,7 +114,14 @@ const mutations = {
   },
   addTOP(s, top) {
     //  Vue.set(s,"all" , _.cloneDeep(organizations))
-    s.meeting.tops.unshift(top) //Object.assign([], organizations)
+    s.meeting.actions.unshift(top) //Object.assign([], organizations)
+  },
+  removeAction(s,action){
+    const index = s.meeting.actions.indexOf(action.action);
+
+    if (index !== -1) {
+        s.meeting.actions.splice(index, 1);
+    } else alert("not found");
   },
   updateField
 }

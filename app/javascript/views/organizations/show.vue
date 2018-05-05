@@ -2,6 +2,7 @@
 </style>
 
 <script>
+import draggable from 'vuedraggable'
 import template from './show.slim'
 import { mapGetters, mapActions, mapState } from 'vuex'
 import App from '../application.vue'
@@ -13,11 +14,19 @@ export default {
   data: () => ({
     menuVisible: false
   }),
-  components:{Top, Meeting},
+  components:{Top, Meeting,draggable},
   computed:{
     ...mapGetters({
       org: 'Organization'
-    })
+    }),
+    Tops: {
+        get() {
+            return this.org.tops
+        },
+        set(value) {
+            this.$store.commit('updateTops', value)
+        }
+    }
   },
   created(){
     this.$store.dispatch('getOrganization',{

@@ -22,14 +22,15 @@ div
     strong Beschreibung:
     | {{org.description}}
     v-container grid-list-md=true
-      v-layout row=true wrap=true
-        v-flex xs6=true
+      v-layout#drag-scope row=true wrap=true
+        v-flex.top-container xs6=true
           h3 Aktuelle Tops
-          div v-for="top in org.tops"
-            v-flex xs12=true
-              Top :top="top"
+          draggable v-model='Tops' :options='{group:"tops"}'
+            div v-for="top in org.tops"
+              v-flex.top-item.handle xs12=true
+                Top :top="top"
         v-flex xs6=true
           h3 Aktuelle Sitzungen
           div v-for="meeting in org.meetings"
             v-flex xs12=true
-              Meeting :meeting="meeting"
+              Meeting :meeting="meeting" :organizationview="true"

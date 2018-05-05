@@ -32,6 +32,20 @@ const actions = {
       commit('setOrganization', orgs)
     })
   },
+  updateActionsMeetings({commit},model){
+    let m ={
+      ...model.meeting
+    };
+    for(let ac of model.newactions){
+      api.createAction(ac,function(action){
+        model.actions.push(action);
+        m.actions = model.actions;
+        api.updateMeeting(m,function(meeting){
+          commit("linkMeeting",meeting);
+        });
+      })
+    }
+  },
   updateOrg({commit},model) {
     api.updateOrganization(model,function(orgs) {
       commit('setOrganization', orgs)
@@ -42,8 +56,12 @@ const actions = {
       commit('setOrganization', orgs)
       commit('addOrganization', orgs)
     })
+  },
+  removeAction({commit,rootState},model){
+    api.deleteAction(model,(data)=>{
+      commit('removeAct',model);
+    })
   }
-
 }
 
 // mutations
@@ -59,6 +77,24 @@ const mutations = {
   setOrganization(s, org) {
   //  Vue.set(s,"all" , _.cloneDeep(organizations))
     s.organization =org//Object.assign([], organizations)
+  },
+  updateTops(s, org) {
+  //  Vue.set(s,"all" , _.cloneDeep(organizations))
+    s.organization.tops =org//Object.assign([], organizations)
+  },
+  linkMeeting(s,model){
+    console.log(model);
+    s.organization.meetings.filter((item)=>{
+      return item.id==model.id;
+    })[0].actions= model.actions;
+  },
+  removeAct(s,action){
+    const index = s.organization.meetings.indexOf(action.meeting);
+    const meeting = s.organization.meetings[index];
+    const index2 = meeting.actions.indexOf(action.action);
+    if (index2 !== -1) {
+        s.organization.meetings[index].actions.splice(index2, 1);
+    } else alert("not found");
   },
   updateField
 }

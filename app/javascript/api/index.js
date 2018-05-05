@@ -10,7 +10,7 @@ export default{
     })
   },
   getOrganization(id,cb){
-    jsonApi.find('organization',id.id,{include: "meetings,tops,tops.comments,meetings.comments"}).then(({ data, errors, meta, links })=>{
+    jsonApi.find('organization',id.id,{include: "meetings,tops,tops.comments,meetings.comments,meetings.actions,meetings.organization,meetings.actions.top"}).then(({ data, errors, meta, links })=>{
       cb(data)
     })
   },
@@ -44,12 +44,14 @@ export default{
       })
     },
     getMeeting(id,cb){
-      jsonApi.find('meeting',id.id,{include: "comments,tops,tops.comments"}).then(({ data, errors, meta, links })=>{
+      jsonApi.find('meeting',id.id,{include: "comments,actions,actions.top,actions.top.comments"}).then(({ data, errors, meta, links })=>{
         cb(data)
       })
     },
     updateMeeting(data,cb){
-      jsonApi.update('meeting',data).then(({ data, errors, meta, links })=>{
+      jsonApi.update('meeting',data,{
+ include: 'actions,actions.top'
+      }).then(({ data, errors, meta, links })=>{
         cb(data)
       })
     },
@@ -63,7 +65,15 @@ export default{
       cb(data)
     })},
     createAction(model,cb){
-      jsonApi.create('action',model).then(({ data, errors, meta, links })=>{
+      jsonApi.create('action',model,{
+ include: 'top'
+      }).then(({ data, errors, meta, links })=>{
         cb(data)
-      })}
+      })},
+      deleteAction(model,cb){
+        console.log(model)
+        jsonApi.destroy('action',model.action.id).then(({data,errors,meta,links})=>{
+          cb(data);
+        })
+      }
 }

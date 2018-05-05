@@ -15,17 +15,17 @@ export default function(jsonApi) {
     moderation: '',
     clerk: '',
     description: '',
-    comments: {
+    actions: {
       jsonApi: 'hasMany',
-      type: 'comments'
+      type: 'actions'
     },
     organization: {
       jsonApi: 'hasOne',
       type: 'organizations'
     },
-    tops: {
+    comments: {
       jsonApi: 'hasMany',
-      type: 'tops'
+      type: 'comments'
     },
   });
   jsonApi.define('organization', {

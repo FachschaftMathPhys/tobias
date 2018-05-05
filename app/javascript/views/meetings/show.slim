@@ -51,9 +51,9 @@ v-container grid-list-md=true
     v-layout row=true wrap=true
       v-flex md6=true
         h3 Aktuelle Tops
-        div v-for="top in m.tops"
+        div v-for="action in m.actions"
           v-flex xs12=true
-            Top :top="top"
+            Top :top="action.top"
       v-flex md6=true
         h3 Aktuelle Kommentare
         v-expansion-panel popout=true

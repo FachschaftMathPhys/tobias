@@ -16,6 +16,7 @@
     "vue-template-compiler": "^2.5.16",
     "vue-template-compiler-loader": "^1.0.4",
     "vue-turbolinks": "^2.0.3",
+    "vuedraggable": "^2.16.0",
     "vuetify": "^1.0.16",
     "vuex": "^3.0.1",
     "vuex-map-fields": "^1.1.7"
