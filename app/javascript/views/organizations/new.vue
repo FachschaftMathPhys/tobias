@@ -11,9 +11,7 @@ export default {
   mixins: [template],
   methods:{
     submit(){
-      console.log(this.$store.getters);
-      console.log(this);
-      this.$store.dispatch('addOrg', {title:this.title,description:this.description}).then(()=>{
+      this.$store.dispatch('addOrg', {title:this.title,description:this.description,"meetinginvitationtemplate":this.meetinginvitationtemplate}).then(()=>{
       //verknüpfen, falls meeting_id angegeben
       this.$router.push({ name: 'organizations'})
     }
@@ -21,7 +19,7 @@ export default {
     }
   },
   computed:{
-    ...mapFields(["organization.description","organization.title"])
+    ...mapFields(["organization.description","organization.title","organization.meetinginvitationtemplate"])
   }
 }
 </script>

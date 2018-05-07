@@ -3,7 +3,7 @@ import { getField, updateField } from 'vuex-map-fields';
 // initial state
 const state = {
     all:[],
-    organization:{title:"",description:""}
+    organization:{title:"",description:"",meetinginvitationtemplate:""}
 }
 
 // getters

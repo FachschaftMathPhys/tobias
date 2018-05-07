@@ -21,6 +21,7 @@ export default {
       this.$store.dispatch('updateOrg', {
         title: this.title,
         description: this.description,
+        meetinginvitationtemplate: this.meetinginvitationtemplate,
         id: this.$route.params.org_id
       }).then(() => {
         //verknüpfen, falls meeting_id angegeben
@@ -37,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapFields(["organization.description", "organization.title"])
+    ...mapFields(["organization.description", "organization.title","organization.meetinginvitationtemplate"])
   },
   created() {
     this.$store.dispatch('getOrganization', {

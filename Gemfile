@@ -66,3 +66,4 @@ gem 'activestorage'
 # Gemfile
 gem 'webpacker', '~> 3.4'
 gem 'jsonapi-resources'
+gem 'rails-i18n'

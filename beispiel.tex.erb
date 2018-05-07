@@ -1,0 +1,71 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+% !TEX spellcheck = de_DE
+
+
+\documentclass[11pt,twosided=true]{mathphys-article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{hyperref,pdfpages,eurosym}
+
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\date{\vspace{-2em}<%=I18n.localize(Date.today,format:"%d. %B %Y") %>\vspace{-1em}} % Hier Datum der Einladung einfügen
+\title{\vspace{-2em}Einladung zur Fachschaftssitzung Mathematik, Physik\,\&\,Informatik}
+\maketitle
+
+Liebe Kommilitoninnen und Kommilitonen,\\
+
+hiermit laden wir Euch herzlich zur gemeinsamen Sitzung der
+Fachschaftsvollversammlungen und der entsprechenden Fachschaftsräte der Mathematik, Physik\,\&\,Informatik ein. Diese Sitzung wird stattfinden
+		\begin{center}
+			\textbf{
+				am <%=I18n.localize(@model.date,format:"%A, den %d. %B %Y") %>,\\ % Hier Datum der Sitzung einfügen
+				um <%=I18n.localize(@model.date,format:"%H:%M") %> Uhr c.t.\\
+				im Seminarraum C, INF 205}.
+		\end{center} Die bisherige Tagesordnung sieht folgende Punkte vor:
+
+	\begin{enumerate}\setlength{\itemsep}{-.8ex}
+		\item Begrüßung
+		\item Feststellung der Beschlussfähigkeit(en)
+		\item Beschluss des Protokolls der vergangenen Sitzung
+		\item Feststellen der Tagesordnung
+		\item Festlegen einer Sitzungsmoderation für die nächste Sitzung
+    <% @model.actions.each do |action|%>\item <%= action.top.title%><% end%>
+        \item Aktuelles aus Studium und Lehre
+        \item Viele kleine Baustellen und ein Strauß voll Buntes (Verschiedenes)
+    \end{enumerate}\normalsize
+
+Im Anhang findet Ihr weitere Erklärungen zu einzelnen
+Tagesordnungspunkten. Wir freuen uns, Euch zahlreich zur Sitzung am
+Mittwoch begrüßen zu dürfen.\\
+
+Mit freundlichen Grüßen!\\[1.6em]
+%\includegraphics[height=1cm]{fsrmathinfunterschriften}\\
+Fachschaftsrat Mathematik, Physik\,\&\,Informatik
+
+\clearpage
+
+\setlength{\parindent}{1em}
+
+\section*{Erläuterungen zu TOPs der gemeinsamen Sitzungen der Fachschaften  Mathematik, Physik\,\&\,Informatik}
+
+<% @model.actions.each_with_index do |action,i|%>
+<% unless action.top.description.empty? %>
+\subsection*{TOP <%= i+6%>: <%= action.top.title%>}<%=action.top.description %>
+<% end %>
+<% end%>
+
+\subsection*{TOP <%= @model.actions.count+7%>: Verschiedenes} % Hier TOP-Nummer und viele Abstracts einfügen
+Dinge, die sich erst kurzfristig ergeben haben, oder Mitteilungen für die kein
+eigener TOP angekündigt wurde können unter diesem Tagesordnungspunkt besprochen
+werden. Solange keine besondere Dringlichkeit vorliegt, sollen hier keine
+Beschlüsse gefällt werden, sondern es soll nur informiert und gegebenenfalls
+kurz diskutiert werden.
+
+\end{document}

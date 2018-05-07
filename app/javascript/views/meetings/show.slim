@@ -32,6 +32,10 @@ v-container grid-list-md=true
       v-icon menu
       v-icon close
     v-tooltip left=true
+      v-btn fab=true dark=true small=true color="green" slot="activator" :href='"data:text/plain;base64,"+m.download' download="einladung.tex"
+        v-icon file_download
+      span Herunterladen
+    v-tooltip left=true
       v-btn fab=true dark=true small=true color="green" slot="activator" :to='{name:"edit_org_meeting",params:{org_id:$route.params.org_id,meeting_id:$route.params.meeting_id}}'
         v-icon edit
       span Bearbeiten

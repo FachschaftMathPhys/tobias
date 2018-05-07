@@ -15,6 +15,7 @@ export default function(jsonApi) {
     moderation: '',
     clerk: '',
     description: '',
+    download: '',
     actions: {
       jsonApi: 'hasMany',
       type: 'actions'
@@ -31,6 +32,7 @@ export default function(jsonApi) {
   jsonApi.define('organization', {
     title: '',
     description: '',
+    "meetinginvitationtemplate":'',
     tops: {
       jsonApi: 'hasMany',
       type: 'tops'
