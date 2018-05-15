@@ -67,4 +67,12 @@ export default function(jsonApi) {
       type: 'meetings'
     }
   });
+  jsonApi.define('inmail',{
+    fromaddress:"",
+    subject:"",
+    body:"",
+    uid:"",
+    fromname:"",
+    avatar:""
+  });
 }

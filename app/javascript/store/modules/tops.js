@@ -34,11 +34,13 @@ const actions = {
     })
   },
   addTop({
-    commit
+    commit, dispatch
   }, model) {
     console.log(model);
     api.createTop(model, function(top) {
-      commit('addTop', top)
+      console.log(top);
+      dispatch('addTopToOrg',top,{root:true});
+      commit('addTop', top);
     })
   }
 
@@ -52,6 +54,7 @@ const mutations = {
   },
   addTop(s, top) {
     //  Vue.set(s,"all" , _.cloneDeep(organizations))
+    console.log(s.all);
     s.all.push(tops) //Object.assign([], organizations)
   },
   setTop(s, top) {

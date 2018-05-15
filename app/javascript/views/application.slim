@@ -18,11 +18,11 @@
               v-icon group
             v-list-tile-content
               v-list-tile-title Organisationen
-          v-list-tile
+          v-list-tile to="/inmails"
             v-list-tile-action
               v-icon inbox
             v-list-tile-content
-              v-list-tile-title Sent Mail
+              v-list-tile-title Inbox
           v-list-tile href="https://github.com/fachschaftmathphys/tobias"
             v-list-tile-action
               v-icon extension
@@ -36,8 +36,6 @@
     v-toolbar app=true color="primary"
           v-toolbar-title TobiaS
           v-spacer
-          v-toolbar-items.hidden-sm-and-down
-            v-btn flat=true Link One
     v-content
       v-container fluid=true
         router-view

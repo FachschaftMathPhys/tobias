@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180505135951) do
+ActiveRecord::Schema.define(version: 20180507141954) do
 
   create_table "actions", force: :cascade do |t|
     t.integer "top_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180505135951) do
     t.integer "attachable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "content_type"
     t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
   end
 
@@ -44,6 +45,16 @@ ActiveRecord::Schema.define(version: 20180505135951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  end
+
+  create_table "inmails", force: :cascade do |t|
+    t.string "fromaddress"
+    t.string "subject"
+    t.text "body"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "fromname"
   end
 
   create_table "meetings", force: :cascade do |t|
@@ -86,6 +97,14 @@ ActiveRecord::Schema.define(version: 20180505135951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_tops_on_organization_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "fullname"
+    t.binary "pic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

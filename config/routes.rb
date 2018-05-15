@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     jsonapi_resources :organizations
     jsonapi_resources :protocols
     jsonapi_resources :tops
+    jsonapi_resources :inmails
   end
 #  resources :organizations do
 #    resources :tops do

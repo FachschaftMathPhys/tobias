@@ -1,11 +1,13 @@
 import JsonApi from 'devour-client'
 import Models from '../models/models'
 // Bootstrap
-const jsonApi = new JsonApi({apiUrl: 'http://localhost:8077/api'})
+const jsonApi = new JsonApi({apiUrl: '/api'})
 Models(jsonApi)
 export default{
   getOrganizations(cb){
-    jsonApi.findAll('organization').then(({ data, errors, meta, links })=>{
+    jsonApi.findAll('organization',{
+include: 'tops'
+    }).then(({ data, errors, meta, links })=>{
       cb(data)
     })
   },
@@ -35,7 +37,9 @@ export default{
     })
   },
   createTop(model,cb){
-    jsonApi.create('top',model).then(({ data, errors, meta, links })=>{
+    jsonApi.create('top',model,{
+include: 'organization'
+    }).then(({ data, errors, meta, links })=>{
       cb(data)
     })},
     getMeetings(params,cb){
@@ -74,6 +78,16 @@ export default{
         console.log(model)
         jsonApi.destroy('action',model.action.id).then(({data,errors,meta,links})=>{
           cb(data);
+        })
+      },
+      getInmails(cb){
+        jsonApi.findAll('inmails').then(({ data, errors, meta, links })=>{
+          cb(data)
+        })
+      },
+      getOrganization(id,cb){
+        jsonApi.find('organization',id.id,{include: "meetings,tops,tops.comments,meetings.comments,meetings.actions,meetings.organization,meetings.actions.top"}).then(({ data, errors, meta, links })=>{
+          cb(data)
         })
       }
 }

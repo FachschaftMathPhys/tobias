@@ -8,7 +8,7 @@ const state = {
 
 // getters
 const getters = {
-  allOrganizations(s){ console.log(s);
+  allOrganizations(s){
 
     return s.all;},
     Organization(s){
@@ -20,15 +20,11 @@ const getters = {
 const actions = {
   getAllOrganizations({commit}) {
     api.getOrganizations(function(orgs) {
-      console.log("actions");
-      console.log(orgs);
       commit('setOrganizations', orgs)
     })
   },
   getOrganization({commit},id) {
     api.getOrganization(id,function(orgs) {
-      console.log("actions");
-      console.log(orgs);
       commit('setOrganization', orgs)
     })
   },
@@ -50,6 +46,9 @@ const actions = {
     api.updateOrganization(model,function(orgs) {
       commit('setOrganization', orgs)
     })
+  },
+  addTopToOrg({commit},model){
+    commit("addTopToOrg",model);
   },
   addOrg({commit},model) {
     api.createOrganization(model,function(orgs) {
@@ -73,6 +72,11 @@ const mutations = {
   addOrganization(s, orgs) {
   //  Vue.set(s,"all" , _.cloneDeep(organizations))
     s.all.push(orgs)//Object.assign([], organizations)
+  },
+  addTopToOrg(s,top){
+    s.all.filter((item)=>{
+      return item.id == top.organization.id;
+    })[0].tops.unshift(top);
   },
   setOrganization(s, org) {
   //  Vue.set(s,"all" , _.cloneDeep(organizations))

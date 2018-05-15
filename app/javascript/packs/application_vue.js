@@ -12,6 +12,7 @@ import store from '../store/index'
 import App from '../views/application.vue'
 import Empty from '../views/empty.vue'
 import WelcomeView from '../views/welcome.vue'
+import InmailsView from '../views/inmails/index.vue'
 import OrganizationView from '../views/organizations/index.vue'
 import OrganizationShowView from '../views/organizations/show.vue'
 import OrganizationEditView from '../views/organizations/edit.vue'
@@ -122,6 +123,16 @@ const routes = [
             name:'organizations'
           }
         ]
+      },
+      {
+        path:'inmails',
+        children:[
+          {
+            path:'',
+            component:InmailsView
+          }
+        ],
+        component: Empty
       },
       {
         path:'',

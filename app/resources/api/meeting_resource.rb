@@ -11,4 +11,6 @@ class Api::MeetingResource < Api::CommentableResource
     end
     Base64.encode64(result)
   end
+  def download=(value)
+  end
 end

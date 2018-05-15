@@ -6,6 +6,7 @@ import createLogger from 'vuex/dist/logger'
 import tops from './modules/tops'
 import meetings from './modules/meetings'
 import comments from './modules/comments'
+import inmails from './modules/inmails'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -22,7 +23,8 @@ export default new Vuex.Store({
     organizations,
     tops,
     meetings,
-    comments
+    comments,
+    inmails
   },
   strict:true,
   plugins: [myPlugin,createLogger]
