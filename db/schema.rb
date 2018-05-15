@@ -12,10 +12,13 @@
 
 ActiveRecord::Schema.define(version: 20180507141954) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "actions", force: :cascade do |t|
-    t.integer "top_id"
-    t.integer "meeting_id"
-    t.integer "protocol_id"
+    t.bigint "top_id"
+    t.bigint "meeting_id"
+    t.bigint "protocol_id"
     t.bigint "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.binary "content"
     t.string "name"
     t.string "attachable_type"
-    t.integer "attachable_id"
+    t.bigint "attachable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_type"
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.text "content"
     t.string "title"
     t.string "commentable_type"
-    t.integer "commentable_id"
+    t.bigint "commentable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
@@ -63,7 +66,7 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.datetime "end"
     t.string "moderation"
     t.string "clerk"
-    t.integer "organization_id"
+    t.bigint "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
@@ -93,7 +96,7 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.string "submitter"
     t.string "author"
     t.string "submitted_at"
-    t.integer "organization_id"
+    t.bigint "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_tops_on_organization_id"
@@ -107,4 +110,9 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "actions", "meetings"
+  add_foreign_key "actions", "protocols"
+  add_foreign_key "actions", "tops"
+  add_foreign_key "meetings", "organizations"
+  add_foreign_key "tops", "organizations"
 end

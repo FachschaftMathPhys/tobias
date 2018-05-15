@@ -13,6 +13,5 @@
 
 //= require jquery3
 //= require rails-ujs
-//= require materialize/extras/nouislider
-//= require materialize
+
 //= require_tree .

@@ -50,11 +50,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rails-erd', require: false, group: :development
 
-gem 'materialize-sass', '~> 1.0.0.beta'
 gem 'inline_svg'
 gem 'material_icons'
 gem "slim-rails"
@@ -69,3 +66,7 @@ gem 'jsonapi-resources'
 gem 'rails-i18n'
 gem 'mail'
 gem 'iconv'
+gem "whenever"
+gem "queue_classic", "~> 3.1.0"
+gem "pg"
+gem "tzinfo-data"
