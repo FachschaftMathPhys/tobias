@@ -21,6 +21,6 @@ ENV.each { |k, v|
   p k,v
   env(k, v) }
 
-  every 5.minutes do
+  every 2.minutes do
     runner 'RetrieveEmailsJob.perform_later'
   end
