@@ -1,18 +1,20 @@
-<style lang="scss" scoped>
-</style>
 
-<script>
 import template from './top-create-dialog.slim'
 import {
   mapGetters,
   mapActions,
   mapState
-} from 'vuex'
-export default {
+} from 'vuex';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+const TopCreateDialogProps = Vue.extend({
+  props: ['visible', 'mail', 'organization']
+});
+@Component({
   name: 'TopCreateDialog',
-  props: ['visible', 'mail', 'organization'],
-  mixins: [template],
-  computed: {
+  mixins: [template]
+})
+export default class TopCreateDialog extends TopCreateDialogProps {
     top() {
       return {
         description: this.mail.body,
@@ -20,7 +22,5 @@ export default {
         submitter: this.mail.fromname,
         organization: this.organization
       }
-    }
   }
 }
-</script>

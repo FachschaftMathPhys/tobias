@@ -74,9 +74,8 @@ const mutations = {
     s.all.push(orgs)//Object.assign([], organizations)
   },
   addTopToOrg(s,top){
-    s.all.filter((item)=>{
-      return item.id == top.organization.id;
-    })[0].tops.unshift(top);
+    console.log(s);
+    console.log(top);
   },
   setOrganization(s, org) {
   //  Vue.set(s,"all" , _.cloneDeep(organizations))

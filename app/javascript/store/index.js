@@ -26,6 +26,6 @@ export default new Vuex.Store({
     comments,
     inmails
   },
-  strict:true,
+  strict:debug,
   plugins: [myPlugin,createLogger]
 })

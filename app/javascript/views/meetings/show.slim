@@ -1,4 +1,4 @@
-v-container grid-list-md=true
+v-container grid-list-md=true v-if="m.attributes"
   v-layout row=true wrap=true
     v-flex sm6=true
       Meeting  :meeting="m"
@@ -10,29 +10,29 @@ v-container grid-list-md=true
             v-list-tile avatar=true
               v-list-tile-content
                 v-list-tile-title
-                  | {{m.date}}
+                  | {{m.attributes.date}}
                 v-list-tile-sub-title Date
             v-list-tile avatar=true
               v-list-tile-content
                 v-list-tile-title
-                  | {{m.clerk}}
+                  | {{m.attributes.clerk}}
                 v-list-tile-sub-title Protokollant
             v-list-tile avatar=true
               v-list-tile-content
                 v-list-tile-title
-                  | {{m.begin}}
+                  | {{m.attributes.begin}}
                 v-list-tile-sub-title Beginn
             v-list-tile avatar=true
               v-list-tile-content
                 v-list-tile-title
-                  | {{m.end}}
+                  | {{m.attributes.end}}
                 v-list-tile-sub-title Ende
   v-speed-dial bottom=true right=true direction="top" fixed=true open-on-hover=true
     v-btn slot="activator" color="blue darken-2" dark=true fab=true hover=true
       v-icon menu
       v-icon close
     v-tooltip left=true
-      v-btn fab=true dark=true small=true color="green" slot="activator" :href='"data:text/plain;base64,"+m.download' download="einladung.tex"
+      v-btn fab=true dark=true small=true color="green" slot="activator" :href='"data:text/plain;base64,"+m.attributes.download' download="einladung.tex"
         v-icon file_download
       span Herunterladen
     v-tooltip left=true
@@ -58,10 +58,10 @@ v-container grid-list-md=true
         div v-for="action in m.actions"
           v-flex xs12=true
             Top :top="action.top"
-      v-flex md6=true
+      v-flex md6=true v-if="m.relationships"
         h3 Aktuelle Kommentare
         v-expansion-panel popout=true
-          v-expansion-panel-content hide-actions=true v-if="m.comments" v-for="(comment, i) in m.comments" :key="i"
+          v-expansion-panel-content hide-actions=true v-if="m.relationships.comments" v-for="(comment, i) in m.relationships.comments" :key="i"
             v-layout align-center=true row=true spacer=true slot="header"
               v-flex xs4=true sm2=true md1=true
                 v-avatar size="36px" slot="activator"

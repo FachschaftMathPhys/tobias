@@ -1,13 +1,13 @@
 v-card
   v-card-title
     h3.headline
-      | {{organization.title}}
+      | {{organization.attributes.title}}
   v-card-text
-    | {{organization.description}}
+    | {{organization.attributes.description}}
     h3 TOPS
     v-expansion-panel
       draggable v-model='Tops' :options='{group:"tops"}' style="width:100%"
-        v-expansion-panel-content v-for="top in organization.tops"
+        v-expansion-panel-content v-for="top in organization.relationships.tops"
           div slot="header"
             v-tooltip bottom=true
               v-btn flat=true color="accent" icon=true slot="activator" @click.native.stop="deleteTop(top)"

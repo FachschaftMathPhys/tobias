@@ -1,7 +1,4 @@
-<style lang="scss" scoped>
-</style>
 
-<script>
 import template from './edit.slim'
 import {
   mapGetters,
@@ -9,18 +6,37 @@ import {
   mapState
 } from 'vuex'
 import { createHelpers } from 'vuex-map-fields';
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
 // `fooModule` is the name of the Vuex module.
 const { mapFields } = createHelpers({
   getterType: 'meetings/getField',
   mutationType: 'meetings/updateField',
 });
-export default {
-  name: 'EditMeeting',
-  mixins: [template],
-  methods: {
-    submit() {
-      console.log(this)
+interface meeting{
+  title: String
+  description:String
+  date: String,
+  begin: String,
+  end: String,
+  moderation:String
+  clerk:String
+}
+const EditProps = Vue.extend({
+  computed:
+  mapFields({description:"meeting.description",
+  title: "meeting.title", date: "meeting.date",begin: "meeting.begin",end: "meeting.end", moderation:"meeting.moderation", clerk:"meeting.clerk"})
+})
+
+@Component(
+  {
+    mixins: [template]
+  }
+)
+export default class EditMeeting extends EditProps{
+  name: 'EditMeeting';
+  submit() {
       this.$store.dispatch('meetings/updateMeeting', {
         title: this.title,
         description: this.description,
@@ -40,14 +56,9 @@ export default {
         })
       })
     }
-  },
-  computed: {
-    ...mapFields(["meeting.description", "meeting.title", "meeting.date", "meeting.begin", "meeting.end", "meeting.moderation", "meeting.clerk"])
-  },
   created() {
     this.$store.dispatch('meetings/getMeeting', {
       id: this.$route.params.meeting_id
     })
   }
 }
-</script>

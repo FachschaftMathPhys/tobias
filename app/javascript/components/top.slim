@@ -2,11 +2,11 @@ div v-if="top"
   v-card
     v-card-title
       h3.headline
-        | {{top.title}}
+        | {{top.attributes.title}}
         .right.grey-text
-          | @{{top.author}}
+          | @{{top.attributes.author}}
     v-card-text
-      | {{top.description}}
+      | {{top.attributes.description}}
     v-card-actions
       v-btn color="accent" flat=true :to='{name:"top",params:{top_id:top.id,org_id:$route.params.org_id}}'
         span v-if="top.comments"

@@ -55,7 +55,7 @@ const mutations = {
   addTop(s, top) {
     //  Vue.set(s,"all" , _.cloneDeep(organizations))
     console.log(s.all);
-    s.all.push(tops) //Object.assign([], organizations)
+    s.all.push(top) //Object.assign([], organizations)
   },
   setTop(s, top) {
     //  Vue.set(s,"all" , _.cloneDeep(organizations))

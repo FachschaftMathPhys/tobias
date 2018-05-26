@@ -2,21 +2,21 @@ div
   v-card
     v-card-title
       h3.headline
-        | {{meeting.title}}
+        | {{meeting.attributes.title}}
         .right.grey-text
-          | @{{meeting.moderation}}
+          | @{{meeting.attributes.moderation}}
     v-card-text
-      | {{meeting.description}}
+      | {{meeting.attributes.description}}
       h4 TOPS
-      v-expansion-panel
+      v-expansion-panel v-if="meeting.relationships"
         draggable v-model='Actions' :options='{group:"tops"}' style="width:100%"
-          v-expansion-panel-content v-for="action in meeting.actions"
+          v-expansion-panel-content v-for="action in meeting.relationships.actions"
             div slot="header"
               v-tooltip bottom=true
                 v-btn flat=true color="accent" icon=true slot="activator" @click.native.stop="deleteAction(action)"
                   v-icon remove
                 span TOP entfernen
-              | {{action.top.title}}
+              | {{action.relationships.top.title}}
             Top :top="action.top"
           v-btn flat=true Ziehe TOPs hierhin...
     v-card-actions

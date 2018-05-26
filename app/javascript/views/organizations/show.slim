@@ -1,6 +1,6 @@
-div
+div v-if="org.attributes"
   h1
-    | {{org.title}}
+    | {{org.attributes.title}}
   v-speed-dial bottom=true right=true direction="top" fixed=true open-on-hover=true
     v-btn slot="activator" color="blue darken-2" dark=true fab=true hover=true
       v-icon menu
@@ -20,17 +20,17 @@ div
 
   p
     strong Beschreibung:
-    | {{org.description}}
+    | {{org.attributes.description}}
     v-container grid-list-md=true
       v-layout#drag-scope row=true wrap=true
         v-flex.top-container xs6=true
           h3 Aktuelle Tops
           draggable v-model='Tops' :options='{group:"tops"}'
-            div v-for="top in org.tops"
+            div v-for="top in tops"
               v-flex.top-item.handle xs12=true
                 Top :top="top"
         v-flex xs6=true
           h3 Aktuelle Sitzungen
-          div v-for="meeting in org.meetings"
+          div v-for="meeting in meetings"
             v-flex xs12=true
               Meeting :meeting="meeting" :organizationview="true"

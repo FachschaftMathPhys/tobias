@@ -1,19 +1,23 @@
-<style lang="scss" scoped>
-</style>
-
-<script>
 import template from './meeting.slim'
 import draggable from 'vuedraggable'
-import Top from './top.vue'
-export default {
-  name: 'Meeting',
+import Top from './top'
+import Component from 'vue-class-component';
+import Vue from 'vue';
+
+const MeetingProps = Vue.extend({
   components: {
     draggable,
     Top
   },
-  props: ['meeting', 'organizationview'],
-  mixins: [template],
-  methods: {
+  props: ['meeting', 'organizationview']
+});
+
+@Component({
+  name:'Meeting',
+  mixins: [template]
+})
+export default class Meeting extends MeetingProps {
+
     deleteAction(item) {
       if (confirm("Wirklich aus der Tagesordnung entfernen?")) {
         if (typeof this.$route.params.meeting_id != 'undefined') {
@@ -29,13 +33,11 @@ export default {
         }
       }
     }
-  },
-  computed: {
-    Actions: {
-      get() {
-        return this.meeting.actions
-      },
-      set(value) {
+
+    get Actions() {
+      return this.meeting.actions
+    }
+    set Actions (value) {
         let actions = [];
         let newactions = [];
         for (let v of value) {
@@ -60,9 +62,5 @@ export default {
           actions: actions,
           newactions: newactions
         })
-        //this.$store.commit('updateTops', value)
       }
-    }
-  }
 }
-</script>

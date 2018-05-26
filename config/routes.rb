@@ -1,14 +1,16 @@
+require 'jsonapi/routing_ext'
+UUID_regex = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}(,[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})*/
 Rails.application.routes.draw do
   #get 'welcome/index'
   namespace :api do
-    jsonapi_resources :actions
-    jsonapi_resources :attachments
-    jsonapi_resources :comments
-    jsonapi_resources :meetings
-    jsonapi_resources :organizations
-    jsonapi_resources :protocols
-    jsonapi_resources :tops
-    jsonapi_resources :inmails
+    jsonapi_resources :actions, constraints: {:id => UUID_regex}
+    jsonapi_resources :attachments, constraints: {:id => UUID_regex}
+    jsonapi_resources :comments, constraints: {:id => UUID_regex}
+    jsonapi_resources :meetings, constraints: {:id => UUID_regex}
+    jsonapi_resources :organizations, constraints: {:id => UUID_regex}
+    jsonapi_resources :protocols, constraints: {:id => UUID_regex}
+    jsonapi_resources :tops, constraints: {:id => UUID_regex}
+    jsonapi_resources :inmails, constraints: {:id => UUID_regex}
   end
 #  resources :organizations do
 #    resources :tops do

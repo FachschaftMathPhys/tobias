@@ -1,7 +1,3 @@
-<style lang="scss" scoped>
-</style>
-
-<script>
 import template from './new.slim'
 import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
@@ -27,4 +23,3 @@ export default {
   created() {
   }
 }
-</script>

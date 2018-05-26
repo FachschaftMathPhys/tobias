@@ -1,12 +1,8 @@
-<style lang="scss" scoped>
-</style>
-
-<script>
 import template from './show.slim'
 import api from '../../api/index'
-import Top from "../../components/top.vue"
-import Meeting from "../../components/meeting.vue"
-import Comment from "../../components/comment.vue"
+import Top from "../../components/top"
+import Meeting from "../../components/meeting"
+import Comment from "../../components/comment"
 import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
   name: 'Meetings',
@@ -75,4 +71,3 @@ export default {
     })
   }
 }
-</script>

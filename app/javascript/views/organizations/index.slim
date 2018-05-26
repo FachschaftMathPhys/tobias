@@ -8,8 +8,8 @@ div
         v-card
           v-card-title primary-title=true
             h3.headline.mb-0
-              | {{props.item.title}}
+              | {{props.item.attributes.title}}
           v-card-text
-            | {{props.item.description}}
+            | {{props.item.attributes.description}}
           v-card-actions
             v-btn (flat=true color="accent" :to='{name:"organization",params:{org_id:props.item.id}}') Anschauen

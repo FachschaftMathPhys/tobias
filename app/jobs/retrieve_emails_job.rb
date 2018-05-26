@@ -34,15 +34,15 @@ class RetrieveEmailsJob < ApplicationJob
     #iterieren durch alle nicht gesehen nachrichten
     imap.search(["NOT","DELETED","NOT","FLAGGED"]).each do |message_id|
       imap_message=imap.fetch(message_id,['ENVELOPE','UID','RFC822'])[0]
-      message= Mail.read_from_string imap_message.attr["RFC822"]
+      message= Mail.new imap_message.attr["RFC822"]
       body=""
       if message.multipart? then
-        body=message.parts.detect {|a| a.content_type.start_with? 'text/plain'}.decoded unless message.parts.detect {|a| a.content_type.start_with? 'text/plain'}.nil?
+        body=message.parts.detect {|a| a.content_type.start_with? 'text/plain'}.to_s unless message.parts.detect {|a| a.content_type.start_with? 'text/plain'}.nil?
       else
-        body=message.body.decoded
+        body=message.body.to_s
       end
       fromname = decode_utf8(imap_message.attr["ENVELOPE"].sender[0].name)
-      inmail=Inmail.create(fromaddress:message.from[0].to_s,fromname:decode_utf8(fromname),subject:decode_utf8(message.subject), body: force_decode(body), uid:imap_message.attr['UID'].to_s)
+      inmail=Inmail.create(fromaddress:message.from[0].to_s,fromname:decode_utf8(fromname),subject:decode_utf8(message.subject), body: body, uid:imap_message.attr['UID'].to_s)
       message.attachments.each do |attachment|
         Attachment.create(content_type: attachment.content_type.split(';')[0],pdf:attachment.decoded,name:force_decode(attachment.content_type_parameters['name']),inmail:inmail)
       end
