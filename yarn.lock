@@ -2,6 +2,78 @@
 # yarn lockfile v1
 
 
+"@orbit/coordinator@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.15.14.tgz#bdf2a7b9a18fd66382071119aa3e61e1fb994964"
+
+"@orbit/core@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.15.14.tgz#a43bfb660e59d682b4d41fb8c70c81e1748a72b6"
+  dependencies:
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/data@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.15.14.tgz#5c269de32e9500c5f25f55b1345775110c59c97b"
+  dependencies:
+    "@orbit/core" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/immutable@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.15.14.tgz#8c6958841d45f7f947282d8f39d88094d20bd152"
+
+"@orbit/indexeddb-bucket@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb-bucket/-/indexeddb-bucket-0.15.14.tgz#38456a826c994ca29db15fec124cfd1cb3c0c177"
+  dependencies:
+    "@orbit/core" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/indexeddb@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.15.14.tgz#bd41d0aec7919ce9fac788a1f99a1b5f83880444"
+  dependencies:
+    "@orbit/core" "^0.15.14"
+    "@orbit/data" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/jsonapi@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.15.14.tgz#8815c5eb6a7f275d57566ebc8551e4f7a914846b"
+  dependencies:
+    "@orbit/core" "^0.15.14"
+    "@orbit/data" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/local-storage-bucket@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/local-storage-bucket/-/local-storage-bucket-0.15.14.tgz#0cd8efb076bffa72d1a8faf58a3d6250c4e23894"
+  dependencies:
+    "@orbit/core" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/local-storage@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/local-storage/-/local-storage-0.15.14.tgz#ec81b83bda05565a4e77a168d5d189fc95492120"
+  dependencies:
+    "@orbit/core" "^0.15.14"
+    "@orbit/data" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/store@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/store/-/store-0.15.14.tgz#f1ec7c32b7c331e86919649edb70631321125f9e"
+  dependencies:
+    "@orbit/core" "^0.15.14"
+    "@orbit/data" "^0.15.14"
+    "@orbit/immutable" "^0.15.14"
+    "@orbit/utils" "^0.15.14"
+
+"@orbit/utils@^0.15.14":
+  version "0.15.14"
+  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.15.14.tgz#9b9509d4a80244db588ad88df0664c69474cc73b"
+
 "@rails/webpacker@3.4":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-3.4.3.tgz#496a5d49bea8856db20b212d2727a4b43b281dd9"
@@ -1166,6 +1238,14 @@ chalk@^2.0.1, chalk@^2.3.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
+chalk@^2.3.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
+  dependencies:
+    ansi-styles "^3.2.1"
+    escape-string-regexp "^1.0.5"
+    supports-color "^5.3.0"
+
 chokidar@^2.0.0, chokidar@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.3.tgz#dcbd4f6cbb2a55b4799ba8a840ac527e5f4b1176"
@@ -1867,7 +1947,7 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-enhanced-resolve@^3.4.0:
+enhanced-resolve@^3.0.0, enhanced-resolve@^3.4.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-3.4.1.tgz#0421e339fd71419b3da13d129b3979040230476e"
   dependencies:
@@ -4912,6 +4992,10 @@ reduce-function-call@^1.0.1, reduce-function-call@^1.0.2:
   dependencies:
     balanced-match "^0.4.2"
 
+reflect-metadata@^0.1.10:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.12.tgz#311bf0c6b63cd782f228a81abe146a2bfa9c56f2"
+
 regenerate@^1.2.1:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.3.3.tgz#0c336d3980553d755c39b586ae3b20aa49c82b7f"
@@ -5208,7 +5292,7 @@ selfsigned@^1.9.1:
   dependencies:
     node-forge "0.7.1"
 
-"semver@2 || 3 || 4 || 5", semver@^5.3.0:
+"semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
@@ -5778,6 +5862,16 @@ trim-right@^1.0.1:
   dependencies:
     glob "^6.0.4"
 
+ts-loader@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-3.5.0.tgz#151d004dcddb4cf8e381a3bf9d6b74c2d957a9c0"
+  dependencies:
+    chalk "^2.3.0"
+    enhanced-resolve "^3.0.0"
+    loader-utils "^1.0.2"
+    micromatch "^3.1.4"
+    semver "^5.0.1"
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
@@ -5806,6 +5900,10 @@ type-is@~1.6.15, type-is@~1.6.16:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+typescript@^2.8.3:
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.3.tgz#5d817f9b6f31bb871835f4edf0089f21abe6c170"
 
 uglify-es@^3.3.4:
   version "3.3.9"
@@ -6008,6 +6106,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-class-component@^6.1.0, vue-class-component@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-6.2.0.tgz#7adb1daa9a868c75f30f97f33f4f1b94aee62089"
+
 vue-hot-reload-api@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
@@ -6029,6 +6131,13 @@ vue-loader@14.2.2:
     vue-hot-reload-api "^2.2.0"
     vue-style-loader "^4.0.1"
     vue-template-es2015-compiler "^1.6.0"
+
+vue-property-decorator@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-6.1.0.tgz#ef97bcc1bfe794ec060133ca04a5aca02e808828"
+  dependencies:
+    reflect-metadata "^0.1.10"
+    vue-class-component "^6.1.0"
 
 vue-router@^3.0.1:
   version "3.0.1"
@@ -6079,6 +6188,19 @@ vuetify@^1.0.16:
 vuex-map-fields@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/vuex-map-fields/-/vuex-map-fields-1.1.7.tgz#b61e469b0c421dae9d0b9acac0cf868d2f1c430d"
+
+vuex-map-fields@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/vuex-map-fields/-/vuex-map-fields-1.2.3.tgz#0c913e0e703ce098d24530ddad78b2036d112d09"
+
+vuex-orbit@^0.0.6-h:
+  version "0.0.6-h"
+  resolved "https://registry.yarnpkg.com/vuex-orbit/-/vuex-orbit-0.0.6-h.tgz#9011599e3d080cbc9ca193c6757d6a23eedfc1d2"
+  dependencies:
+    "@orbit/store" "^0.15.14"
+    vue "^2.5.16"
+    vuex "^3.0.1"
+    vuex-map-fields "^1.2.3"
 
 vuex@^3.0.1:
   version "3.0.1"

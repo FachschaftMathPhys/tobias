@@ -14,11 +14,13 @@ ActiveRecord::Schema.define(version: 20180507141954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+  enable_extension "pgcrypto"
 
-  create_table "actions", force: :cascade do |t|
-    t.bigint "top_id"
-    t.bigint "meeting_id"
-    t.bigint "protocol_id"
+  create_table "actions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "top_id"
+    t.uuid "meeting_id"
+    t.uuid "protocol_id"
     t.bigint "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -27,30 +29,30 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.index ["top_id"], name: "index_actions_on_top_id"
   end
 
-  create_table "attachments", force: :cascade do |t|
+  create_table "attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "author"
     t.binary "content"
     t.string "name"
     t.string "attachable_type"
-    t.bigint "attachable_id"
+    t.uuid "attachable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_type"
     t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
   end
 
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "author"
     t.text "content"
     t.string "title"
     t.string "commentable_type"
-    t.bigint "commentable_id"
+    t.uuid "commentable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
-  create_table "inmails", force: :cascade do |t|
+  create_table "inmails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "fromaddress"
     t.string "subject"
     t.text "body"
@@ -60,13 +62,13 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.string "fromname"
   end
 
-  create_table "meetings", force: :cascade do |t|
+  create_table "meetings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.date "date"
     t.datetime "begin"
     t.datetime "end"
     t.string "moderation"
     t.string "clerk"
-    t.bigint "organization_id"
+    t.uuid "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
@@ -74,7 +76,7 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.index ["organization_id"], name: "index_meetings_on_organization_id"
   end
 
-  create_table "organizations", force: :cascade do |t|
+  create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.datetime "created_at", null: false
@@ -82,7 +84,7 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.text "meetinginvitationtemplate"
   end
 
-  create_table "protocols", force: :cascade do |t|
+  create_table "protocols", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "content"
     t.string "result"
     t.bigint "status"
@@ -90,19 +92,19 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tops", force: :cascade do |t|
+  create_table "tops", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "submitter"
     t.string "author"
     t.string "submitted_at"
-    t.bigint "organization_id"
+    t.uuid "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_tops_on_organization_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "fullname"
     t.binary "pic"

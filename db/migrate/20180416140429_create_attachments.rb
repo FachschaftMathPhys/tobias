@@ -1,10 +1,10 @@
 class CreateAttachments < ActiveRecord::Migration[5.1]
   def change
-    create_table :attachments do |t|
+    create_table :attachments, id: :uuid do |t|
       t.string :author
       t.binary :content
       t.string :name
-      t.references :attachable, polymorphic: true
+      t.references :attachable, type: :uuid, polymorphic: true
 
       t.timestamps
     end

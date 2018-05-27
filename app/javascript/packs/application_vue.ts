@@ -9,19 +9,19 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 import store from '../store/index'
-import App from '../views/application.vue'
-import Empty from '../views/empty.vue'
-import WelcomeView from '../views/welcome.vue'
-import InmailsView from '../views/inmails/index.vue'
-import OrganizationView from '../views/organizations/index.vue'
-import OrganizationShowView from '../views/organizations/show.vue'
-import OrganizationEditView from '../views/organizations/edit.vue'
-import OrganizationNewView from '../views/organizations/new.vue'
-import TopShowView from '../views/tops/show.vue'
-import TopNewView from '../views/tops/new.vue'
-import MeetingShowView from '../views/meetings/show.vue'
-import MeetingNewView from '../views/meetings/new.vue'
-import MeetingEditView from '../views/meetings/edit.vue'
+import App from '../views/application'
+import Empty from '../views/empty'
+import WelcomeView from '../views/welcome'
+import InmailsView from '../views/inmails/index'
+import OrganizationView from '../views/organizations/index'
+import OrganizationShowView from '../views/organizations/show'
+import OrganizationEditView from '../views/organizations/edit'
+import OrganizationNewView from '../views/organizations/new'
+import TopShowView from '../views/tops/show'
+import TopNewView from '../views/tops/new'
+import MeetingShowView from '../views/meetings/show'
+import MeetingNewView from '../views/meetings/new'
+import MeetingEditView from '../views/meetings/edit'
 import Vuetify from 'vuetify'
 
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
@@ -151,11 +151,10 @@ const router = new VueRouter({
 
 // Helpers
 import colors from 'vuetify/es5/util/colors'
-
 Vue.use(Vuetify, {
   theme: {
     primary: '#990000', // #E53935
-    secondary: colors.red.lighten4, // #FFCDD2
+    secondary: colors.deepPurple.base, // #FFCDD2
     accent: colors.indigo.base // #3F51B5
   }
 })

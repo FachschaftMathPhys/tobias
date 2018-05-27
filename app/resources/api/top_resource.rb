@@ -5,4 +5,7 @@ class Api::TopResource < Api::CommentableResource
   before_save do
     @model.author = context[:current_user] if @model.new_record?
   end
+  def self.creatable_fields(context)
+    super + [:id]
+  end
 end

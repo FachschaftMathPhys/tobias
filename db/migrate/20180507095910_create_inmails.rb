@@ -1,6 +1,6 @@
 class CreateInmails < ActiveRecord::Migration[5.1]
   def change
-    create_table :inmails do |t|
+    create_table :inmails, id: :uuid do |t|
       t.string :fromaddress
       t.string :subject
       t.text :body

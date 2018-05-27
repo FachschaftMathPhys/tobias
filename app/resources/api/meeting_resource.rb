@@ -13,4 +13,7 @@ class Api::MeetingResource < Api::CommentableResource
   end
   def download=(value)
   end
+  def self.creatable_fields(context)
+    super + [:id]
+  end
 end

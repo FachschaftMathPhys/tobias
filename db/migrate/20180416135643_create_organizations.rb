@@ -1,6 +1,6 @@
 class CreateOrganizations < ActiveRecord::Migration[5.1]
   def change
-    create_table :organizations do |t|
+    create_table :organizations, id: :uuid do |t|
       t.string :title
       t.string :description
 

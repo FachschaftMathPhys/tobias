@@ -7,4 +7,7 @@ class Api::InmailResource < JSONAPI::Resource
     "avatar"
     end
   end
+  def self.creatable_fields(context)
+    super + [:id]
+  end
 end

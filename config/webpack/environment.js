@@ -1,4 +1,5 @@
 const { environment } = require('@rails/webpacker')
+const typescript =  require('./loaders/typescript')
 const vue =  require('./loaders/vue')
 const slim =  require('./loaders/slim')
 const erb =  require('./loaders/erb')
@@ -8,4 +9,5 @@ environment.loaders.append('coffee', coffee)
 environment.loaders.append('erb', erb)
 environment.loaders.append('slim', slim)
 environment.loaders.append('vue', vue)
+environment.loaders.append('typescript', typescript)
 module.exports = environment
