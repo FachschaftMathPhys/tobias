@@ -1,5 +1,9 @@
 div
-  Top :top="t"
-  h3 Kommentare
-  div v-for="c in t.comments"
-    Comment :comment='c'
+  div v-if="t"
+    Top :top="t"
+    h3 Kommentare
+    div v-for="c in t.comments"
+      Comment :comment='c'
+  v-container v-else=true
+    p.text-xs-center
+      v-progress-circular color="accent" indeterminant=true

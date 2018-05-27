@@ -12,4 +12,7 @@ div
           v-card-text
             | {{props.item.attributes.description}}
           v-card-actions
-            v-btn (flat=true color="accent" :to='{name:"organization",params:{org_id:props.item.id}}') Anschauen
+            v-btn (flat=true color="primary" :to='{name:"organization",params:{org_id:props.item.id}}') Anschauen
+            v-spacer
+            v-btn flat=true icon=true color="secondary" @click.native.stop="deleteOrg(props.item)"
+              v-icon delete

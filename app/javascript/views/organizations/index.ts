@@ -23,6 +23,10 @@ export default class IndexOrganization extends IndexOrganizationProps {
   pagination = {
     "rowsPerPage": 4
   }
+  deleteOrg(org){
+    if(confirm("Willst du wirklich diese Organisation entfernen?"))
+    this.$store.dispatch("delete",org);
+  }
   created() {
     this.$store.dispatch('querying', {
       queryOrExpression: (q: QueryBuilder) => {

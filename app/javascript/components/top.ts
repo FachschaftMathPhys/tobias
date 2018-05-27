@@ -17,4 +17,8 @@ const TopProps = Vue.extend({
 export default class Top extends TopProps {
   created(){
   }
+  deleteTop(top){
+    if(confirm("Willst du wirklich diesen TOP entfernen?"))
+    this.$store.dispatch("delete",top);
+  }
 }
