@@ -12,18 +12,23 @@ import Component from 'vue-class-component';
 
 const OrganizationNewProps = Vue.extend({
   name: 'Organization',
-  mixins: [template],
-  computed: mapFields({description:"organization.description",title: "organization.title",meetinginvitationtemplate:"organization.meetinginvitationtemplate"})
+  mixins: [template]
 })
 @Component({
 
 })
 export default class OrganizationNew extends OrganizationNewProps{
+  description:string=""
+  title:string=""
+  meetinginvitationtemplate:string=""
     submit() {
-      this.$store.dispatch('addOrg', {
-        title: this.title,
-        description: this.description,
-        "meetinginvitationtemplate": this.meetinginvitationtemplate
+      this.$store.dispatch('create', {
+        type: "organization",
+        attributes: {
+          description: this.description,
+          title:this.title,
+          meetinginvitationtemplate: this.meetinginvitationtemplate
+        }
       }).then(() => {
         //verknüpfen, falls meeting_id angegeben
         this.$router.push({

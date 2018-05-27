@@ -7,11 +7,12 @@ import {
   mapActions,
   mapState
 } from 'vuex'
+import {mapFields} from 'vuex-map-fields'
 import Vue from 'vue'
 import Component from 'vue-class-component';
 const TopNewProps = Vue.extend({
-  computed:mapGetters({
-    t: 'Top'
+  computed:mapFields({
+    t: 'top'
   })
 })
 @Component({
@@ -19,12 +20,13 @@ const TopNewProps = Vue.extend({
   mixins: [template]
 })
 export default class TopNew extends TopNewProps {
-    model: {
+    model= {
       title: "",
-      description: ""
+      description:""
     }
     submit() {
-      this.$store.dispatch('addTop', {
+      this.$store.dispatch('create', {
+        type:"top",
         attributes: this.model,
         relationships: {
           organization: {
@@ -39,6 +41,7 @@ export default class TopNew extends TopNewProps {
         if (this.$route.params.meeting_id) {
           alert("Füge zu " + this.$route.params.meeting_id)
         }
+        //zurück gehen
         this.$router.push({
           name: 'organization',
           params: {

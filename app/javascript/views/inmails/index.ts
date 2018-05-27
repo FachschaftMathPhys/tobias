@@ -1,6 +1,7 @@
 
 import template from './index.slim'
 import { mapGetters, mapActions, mapState } from 'vuex'
+import {mapFields} from 'vuex-map-fields'
 import Organization from "../../components/organization"
 import TopCreateDialog from "../../components/top-create-dialog"
 import draggable from "vuedraggable"
@@ -11,16 +12,16 @@ import Component from 'vue-class-component';
   name: 'inmail',
   mixins: [template],
   components: { Organization, draggable, TopCreateDialog },
-  computed: mapGetters({
-    inmails: 'inmails/allInmails',
-    orgs:"allOrganizations"
+  computed: mapFields({
+    inmails: 'inmails',
+    orgs:"organizations"
   })
 }
 )
 export default class Inmail extends Vue {
   dialog: boolean = true
   created() {
-    this.$store.dispatch('inmails/getInmails');
-    this.$store.dispatch('getAllOrganizations');
+    this.$store.dispatch('fetchAllOf',"inmail");
+    this.$store.dispatch('fetchAllOf',"organization");
   }
 }

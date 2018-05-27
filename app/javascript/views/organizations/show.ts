@@ -5,6 +5,7 @@ import {
   mapActions,
   mapState
 } from 'vuex'
+import {mapFields} from 'vuex-map-fields'
 import Top from '../../components/top'
 import Meeting from '../../components/meeting'
 import Vue from 'vue'
@@ -17,10 +18,10 @@ const OrganizationShowProps = Vue.extend({
     draggable
   },
   computed: {
-    ...mapGetters({
-      org: 'Organization',
-      tops: 'allTops',
-      meetings: 'meetings/allMeetings'
+    ...mapFields({
+      org: 'organization',
+      tops: 'tops',
+      meetings: 'meetings'
     })
   }
 });
@@ -34,17 +35,19 @@ export default class OrganizationShow extends OrganizationShowProps {
     return this.org.tops
   }
   set Tops(value) {
-    this.$store.commit('updateTops', value)
+    this.$store.commit('set', {data:value, model:"tops"});
   }
   created() {
-    this.$store.dispatch('getOrganization', {
+    this.$store.dispatch('fetchOne',{model:'organization',id:this.$route.params.org_id});
+    this.$store.dispatch('fetchAllRelatedOf', {data:{
+      type: 'organization',
       id: this.$route.params.org_id
+    },relationship:"meetings"
     });
-    this.$store.dispatch('getTops', {
-      org_id: this.$route.params.org_id
-    })
-    this.$store.dispatch('meetings/getMeetings', {
-      org_id: this.$route.params.org_id
-    })
+    this.$store.dispatch('fetchAllRelatedOf', {data:{
+      type: 'organization',
+      id: this.$route.params.org_id
+    },relationship:"tops"
+    });
   }
 }

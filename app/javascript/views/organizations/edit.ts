@@ -10,11 +10,12 @@ import {
 } from 'vuex-map-fields';
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { TransformBuilder } from '@orbit/data';
 const EditProps = Vue.extend({
   name: 'EditOrganization',
   computed: mapFields({
-    description: "organization.description",
-    title: "organization.title", meetinginvitationtemplate: "organization.meetinginvitationtemplate"
+    description: "organization.attributes.description",
+    title: "organization.attributes.title", meetinginvitationtemplate: "organization.attributes.meetinginvitationtemplate"
   })
 }
 )
@@ -24,11 +25,21 @@ const EditProps = Vue.extend({
 export default class EditOrganization extends EditProps {
   submit() {
     console.log(this);
-    this.$store.dispatch('updateOrg', {
-      title: this.title,
-      description: this.description,
-      meetinginvitationtemplate: this.meetinginvitationtemplate,
-      id: this.$route.params.org_id
+    this.$store.dispatch('updating', {
+      transformOrOperations: (t: TransformBuilder) => {
+        return t.replaceRecord({
+          attributes: {
+            title: this.title,
+            description: this.description,
+            meetinginvitationtemplate: this.meetinginvitationtemplate,
+          },
+          type: "organization",
+          id: this.$route.params.org_id
+        })
+      },
+      thenable:({commit},data)=>{
+        commit('set',{data,model:'organization'})
+      }
     }).then(() => {
       //verknüpfen, falls meeting_id angegeben
       if (this.$route.params.meeting_id) {
@@ -43,7 +54,8 @@ export default class EditOrganization extends EditProps {
     })
   }
   created() {
-    this.$store.dispatch('getOrganization', {
+    this.$store.dispatch('fetchOne', {
+      model:"organization",
       id: this.$route.params.org_id
     })
   }

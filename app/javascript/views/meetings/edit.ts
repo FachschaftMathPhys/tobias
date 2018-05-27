@@ -5,28 +5,17 @@ import {
   mapActions,
   mapState
 } from 'vuex'
-import { createHelpers } from 'vuex-map-fields';
+import {  mapFields } from 'vuex-map-fields';
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { TransformBuilder } from '@orbit/data';
 
-// `fooModule` is the name of the Vuex module.
-const { mapFields } = createHelpers({
-  getterType: 'meetings/getField',
-  mutationType: 'meetings/updateField',
-});
-interface meeting{
-  title: String
-  description:String
-  date: String,
-  begin: String,
-  end: String,
-  moderation:String
-  clerk:String
-}
+
+
 const EditProps = Vue.extend({
   computed:
-  mapFields({description:"meeting.description",
-  title: "meeting.title", date: "meeting.date",begin: "meeting.begin",end: "meeting.end", moderation:"meeting.moderation", clerk:"meeting.clerk"})
+  mapFields({description:"meeting.attributes.description",
+  title: "meeting.attributes.title", date: "meeting.attributes.date",begin: "meeting.attributes.begin",end: "meeting.attributes.end", moderation:"meeting.attributes.moderation", clerk:"meeting.attributes.clerk"})
 })
 
 @Component(
@@ -37,15 +26,23 @@ const EditProps = Vue.extend({
 export default class EditMeeting extends EditProps{
   name: 'EditMeeting';
   submit() {
-      this.$store.dispatch('meetings/updateMeeting', {
-        title: this.title,
+      this.$store.dispatch('updating',{transformOrOperations:(t:TransformBuilder)=>{
+        return t.replaceRecord({
+          attributes:{
+            title: this.title,
         description: this.description,
         date: this.date,
         begin: this.begin,
         end: this.end,
         moderation: this.moderation,
         clerk: this.clerk,
-        id: this.$route.params.meeting_id
+          },
+          id: this.$route.params.meeting_id,
+          type:"meeting"
+        })
+      },thenable:({commit},data)=>{
+        commit('set', { data, model: data.type })
+      }
       }).then(() => {
         this.$router.push({
           name: 'meeting',
@@ -57,7 +54,8 @@ export default class EditMeeting extends EditProps{
       })
     }
   created() {
-    this.$store.dispatch('meetings/getMeeting', {
+    this.$store.dispatch('fetchOne', {
+      model:"meeting",
       id: this.$route.params.meeting_id
     })
   }

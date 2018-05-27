@@ -1,9 +1,9 @@
 import template from './show.slim'
-import api from '../../api/index'
 import Top from "../../components/top"
 import Meeting from "../../components/meeting"
 import Comment from "../../components/comment"
 import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapFields } from 'vuex-map-fields';
 export default {
   name: 'Meetings',
   mixins: [template],
@@ -49,10 +49,10 @@ export default {
     querySelections (v) {
       this.loading = true
       // Simulated ajax query
-      api.getTops({org_id:this.$route.org_id},(data)=>{
+      /*api.getTops({org_id:this.$route.org_id},(data)=>{
         this.items =data;
         this.loading=false;
-      })
+      })*/
     }
   },
   watch:{
@@ -61,12 +61,13 @@ export default {
     }
   },
   computed:{
-    ...mapGetters({
-      m: 'meetings/Meeting'
+    ...mapFields({
+      m: 'meeting'
     })
   },
   created() {
-    this.$store.dispatch('meetings/getMeeting', {
+    this.$store.dispatch('fetchOne', {
+      model:"meeting",
       id: this.$route.params.meeting_id
     })
   }
