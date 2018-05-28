@@ -10,7 +10,7 @@ const schemaDefinition = {
       },
       relationships:{
         top:{
-          type:'hasOne',
+          type:"hasOne",
           model:'top'
         },
         meeting:{

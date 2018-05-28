@@ -12,6 +12,9 @@ import store from '../store/index'
 import App from '../views/application'
 import Empty from '../views/empty'
 import WelcomeView from '../views/welcome'
+import SettingsIndexView from '../views/settings/index'
+import SettingsAccountView from '../views/settings/account'
+import SettingsDesignView from '../views/settings/design'
 import InmailsView from '../views/inmails/index'
 import OrganizationView from '../views/organizations/index'
 import OrganizationShowView from '../views/organizations/show'
@@ -130,6 +133,24 @@ const routes = [
           {
             path:'',
             component:InmailsView
+          }
+        ],
+        component: Empty
+      },
+      {
+        path:'settings',
+        children:[
+          {
+            path:'account',
+            component:SettingsAccountView
+          },
+          {
+            path:'design',
+            component:SettingsDesignView
+          },
+          {
+            path:'',
+            component:SettingsIndexView
           }
         ],
         component: Empty
