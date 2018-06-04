@@ -1,7 +1,7 @@
 class Api::MeetingResource < Api::CommentableResource
   attributes :title, :description, :date, :begin, :end, :moderation, :clerk, :download
   has_one :organization
-  has_many :actions, acts_as_set:true
+  has_many :actions
   def download
     result =""
     begin

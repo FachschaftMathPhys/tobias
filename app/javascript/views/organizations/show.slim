@@ -27,7 +27,7 @@
           v-flex.top-container xs6=true
             h3 Aktuelle Tops
             draggable v-model='Tops' :options='{group:"tops"}'
-              div v-for="top in tops"
+              div v-for="top in Tops"
                 v-flex.top-item.handle xs12=true
                   Top :top="top"
           v-flex xs6=true

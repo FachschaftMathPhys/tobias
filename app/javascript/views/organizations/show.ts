@@ -32,9 +32,10 @@ const OrganizationShowProps = Vue.extend({
 export default class OrganizationShow extends OrganizationShowProps {
   menuVisible: false
   get Tops() {
-    return this.org.tops
+    return this.tops
   }
   set Tops(value) {
+    alert("überarbeitet")
     this.$store.commit('set', {data:value, model:"tops"});
   }
   created() {

@@ -6193,9 +6193,9 @@ vuex-map-fields@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/vuex-map-fields/-/vuex-map-fields-1.2.3.tgz#0c913e0e703ce098d24530ddad78b2036d112d09"
 
-vuex-orbit@^0.0.6-h:
-  version "0.0.6-h"
-  resolved "https://registry.yarnpkg.com/vuex-orbit/-/vuex-orbit-0.0.6-h.tgz#9011599e3d080cbc9ca193c6757d6a23eedfc1d2"
+vuex-orbit@^0.0.6-i:
+  version "0.0.6-i"
+  resolved "https://registry.yarnpkg.com/vuex-orbit/-/vuex-orbit-0.0.6-i.tgz#d30f4f94cbb9ff69d6719450d1c08441bbac11c5"
   dependencies:
     "@orbit/store" "^0.15.14"
     vue "^2.5.16"

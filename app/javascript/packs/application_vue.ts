@@ -22,6 +22,7 @@ import OrganizationEditView from '../views/organizations/edit'
 import OrganizationNewView from '../views/organizations/new'
 import TopShowView from '../views/tops/show'
 import TopNewView from '../views/tops/new'
+import TopEditView from '../views/tops/edit'
 import MeetingShowView from '../views/meetings/show'
 import MeetingNewView from '../views/meetings/new'
 import MeetingEditView from '../views/meetings/edit'
@@ -72,6 +73,11 @@ const routes = [
                     component:Empty,
                     children:[
                       {
+                        path:'',
+                        component: TopEditView,
+                        name: 'edit_top'
+                      }
+                      ,{
                         path:'',
                         component: TopShowView,
                         name: 'top'

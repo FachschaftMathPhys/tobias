@@ -10,17 +10,17 @@ div
       h4 TOPS
       v-expansion-panel v-if="meeting.relationships"
         draggable v-model='Actions' :options='{group:"tops"}' style="width:100%"
-          v-expansion-panel-content v-for="action in meeting.relationships.actions"
+          v-expansion-panel-content v-for="action in actions"
             div slot="header"
               v-tooltip bottom=true
                 v-btn flat=true color="accent" icon=true slot="activator" @click.native.stop="deleteAction(action)"
                   v-icon remove
                 span TOP entfernen
-              | {{action.relationships.top.title}}
-            Top :top="action.top"
-          v-btn flat=true Ziehe TOPs hierhin...
+              | {{action.relationships.top.attributes.title}}
+            Top :top="action.relationships.top"
+          v-btn slot="footer" flat=true Ziehe TOPs hierhin...
     v-card-actions
       v-btn color="accent" flat=true :to='{name:"meeting",params:{meeting_id:meeting.id,org_id:$route.params.org_id}}'
         span v-if="meeting.comments"
-          | {{meeting.comments.length}} Kommentar(e)
+          | {{meeting.relationships.comments.length}} Kommentar(e)
       v-btn color="accent" flat=true primary=true

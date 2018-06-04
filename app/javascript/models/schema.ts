@@ -11,11 +11,13 @@ const schemaDefinition = {
       relationships:{
         top:{
           type:"hasOne",
-          model:'top'
+          model:'top',
+          inverse:'actions'
         },
         meeting:{
           type:'hasOne',
-          model:'meeting'
+          model:'meeting',
+          inverse:'actions'
         },
         protocol:{
           type:'hasOne',
@@ -122,6 +124,11 @@ const schemaDefinition = {
           type: 'hasOne',
           model: 'organization',
           inverse: 'tops'
+        },
+        actions:{
+          type: 'hasMany',
+          model: 'action',
+          inverse:'top'
         }
       }
     },
@@ -154,6 +161,11 @@ const schemaDefinition = {
           type: 'hasOne',
           model: 'organization',
           inverse: 'meetings'
+        },
+        actions: {
+          type:'hasMany',
+          model:'action',
+          inverse: 'meeting'
         }
       }
     }

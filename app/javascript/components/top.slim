@@ -12,5 +12,7 @@ div v-if="top"
         span v-if="top.comments"
           | {{top.relationships.comments.length}} Kommentar(e)
       v-spacer
+      v-btn  flat=true color="secondary" icon=true :to='{name:"edit_top",params:{top_id:top.id,org_id:$route.params.org_id}}'
+        v-icon edit
       v-btn  flat=true color="secondary" icon=true @click.native.stop="deleteTop(top)"
         v-icon delete

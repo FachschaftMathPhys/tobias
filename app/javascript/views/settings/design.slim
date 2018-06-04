@@ -4,3 +4,9 @@ v-card
         h3.headline.mb-0 Design & Darstellung
         div
           v-switch label="Dark Theme" v-model="darkTheme"
+          v-select :items="colors" v-model="primary" label="Primärfarbe" item-text="name" item-value="color" return-object=true
+          v-select :items="colors" v-model="secondary" label="Sekundärfarbe" item-text="name" item-value="color" return-object=true
+          v-select :items="colors" v-model="accent" label="Akzentfarbe" item-text="name" item-value="color" return-object=true
+    v-card-actions
+      v-spacer
+      v-btn flat=true color="primary" @click="apply" Anwenden
