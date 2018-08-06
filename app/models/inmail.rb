@@ -1,2 +1,0 @@
-class Inmail < ApplicationRecord
-end
