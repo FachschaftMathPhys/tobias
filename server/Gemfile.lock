@@ -116,6 +116,7 @@ GEM
     queue_classic (3.1.0)
       pg (>= 0.17, < 0.19)
     rack (2.0.5)
+    rack-cors (1.0.2)
     rack-proxy (0.6.4)
       rack
     rack-test (1.0.0)
@@ -241,6 +242,7 @@ DEPENDENCIES
   pg
   puma (~> 3.7)
   queue_classic (~> 3.1.0)
+  rack-cors
   rails (~> 5.1.4)
   rails-erd
   rails-i18n
