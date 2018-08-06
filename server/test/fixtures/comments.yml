@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  author: MyString
+  content: MyText
+  title: MyString
+  commentable: one
+  commentable_type: Commentable
+
+two:
+  author: MyString
+  content: MyText
+  title: MyString
+  commentable: two
+  commentable_type: Commentable

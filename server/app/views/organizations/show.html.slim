@@ -1,0 +1,30 @@
+= javascript_pack_tag 'organizations/show'
+= stylesheet_pack_tag 'organizations/show'
+div#app
+  App
+    h1
+      = @organization.title
+    v-speed-dial bottom=true right=true direction="top" fixed=true open-on-hover=true
+      v-btn slot="activator" color="blue darken-2" dark=true fab=true hover=true
+        v-icon menu
+        v-icon close
+      v-btn fab=true dark=true small=true color="green" href=edit_organization_path(@organization)
+        v-icon edit
+      v-btn fab=true dark=true small=true color="indigo" href=new_organization_top_path(@organization)
+        v-icon add
+
+    p
+      strong Beschreibung:
+      = @organization.description
+      .row
+        .col.l6.s12
+          h5 Aktuelle Tops
+          .dd#dd-first
+            ol class="dd-list"
+              - @organization.tops.each do |t|
+                li.dd-item data-id=t.id =render t
+        .col.l6.s12
+          h5 Aktuelle Sitzungen
+          - @organization.meetings.each do |t|
+            li.dd-item data-id=t.id =render t
+    = link_to 'Zurück!', organizations_path

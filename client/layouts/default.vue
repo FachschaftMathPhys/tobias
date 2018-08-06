@@ -1,0 +1,61 @@
+<template lang="slm">
+.page-container
+  v-app :dark="darkTheme"
+    v-navigation-drawer  app=true hide-overlay=true mini-variant=true permanent=true
+      slot name="drawer"
+        v-toolbar.transparent flat=true
+          v-list.pa-0
+            v-list-tile avatar=true
+              v-list-tile-avatar
+                img src="https://avatars2.githubusercontent.com/u/10349817?s=460&v=4"
+              v-list-tile-content
+                v-list-tile-title Henrik Reinstädtler
+              v-list-tile-action
+                v-btn icon=true @click.native.stop="menuVisible = !menuVisible"
+                  v-icon chevron_left
+        v-list
+          v-list-tile to="/organizations"
+            v-list-tile-action
+              v-icon group
+            v-list-tile-content
+              v-list-tile-title Organisationen
+          v-list-tile to="/inmails"
+            v-list-tile-action
+              v-icon inbox
+            v-list-tile-content
+              v-list-tile-title Inbox
+          v-list-tile href="https://github.com/fachschaftmathphys/tobias"
+            v-list-tile-action
+              v-icon extension
+            v-list-tile-content
+              v-list-tile-title Erweiterung anfordern
+          v-list-tile to="/settings"
+            v-list-tile-action
+              v-icon settings
+            v-list-tile-content
+              v-list-tile-title Einstellungen
+    v-toolbar app=true color="primary"
+          v-toolbar-title TobiaS
+          v-spacer
+    v-content
+      v-container fluid=true
+        router-view
+</template>
+<script lang='ts'>
+  import Vue from 'vue'
+  import Component from 'nuxt-class-component'
+  import { createHelpers } from 'vuex-map-fields'
+  const { mapFields } = createHelpers({
+    getterType: 'settings/getField',
+    mutationType: 'settings/updateField'
+  })
+  const AppProps = Vue.extend({
+    name: 'Flexible',
+    computed: mapFields({ darkTheme: 'darkTheme' })
+  })
+  @Component({
+  })
+  export default class App extends AppProps {
+    menuVisible: boolean = false
+  }
+</script>

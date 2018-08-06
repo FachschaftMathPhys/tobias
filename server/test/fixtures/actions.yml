@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  top: one
+  meeting: one
+  protocol: one
+  position: 
+
+two:
+  top: two
+  meeting: two
+  protocol: two
+  position: 

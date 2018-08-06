@@ -1,0 +1,7 @@
+div
+  h1 Organisationen bearbeiten
+  v-form  ref="form"
+    v-text-field label="Titel" v-model="title" required=true
+    v-text-field label="Beschreibung" v-model="description" multi-line=true
+    v-text-field label="Einladungstemplate" v-model="meetinginvitationtemplate" multi-line=true
+    v-btn @click="submit" submit

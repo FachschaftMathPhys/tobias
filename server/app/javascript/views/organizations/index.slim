@@ -1,0 +1,18 @@
+div
+  h1 Organisationen
+  v-btn color="blue darken-2" dark=true fab=true hover=true bottom=true right=true fixed=true :to='{name:"new_org"}'
+    v-icon add
+  v-container fluid=true grid-list-md=true
+    v-data-iterator content-tag="v-layout" row=true wrap=true :items="orgs" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination"
+      v-flex slot="item" slot-scope="props" xs12=true sm6=true md4=true lg3=true
+        v-card
+          v-card-title primary-title=true
+            h3.headline.mb-0
+              | {{props.item.attributes.title}}
+          v-card-text
+            | {{props.item.attributes.description}}
+          v-card-actions
+            v-btn (flat=true color="primary" :to='{name:"organization",params:{org_id:props.item.id}}') Anschauen
+            v-spacer
+            v-btn flat=true icon=true color="secondary" @click.native.stop="deleteOrg(props.item)"
+              v-icon delete

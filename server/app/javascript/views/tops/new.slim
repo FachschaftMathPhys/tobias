@@ -1,0 +1,6 @@
+div
+  h1 TOP anlegen
+  v-form  ref="form"
+    v-text-field label="Titel" v-model="model.title" required=true
+    v-text-field label="Beschreibung" v-model="model.description" multi-line=true
+    v-btn @click="submit" submit
