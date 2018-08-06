@@ -19,7 +19,10 @@ const store = new VuexStore({ bucket, schema })
 const remote = new JSONAPISource({
   schema: schema,
   name: 'remote',
-  host: `https://${window.location.host}/api`
+  host: `https://${window.location.host}/api`,
+  defaultFetchSettings: {
+    credentials: 'same-origin'
+  }
 })
 
 const coordinator = new Coordinator({
