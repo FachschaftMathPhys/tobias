@@ -1,7 +1,7 @@
 <template lang="slm">
 .page-container
   v-app :dark="darkTheme"
-    v-navigation-drawer  app=true hide-overlay=true mini-variant=true permanent=true
+    v-navigation-drawer  app=true hide-overlay=true :mini-variant="menuVisible" permanent=true
       slot name="drawer"
         v-toolbar.transparent flat=true
           v-list.pa-0
@@ -10,7 +10,7 @@
                 img :src="pic"
               v-list-tile-content
                 v-list-tile-title
-                  | {fullname}
+                  | {{fullname}}
               v-list-tile-action
                 v-btn icon=true @click.native.stop="menuVisible = !menuVisible"
                   v-icon chevron_left
@@ -35,6 +35,12 @@
               v-icon settings
             v-list-tile-content
               v-list-tile-title Einstellungen
+          v-list-tile v-if="menuVisible"
+            v-list-tile-action
+              v-btn icon=true @click.native.stop="menuVisible = !menuVisible"
+                v-icon chevron_right
+            v-list-tile-content
+              v-list-tile-title Menü ausklappen
     v-toolbar app=true color="primary"
           v-toolbar-title TobiaS
           v-spacer
