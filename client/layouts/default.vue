@@ -7,9 +7,10 @@
           v-list.pa-0
             v-list-tile avatar=true
               v-list-tile-avatar
-                img src="https://avatars2.githubusercontent.com/u/10349817?s=460&v=4"
+                img :src="pic"
               v-list-tile-content
-                v-list-tile-title Henrik Reinstädtler
+                v-list-tile-title
+                  | {fullname}
               v-list-tile-action
                 v-btn icon=true @click.native.stop="menuVisible = !menuVisible"
                   v-icon chevron_left
@@ -44,18 +45,31 @@
 <script lang='ts'>
   import Vue from 'vue'
   import Component from 'nuxt-class-component'
-  import { createHelpers } from 'vuex-map-fields'
-  const { mapFields } = createHelpers({
+  import { createHelpers, mapFields } from 'vuex-map-fields'
+import { QueryBuilder } from '@orbit/data'
+import { merge } from '@orbit/utils'
+  const helpers = createHelpers({
     getterType: 'settings/getField',
     mutationType: 'settings/updateField'
   })
   const AppProps = Vue.extend({
     name: 'Flexible',
-    computed: mapFields({ darkTheme: 'darkTheme' })
+    computed: merge(helpers.mapFields({ darkTheme: 'darkTheme' }),
+      mapFields({fullname: 'user.attributes.fullname', pic: 'user.attributes.pic'}))
   })
   @Component({
   })
   export default class App extends AppProps {
+    created () {
+      this.$store.dispatch('querying', {
+        queryOrExpression: (q: QueryBuilder) => {
+          return q.findRecord({ type: 'user', id: 'me' })
+        },
+        thenable: ({ commit, dispatch }, data) => {
+          commit('set', { data, model: 'user' })
+        }
+      })
+    }
     menuVisible: boolean = false
   }
 </script>

@@ -2,6 +2,19 @@ import { Schema } from '@orbit/data'
 // @ts-ignore
 const schemaDefinition = {
   models: {
+    user: {
+      attributes: {
+        name: {
+          type: 'string'
+        },
+        fullname: {
+          type: 'string'
+        },
+        pic: {
+          type: 'string'
+        }
+      }
+    },
     action: {
       attributes: {
         position: {
@@ -11,8 +24,7 @@ const schemaDefinition = {
       relationships: {
         top: {
           type: 'hasOne',
-          model: 'top',
-          inverse: 'actions'
+          model: 'top'
         },
         meeting: {
           type: 'hasOne',
@@ -124,11 +136,6 @@ const schemaDefinition = {
           type: 'hasOne',
           model: 'organization',
           inverse: 'tops'
-        },
-        actions: {
-          type: 'hasMany',
-          model: 'action',
-          inverse: 'top'
         }
       }
     },
