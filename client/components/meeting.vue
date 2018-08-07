@@ -18,9 +18,9 @@ div
       v-btn color="accent" flat=true :to='{name:"organizations-organization-meetings-meeting",params:{meeting:meeting.id,organization:$route.params.organization}}'
         span v-if="meeting.relationships.comments"
           | {{meeting.relationships.comments.length}} Kommentar(e)
-      v-btn color="secondary" flat=true  icon=true
+      v-btn color="secondary" flat=true  icon=true :to='{name:"organizations-organization-meetings-meeting-edit",params:{meeting:meeting.id,organization:meeting.relationships.organization.data.id}}'
         v-icon edit
-      v-btn color="secondary" flat=true  icon=true
+      v-btn color="secondary" flat=true  icon=true @click.native.stop="removeMeeting(meeting)"
         v-icon delete
 </template>
 <script lang="ts">
@@ -30,7 +30,7 @@ import Component from 'nuxt-class-component'
 import { Watch } from 'nuxt-property-decorator'
 import Vue from 'vue'
 import store from '../store/api'
-import { Record } from '@orbit/data'
+import { Record, TransformBuilder } from '@orbit/data'
 
 const MeetingProps = Vue.extend({
   components: {
@@ -109,7 +109,20 @@ export default class Meeting extends MeetingProps {
           })
       })
   }
-  created () {
+  removeMeeting (meeting) {
+    if (confirm('Willst du wirklich dieses Treffen entfernen?')) {
+      this.$store.dispatch('updating', {
+        transformOrOperations: (t: TransformBuilder) => {
+          return t.removeRecord(meeting)
+        },
+        thenable: ({ commit }, data) => {
+          commit('remove', { data: meeting, model: meeting.type })
+        }
+      })
+      // this.$store.dispatch('delete', top)
+    }
+  }
+  mounted () {
     store.query((q) => q.findRelatedRecords(this.meeting, 'actions')).then((data) => { this.actions = data })
   }
 }

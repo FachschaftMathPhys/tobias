@@ -73,7 +73,7 @@ export default class OrganizationShow extends OrganizationShowProps {
   }
   set Tops (value) {
   }
-  created () {
+  mounted () {
     this.$store.dispatch('fetchOne', {
       model: 'organization',
       id: this.$route.params.organization

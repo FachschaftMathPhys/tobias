@@ -21,6 +21,7 @@ div v-if="top"
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
+import { TransformBuilder } from '@orbit/data'
 const TopProps = Vue.extend({
   props: ['top']
 })
@@ -31,7 +32,15 @@ export default class Top extends TopProps {
   created () {}
   deleteTop (top) {
     if (confirm('Willst du wirklich diesen TOP entfernen?')) {
-      this.$store.dispatch('delete', top)
+      this.$store.dispatch('updating', {
+        transformOrOperations: (t: TransformBuilder) => {
+          return t.removeRecord(top)
+        },
+        thenable: ({ commit }, data) => {
+          commit('remove', { data: top, model: top.type })
+        }
+      })
+      // this.$store.dispatch('delete', top)
     }
   }
 }

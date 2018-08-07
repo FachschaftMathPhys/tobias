@@ -54,7 +54,7 @@ export default class EditMeeting extends EditProps {
       })
       .then(() => {
         this.$router.push({
-          name: 'meeting',
+          name: 'organizations-organization-meetings-meeting',
           params: {
             organization: this.$route.params.organization,
             meeting: this.$route.params.meeting
