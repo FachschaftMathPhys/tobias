@@ -45,6 +45,7 @@ export default class SettingsAccount extends SettingsAccountProps {
     })
   }
   upload () {
+    // @ts-ignore
     this.$refs.image.click()
   }
   upic: String = ''
