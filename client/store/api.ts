@@ -24,7 +24,7 @@ const remote = new JSONAPISource({
     credentials: 'same-origin',
     headers:{
       Accept: 'application/vnd.api+json',
-      'Content-Type': 'application/vnd.api+json'
+      'content-type': 'application/vnd.api+json'
     }
   }
 })
