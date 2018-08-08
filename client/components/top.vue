@@ -10,8 +10,8 @@ div v-if="top"
       | {{top.attributes.description}}
     v-card-actions
       v-btn color="primary" flat=true :to='{name:"organizations-organization-tops-top",params:{top:top.id,organization:top.relationships.organization.data.id}}'
-        span v-if="top.comments"
-          | {{top.relationships.comments.length}} Kommentar(e)
+        span 
+          | Anschauen
       v-spacer
       v-btn  flat=true color="secondary" icon=true :to='{name:"organizations-organization-tops-top-edit",params:{top:top.id,organization:top.relationships.organization.data.id}}'
         v-icon edit

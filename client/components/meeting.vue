@@ -16,8 +16,8 @@ div
           v-btn slot="footer" flat=true Ziehe TOPs hierhin...
     v-card-actions
       v-btn color="accent" flat=true :to='{name:"organizations-organization-meetings-meeting",params:{meeting:meeting.id,organization:$route.params.organization}}'
-        span v-if="meeting.relationships.comments"
-          | {{meeting.relationships.comments.length}} Kommentar(e)
+        span 
+          |  Anschauen
       v-btn color="secondary" flat=true  icon=true :to='{name:"organizations-organization-meetings-meeting-edit",params:{meeting:meeting.id,organization:meeting.relationships.organization.data.id}}'
         v-icon edit
       v-btn color="secondary" flat=true  icon=true @click.native.stop="removeMeeting(meeting)"
