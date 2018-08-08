@@ -15,6 +15,11 @@
                 v-btn icon=true @click.native.stop="menuVisible = !menuVisible"
                   v-icon chevron_left
         v-list
+          v-list-tile to="/"
+            v-list-tile-action
+              v-icon home
+            v-list-tile-content
+              v-list-tile-title Start
           v-list-tile to="/organizations"
             v-list-tile-action
               v-icon group

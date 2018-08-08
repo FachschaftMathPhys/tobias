@@ -34,7 +34,7 @@ div
         v-icon menu
         v-icon close
       v-tooltip left=true
-        v-btn fab=true dark=true small=true color="green" slot="activator" :href='"data:text/plainbase64,"+m.attributes.download' download="einladung.tex"
+        v-btn fab=true dark=true small=true color="green" slot="activator" :href='"data:text/plain;base64,"+m.attributes.download' download="einladung.tex"
           v-icon file_download
         span Herunterladen
       v-tooltip left=true

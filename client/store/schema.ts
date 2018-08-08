@@ -161,6 +161,9 @@ const schemaDefinition = {
         },
         end: {
           type: 'date'
+        },
+        download: {
+          type: 'string'
         }
       },
       relationships: {
