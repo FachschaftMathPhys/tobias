@@ -49,7 +49,8 @@ module.exports = {
    },
   manifest: {
     name: 'Tobias',
-    lang: 'de'
+    lang: 'de',
+    mobileAppIOS: true
   },
   /*
    ** Build configuration

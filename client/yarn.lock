@@ -119,69 +119,69 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
-"@orbit/coordinator@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.15.18.tgz#06818f1daa92364cc9bfe95ae24843efba6b5593"
+"@orbit/coordinator@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/coordinator/-/coordinator-0.15.23.tgz#aac121bb61d794018e0069c39b8fb24b0abf5e7d"
 
-"@orbit/core@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.15.18.tgz#7f09cfd90841f1221f130ecbf0b4374f5faa23ee"
+"@orbit/core@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/core/-/core-0.15.23.tgz#3f6656f37d6bf9bdf5ef03ae26726cb8ba03776d"
   dependencies:
-    "@orbit/utils" "^0.15.18"
+    "@orbit/utils" "^0.15.23"
 
-"@orbit/data@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.15.18.tgz#f0c4e60635fb1c15c441020dc64269d7f6506dbb"
+"@orbit/data@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.15.23.tgz#5b71585d65d4b96b9e79e0feb281f4c957547307"
   dependencies:
-    "@orbit/core" "^0.15.18"
-    "@orbit/utils" "^0.15.18"
+    "@orbit/core" "^0.15.23"
+    "@orbit/utils" "^0.15.23"
 
-"@orbit/immutable@^0.15.14":
-  version "0.15.14"
-  resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.15.14.tgz#8c6958841d45f7f947282d8f39d88094d20bd152"
+"@orbit/immutable@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.15.23.tgz#728ad2d3901a1a5db15be62dddce301f0341502e"
 
-"@orbit/indexeddb-bucket@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/indexeddb-bucket/-/indexeddb-bucket-0.15.18.tgz#d266e8a7f6e5084569b0c984bb874ab9b7199e6f"
+"@orbit/indexeddb-bucket@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb-bucket/-/indexeddb-bucket-0.15.23.tgz#307c1fbe97cacbd4545d46bcba97a987b65060c8"
   dependencies:
-    "@orbit/core" "^0.15.18"
-    "@orbit/utils" "^0.15.18"
+    "@orbit/core" "^0.15.23"
+    "@orbit/utils" "^0.15.23"
 
-"@orbit/indexeddb@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.15.18.tgz#0d6d37892225c20a5819f1dd98d821fd5a7df266"
+"@orbit/indexeddb@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/indexeddb/-/indexeddb-0.15.23.tgz#6a2cdc77fcf36eddf061b5a76475b0409dbbd6af"
   dependencies:
-    "@orbit/core" "^0.15.18"
-    "@orbit/data" "^0.15.18"
-    "@orbit/utils" "^0.15.18"
+    "@orbit/core" "^0.15.23"
+    "@orbit/data" "^0.15.23"
+    "@orbit/utils" "^0.15.23"
 
-"@orbit/jsonapi@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.15.18.tgz#855a495e162935a346e07f4a35ce80960d47554f"
+"@orbit/jsonapi@^0.15.24":
+  version "0.15.24"
+  resolved "https://registry.yarnpkg.com/@orbit/jsonapi/-/jsonapi-0.15.24.tgz#482b58c915fa2df4a0d4556121d864806894720f"
   dependencies:
-    "@orbit/core" "^0.15.18"
-    "@orbit/data" "^0.15.18"
-    "@orbit/utils" "^0.15.18"
+    "@orbit/core" "^0.15.23"
+    "@orbit/data" "^0.15.23"
+    "@orbit/utils" "^0.15.23"
 
-"@orbit/local-storage-bucket@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/local-storage-bucket/-/local-storage-bucket-0.15.18.tgz#1f84e7a3d8c624b556595ac8d1f481286aed9386"
+"@orbit/local-storage-bucket@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/local-storage-bucket/-/local-storage-bucket-0.15.23.tgz#4c22afaeb7fcbf75dd2190d8d5e01f59fe8f9347"
   dependencies:
-    "@orbit/core" "^0.15.18"
-    "@orbit/utils" "^0.15.18"
+    "@orbit/core" "^0.15.23"
+    "@orbit/utils" "^0.15.23"
 
-"@orbit/store@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/store/-/store-0.15.18.tgz#e84b839529b5cab3d3de57166fc4441ccb12c45d"
+"@orbit/store@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/store/-/store-0.15.23.tgz#6d8a0260b30ed72b135df108e17f959bcb28414f"
   dependencies:
-    "@orbit/core" "^0.15.18"
-    "@orbit/data" "^0.15.18"
-    "@orbit/immutable" "^0.15.14"
-    "@orbit/utils" "^0.15.18"
+    "@orbit/core" "^0.15.23"
+    "@orbit/data" "^0.15.23"
+    "@orbit/immutable" "^0.15.23"
+    "@orbit/utils" "^0.15.23"
 
-"@orbit/utils@^0.15.18":
-  version "0.15.18"
-  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.15.18.tgz#43632a1eb602839382f549adcd61a3305031e5fb"
+"@orbit/utils@^0.15.23":
+  version "0.15.23"
+  resolved "https://registry.yarnpkg.com/@orbit/utils/-/utils-0.15.23.tgz#3c3c00414e9a0a8aa3b1907025e30ca31b98e65b"
 
 "@types/node@*", "@types/node@^10.3.1":
   version "10.3.1"
@@ -6816,10 +6816,6 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue@^2.5.16:
-  version "2.5.16"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
-
 vue@^2.5.17:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
@@ -6830,9 +6826,9 @@ vuedraggable@^2.16.0:
   dependencies:
     sortablejs "^1.7.0"
 
-vuetify@^1.0.0:
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.0.19.tgz#fb6d123dd1c217795fc2333e912c0ecbed2ed69e"
+vuetify@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.3.2.tgz#5dbb560e03d46914f27ffe11bb52dd97882bd996"
 
 vuex-class@^0.3.0:
   version "0.3.1"
@@ -6842,14 +6838,18 @@ vuex-map-fields@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/vuex-map-fields/-/vuex-map-fields-1.2.3.tgz#0c913e0e703ce098d24530ddad78b2036d112d09"
 
-vuex-orbit@^0.0.6-o:
-  version "0.0.6-o"
-  resolved "https://registry.yarnpkg.com/vuex-orbit/-/vuex-orbit-0.0.6-o.tgz#5d3f5423a26c652f9238efc02a78084319728a3b"
+vuex-map-fields@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/vuex-map-fields/-/vuex-map-fields-1.3.1.tgz#2a045db8baf2e34823d3f896d91266691c21b3d3"
+
+vuex-orbit@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/vuex-orbit/-/vuex-orbit-0.0.7.tgz#f300ccb47c885f89edc26ca086d3c0d9f5b30754"
   dependencies:
-    "@orbit/store" "^0.15.18"
-    vue "^2.5.16"
+    "@orbit/store" "^0.15.23"
+    vue "^2.5.17"
     vuex "^3.0.1"
-    vuex-map-fields "^1.2.3"
+    vuex-map-fields "^1.3.1"
 
 vuex@^3.0.1:
   version "3.0.1"
