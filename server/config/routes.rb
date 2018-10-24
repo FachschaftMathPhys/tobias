@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     jsonapi_resources :protocols, constraints: {:id => UUID_regex}
     jsonapi_resources :tops, constraints: {:id => UUID_regex}
     jsonapi_resources :inmails, constraints: {:id => UUID_regex}
+    jsonapi_resources :emails, constraints: {:id => UUID_regex}
+    jsonapi_resources :referencables, constraints: {:id => UUID_regex}
     get '/users/me', to: 'users#me'
     patch '/users/me', to: 'users#update_me'
     jsonapi_resources :users, constraints: {:id => UUID_regex}

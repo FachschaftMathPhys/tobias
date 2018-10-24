@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180507141954) do
+ActiveRecord::Schema.define(version: 20181024114716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
+  create_table "emails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "address"
+    t.string "subject"
+    t.string "body"
+    t.string "referencable_type"
+    t.bigint "referencable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["referencable_type", "referencable_id"], name: "index_emails_on_referencable_type_and_referencable_id"
+  end
+
   create_table "inmails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "fromaddress"
     t.string "subject"
@@ -90,6 +101,18 @@ ActiveRecord::Schema.define(version: 20180507141954) do
     t.bigint "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "queue_classic_jobs", force: :cascade do |t|
+    t.text "q_name", null: false
+    t.text "method", null: false
+    t.json "args", null: false
+    t.datetime "locked_at"
+    t.integer "locked_by"
+    t.datetime "created_at", default: -> { "now()" }
+    t.datetime "scheduled_at", default: -> { "now()" }
+    t.index ["q_name", "id"], name: "idx_qc_on_name_only_unlocked", where: "(locked_at IS NULL)"
+    t.index ["scheduled_at", "id"], name: "idx_qc_on_scheduled_at_only_unlocked", where: "(locked_at IS NULL)"
   end
 
   create_table "tops", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

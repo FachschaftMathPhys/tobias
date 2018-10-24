@@ -63,6 +63,28 @@ const schemaDefinition = {
         }
       }
     },
+    email: {
+      attributes: {
+        address: {
+          type: 'string'
+        },
+        subject: {
+          type: 'string'
+        },
+        body: {
+          type: 'string'
+        },
+        uid: {
+          type: 'string'
+        }
+      },
+      relationships: {
+        referencable: {
+          type:'hasMany',
+          polymorphic: true
+        }
+      }
+    },
     inmail: {
       attributes: {
         fromaddress: {

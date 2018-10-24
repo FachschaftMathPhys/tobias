@@ -25,7 +25,7 @@ v-container grid-list-md=true
               v-card
                 v-card-text v-html='mail.attributes.body'
                 v-card-actions
-                  v-btn flat=true color="accent" Antworten
+                  v-btn @click="email=mail" flat=true color="accent" Antworten
               v-divider
     v-flex md6=true
       v-card
@@ -38,19 +38,23 @@ v-container grid-list-md=true
                 div slot="header"
                   | {{organization.attributes.title}}
                 Organization :organization="organization"
+  div v-if="email!=null"
+    EmailCreateDialog :mail="email" :visible="email!=null" @save="sendEmail" @abort="email=null"
 </template>
 <script lang="ts">
 import { mapFields } from 'vuex-map-fields'
 import Organization from '../../components/organization.vue'
 import TopCreateDialog from '../../components/top-create-dialog.vue'
+import EmailCreateDialog from '../../components/email-create-dialog.vue'
+import store from '../../store/api'
 import draggable from 'vuedraggable'
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
-import { QueryBuilder } from '@orbit/data'
+import { QueryBuilder, Record } from '@orbit/data'
 
 @Component({
   name: 'inmail',
-  components: { Organization, draggable, TopCreateDialog },
+  components: { Organization, draggable, TopCreateDialog, EmailCreateDialog },
   computed: mapFields({
     inmails: 'inmails',
     orgs: 'organizations'
@@ -58,6 +62,7 @@ import { QueryBuilder } from '@orbit/data'
 })
 export default class Inmail extends Vue {
   dialog: boolean = true
+  email: Record= null
   created () {
     this.$store.dispatch('fetchAllOf', 'inmail')
     this.$store.dispatch('querying', {
@@ -67,6 +72,26 @@ export default class Inmail extends Vue {
       thenable: ({ commit, dispatch }, data) => {
         commit('set', { data, model: 'organizations' })
       }
+    })
+  }
+  sendEmail (mail) {
+    store.update((u) => {
+      return u.addRecord({
+        type: 'email',
+        attributes: {
+          body: mail.body,
+          subject: mail.subject,
+          address: mail.address
+        },
+        relationships: {
+          referencable: {
+            data: mail.mail
+          }
+        }
+      })
+    }).then(() => {
+      this.email = null
+      alert('Email versandt.')
     })
   }
 }

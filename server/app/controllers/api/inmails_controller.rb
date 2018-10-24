@@ -1,2 +1,3 @@
-class Api::InmailsController < JSONAPI::ResourceController
+class Api::InmailsController < ApplicationController
+  include JSONAPI::ActsAsResourceController
 end
