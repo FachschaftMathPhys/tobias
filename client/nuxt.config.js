@@ -46,11 +46,12 @@ module.exports = {
   modulesDir: ['node_modules'],
   workbox: {
     // Workbox options
-   },
+  },
   manifest: {
     name: 'Tobias',
     lang: 'de',
-    mobileAppIOS: true
+    mobileAppIOS: true,
+    crossorigin: 'use-credentials'
   },
   /*
    ** Build configuration
