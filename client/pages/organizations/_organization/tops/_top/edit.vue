@@ -1,10 +1,10 @@
-<template lang="slm">
-div v-if="t"
+<template lang="pug">
+div(v-if="t")
   h1 TOP bearbeiten
-  v-form  ref="form"
-    v-text-field label="Titel" v-model="title" required=true
-    v-text-field label="Beschreibung" v-model="description" multi-line=true
-    v-btn @click="submit" Speichern
+  v-form(ref="form")
+    v-text-field(label="Titel" v-model="title" required=true)
+    v-textarea(label="Beschreibung" v-model="description")
+    v-btn(@click="submit") Speichern
 </template>
 <script lang="ts">
 // import Top from '../../components/top.vue'

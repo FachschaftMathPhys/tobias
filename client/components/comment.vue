@@ -1,12 +1,9 @@
-<template lang="slm">
+<template lang="pug">
 v-card
   v-card-title
-    h3.headline
-      | {{comment.title}}
-      .right.grey-text
-        | @{{comment.author}}
-  v-card-text
-    | {{comment.content}}
+    h3.headline {{comment.title}}
+      .right.grey-text @{{comment.author}}
+  v-card-text {{comment.content}}
 </template>
 <script lang="ts">
 import Component from 'nuxt-class-component'

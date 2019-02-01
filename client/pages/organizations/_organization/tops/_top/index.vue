@@ -1,13 +1,13 @@
-<template lang="slm">
+<template lang="pug">
 div
-  div v-if="t"
-    Top :top="t"
+  div(v-if="t")
+    Top(:top="t")
     h3 Kommentare
-    div v-for="c in t.comments"
-      Comment :comment='c'
-  v-container v-else=true
+    div(v-for="c in t.comments")
+      Comment(:comment='c')
+  v-container(v-else=true)
     p.text-xs-center
-      v-progress-circular color="accent" indeterminant=true
+      v-progress-circular(color="accent" indeterminant=true)
 </template>
 <script lang="ts">
 import Top from '~/components/top.vue'

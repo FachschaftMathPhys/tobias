@@ -1,4 +1,4 @@
-<template lang="slm">
+<template lang="pug">
 div v-if="top"
   v-card
     v-card-title

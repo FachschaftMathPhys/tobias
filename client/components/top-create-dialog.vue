@@ -1,4 +1,4 @@
-<template lang="slm">
+<template lang="pug">
 v-dialog :value="visible" persistent=true max-width="500px"
   v-card
     v-card-title
@@ -9,7 +9,7 @@ v-dialog :value="visible" persistent=true max-width="500px"
           v-flex xs12=true
             v-text-field label="Titel" required=true v-model="top.title"
           v-flex xs12=true
-            v-text-field label="Beschreibung" required=true v-model="top.description" multi-line=true
+            v-textarea label="Beschreibung" required=true v-model="top.description"
     v-card-actions
       v-spacer
       v-btn color="accent" flat=true @click.native='$emit("abort")' Abbrechen

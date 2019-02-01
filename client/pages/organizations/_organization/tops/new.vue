@@ -1,10 +1,10 @@
-<template lang="slm">
+<template lang="pug">
 div
   h1 TOP anlegen
-  v-form  ref="form"
-    v-text-field label="Titel" v-model="model.title" required=true
-    v-text-field label="Beschreibung" v-model="model.description" multi-line=true
-    v-btn @click="submit" submit
+  v-form(ref="form")
+    v-text-field(label="Titel" v-model="model.title" required=true)
+    v-textarea(label="Beschreibung" v-model="model.description")
+    v-btn(@click="submit") submit
 </template>
 <script lang="ts">
 // import Top from '../../components/top.vue'

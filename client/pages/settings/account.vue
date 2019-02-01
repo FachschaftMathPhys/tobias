@@ -1,21 +1,21 @@
-<template lang="slm">
+<template lang="pug">
 div
   v-card
-    v-card-media :src="pic" height="200px"
+    v-card-media(:src="pic" height="200px")
       v-spacer
-      v-btn fab=true icon=true @click="upload"
+      v-btn(fab=true icon=true @click="upload")
         v-icon file_upload
-      input type="file" ref="image" name="image" :accept="'.png'" @change="onFilePicked"
-    v-card-title primary-title=true
-      v-layout row=true
-        v-flex xs8=true
-          v-text-field label="Anzeigename" v-model="fullname" required=true
-        v-flex xs4=true
-          v-text-field label="Loginname" :value="name" disabled=true
+      input(type="file" ref="image" name="image" :accept="'.png'" @change="onFilePicked")
+    v-card-title(primary-title=true)
+      v-layout(row=true)
+        v-flex(xs8=true)
+          v-text-field(label="Anzeigename" v-model="fullname" required=true)
+        v-flex(xs4=true)
+          v-text-field(label="Loginname" :value="name" disabled=true)
         div
     v-card-actions
       v-spacer
-      v-btn flat=true color="primary" @click="save" Speichern
+      v-btn(flat=true color="primary" @click="save") Speichern
 </template>
 <script lang="ts">
 import Vue from 'vue'

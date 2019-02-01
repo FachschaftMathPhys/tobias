@@ -1,16 +1,16 @@
-<template lang="slm">
+<template lang="pug">
 v-card
-    v-card-title primary-title=true
+    v-card-title(primary-title=true)
       div
         h3.headline.mb-0 Design & Darstellung
         div
-          v-switch label="Dark Theme" v-model="darkTheme"
-          v-select :items="colors" v-model="primary" label="Primärfarbe" item-text="name" item-value="color" return-object=true
-          v-select :items="colors" v-model="secondary" label="Sekundärfarbe" item-text="name" item-value="color" return-object=true
-          v-select :items="colors" v-model="accent" label="Akzentfarbe" item-text="name" item-value="color" return-object=true
+          v-switch(label="Dark Theme" v-model="darkTheme")
+          v-select(:items="colors" v-model="primary" label="Primärfarbe" item-text="name" item-value="color" return-object=true)
+          v-select(:items="colors" v-model="secondary" label="Sekundärfarbe" item-text="name" item-value="color" return-object=true)
+          v-select(:items="colors" v-model="accent" label="Akzentfarbe" item-text="name" item-value="color" return-object=true)
     v-card-actions
       v-spacer
-      v-btn flat=true color="primary" @click="apply" Anwenden
+      v-btn(flat=true color="primary" @click="apply") Anwenden
 </template>
 <script lang="ts">
 import Vue from 'vue'

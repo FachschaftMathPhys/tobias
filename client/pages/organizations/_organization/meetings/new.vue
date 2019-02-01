@@ -1,15 +1,15 @@
 
-<template lang="slm">
+<template lang="pug">
 div
   h1 Sitzung anlegen
-  v-form  ref="form"
-    v-text-field label="Titel" v-model="model.title" required=true
-    v-text-field label="Beschreibung" v-model="model.description" multi-line=true
+  v-form(ref="form")
+    v-text-field(label="Titel" v-model="model.title" required=true)
+    v-textarea(label="Beschreibung" v-model="model.description")
     div
-      v-date-picker label="Datum" v-model="model.date" landscape=true full-width=true
-    v-text-field label="Moderation" v-model="model.moderation" required=true
-    v-text-field label="Protokollant" v-model="model.clerk" required=true
-    v-btn @click="submit" submit
+      v-date-picker(label="Datum" v-model="model.date" landscape=true full-width=true)
+    v-text-field(label="Moderation" v-model="model.moderation" required=true)
+    v-text-field(label="Protokollant" v-model="model.clerk" required=true)
+    v-btn(@click="submit") submit
 </template>
 <script lang="ts">
 import Vue from 'vue'

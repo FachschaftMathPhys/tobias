@@ -1,3 +1,3 @@
-<template lang="slm">
+<template lang="pug">
 nuxt-child
 </template>

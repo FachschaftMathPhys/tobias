@@ -1,11 +1,11 @@
-<template lang="slm">
+<template lang="pug">
 div
   h1 Organisationen bearbeiten
-  v-form  ref="form"
-    v-text-field label="Titel" v-model="title" required=true
-    v-text-field label="Beschreibung" v-model="description" multi-line=true
-    v-text-field label="Einladungstemplate" v-model="meetinginvitationtemplate" multi-line=true
-    v-btn @click="submit" submit
+  v-form(ref="form")
+    v-text-field(label="Titel" v-model="title" required=true)
+    v-textarea(label="Beschreibung" v-model="description")
+    v-textarea(label="Einladungstemplate" v-model="meetinginvitationtemplate")
+    v-btn(@click="submit") submit
 </template>
 <script lang="ts">
 import { mapFields } from 'vuex-map-fields'

@@ -1,28 +1,25 @@
-<template lang="slm">
-v-card v-if="loading"
+<template lang="pug">
+v-card(v-if="loading")
   v-card-title
-    h3.headline
-      | {{organization.attributes.title}}
-  v-card-text
-    | {{organization.attributes.description}}
+    h3.headline {{organization.attributes.title}}
+  v-card-text {{organization.attributes.description}}
     h3 TOPS
     v-expansion-panel
-      draggable v-model='Tops' :options='{group:"tops"}' style="width:100%"
-        v-expansion-panel-content v-for="top in Tops" :key="top.id"
-          div slot="header"
-            v-tooltip bottom=true
-              v-btn flat=true color="accent" icon=true slot="activator" @click.native.stop="deleteTop(top)"
-                v-icon remove
+      draggable(v-model='Tops' :options='{group:"tops"}' style="width:100%")
+        v-expansion-panel-content(v-for="top in Tops" :key="top.id")
+          div(slot="header")
+            v-tooltip(bottom=true)
+              v-btn(flat=true color="accent" icon=true slot="activator" @click.native.stop="deleteTop(top)")
+                v-icon remove 
               span TOP entfernen
             | {{top.attributes.title}}
-          Top :top="top"
-        v-btn flat=true Ziehe TOPs hierhin...
+          Top(:top="top")
+        v-btn(flat=true) Ziehe TOPs hierhin...
   v-card-actions
-    v-btn color="accent" flat=true :to='{name:"organizations-organization",params:{organization:organization.id}}'
-      span
-        | Anschauen
-  div v-if="dialog"
-    TopCreateDialog :visible="dialog" :mail="mail" :organization="organization" @save="save" @abort="dialog=false"
+    v-btn(color="accent" flat=true :to='{name:"organizations-organization",params:{organization:organization.id}}')
+      span Anschauen
+  div(v-if="dialog")
+    TopCreateDialog(:visible="dialog" :mail="mail" :organization="organization" @save="save" @abort="dialog=false")
 </template>
 <script lang="ts">
 import draggable from 'vuedraggable'

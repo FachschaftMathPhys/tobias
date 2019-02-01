@@ -1,12 +1,12 @@
-<template lang="slm">
+<template lang="pug">
 v-expansion-panel-content
-  div slot="header"
-    v-tooltip bottom=true
-      v-btn flat=true color="accent" icon=true slot="activator" @click.native.stop='$emit("deleteAction",action)'
+  div(slot="header")
+    v-tooltip(bottom=true)
+      v-btn(flat=true color="accent" icon=true slot="activator" @click.native.stop='$emit("deleteAction",action)')
         v-icon remove
       span TOP entfernen
     | {{top.attributes.title}}
-  Top :top="top"
+  Top(:top="top")
 </template>
 <script lang="ts">
 import Vue from 'vue'
