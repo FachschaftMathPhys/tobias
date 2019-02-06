@@ -55,9 +55,10 @@
 </template>
 <script lang='ts'>
   import Vue from 'vue'
+  import {Commit, Dispatch} from 'vuex'
   import Component from 'nuxt-class-component'
   import { createHelpers, mapFields } from 'vuex-map-fields'
-import { QueryBuilder } from '@orbit/data'
+import { QueryBuilder,Record } from '@orbit/data'
 import { merge } from '@orbit/utils'
   const helpers = createHelpers({
     getterType: 'settings/getField',
@@ -76,7 +77,7 @@ import { merge } from '@orbit/utils'
         queryOrExpression: (q: QueryBuilder) => {
           return q.findRecord({ type: 'user', id: 'me' })
         },
-        thenable: ({ commit, dispatch }, data) => {
+        thenable: ({ commit }:{commit:Commit,dispatch:Dispatch}, data:Record) => {
           commit('set', { data, model: 'user' })
         }
       })

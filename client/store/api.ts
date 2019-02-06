@@ -47,11 +47,10 @@ coordinator.addStrategy(new RequestStrategy({
   source: 'remote',
   on: 'pushFail',
 
-  action(transform, e) {
+  action(transform:Transform, e:Error) {
     const coordinator = this.coordinator;
     const remote = coordinator.getSource('remote');
     const store = coordinator.getSource('store');
-    const bucket = coordinator.getSource('bucket');
     console.log(transform)
     console.log(store)
     if (e instanceof NetworkError) {
@@ -90,7 +89,7 @@ coordinator.addStrategy(new RequestStrategy({
   source: 'remote',
   on: 'queryFail',
 
-  action(transform: Transform, e) {
+  action(transform: Transform, e:Error) {
     const coordinator = this.coordinator;
     const remote = coordinator.getSource('remote');
     const store = coordinator.getSource('store');

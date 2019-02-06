@@ -8,9 +8,10 @@ div
     v-btn(@click="submit") submit
 </template>
 <script lang="ts">
-import { mapFields } from 'vuex-map-fields'
+import { mapFields, Commit } from 'vuex-map-fields'
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import {Record} from '@orbit/data'
 import { TransformBuilder } from '@orbit/data'
 const EditProps = Vue.extend({
   name: 'EditOrganization',
@@ -38,7 +39,7 @@ export default class EditOrganization extends EditProps {
             id: this.$route.params.organization
           })
         },
-        thenable: ({ commit }, data) => {
+        thenable: ({ commit }:{commit:Commit}, data:Record) => {
           commit('set', { data, model: 'organization' })
         }
       })

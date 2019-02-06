@@ -41,7 +41,7 @@ const OrganizationProps = Vue.extend({
   name: 'Organization'
 })
 export default class Organization extends OrganizationProps {
-  save (top) {
+  save (top:{description:String,submitter:String,title:String,organization:any}) {
     console.log(top)
     store.update((u) => {
       return u.addRecord({
@@ -68,8 +68,8 @@ export default class Organization extends OrganizationProps {
     })
   }
   @Prop({})
-  organization:Record
-  deleteTop (item) {
+  organization:Record | null=null
+  deleteTop (item:Record) {
     if (confirm('Wirklich diesen TOP entfernen? (TODO: implementieren)')) {
       this.$store.dispatch('removeTop', {
         top: item,
@@ -107,7 +107,7 @@ export default class Organization extends OrganizationProps {
   mounted () {
     this.loading = false
     store.query((q) => {
-      return q.findRelatedRecords({type: 'organization', id: this.organization.id}, 'tops')
+      return q.findRelatedRecords({type: 'organization', id: this.organization!.id}, 'tops')
     }).then((data) => {
       console.log(data)
       Vue.set(this, 'tops', data)

@@ -45,6 +45,9 @@ module.exports = {
   modulesDir: ['node_modules'],
   workbox: {
     // Workbox options
+    wbOptions: {
+      credentials: 'same-origin'
+    }
   },
   manifest: {
     name: 'Tobias',

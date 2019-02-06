@@ -11,11 +11,13 @@ div
 </template>
 <script lang="ts">
 import { mapFields } from 'vuex-map-fields'
+import {Commit} from 'vuex'
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { TransformBuilder } from '@orbit/data'
+import { TransformBuilder, Record } from '@orbit/data'
 
 const EditProps = Vue.extend({
+  name: 'EditMeeting',
   computed: mapFields({
     description: 'meeting.attributes.description',
     title: 'meeting.attributes.title',
@@ -29,7 +31,6 @@ const EditProps = Vue.extend({
 
 @Component({})
 export default class EditMeeting extends EditProps {
-  name: 'EditMeeting'
   submit () {
     this.$store
       .dispatch('updating', {
@@ -48,7 +49,7 @@ export default class EditMeeting extends EditProps {
             type: 'meeting'
           })
         },
-        thenable: ({ commit }, data) => {
+        thenable: ({ commit }:{commit:Commit}, data:Record) => {
           commit('set', { data, model: data.type })
         }
       })

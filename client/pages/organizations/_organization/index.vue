@@ -47,6 +47,7 @@ import Top from '~/components/top.vue'
 import Meeting from '~/components/meeting.vue'
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import {Record} from '@orbit/data'
 
 const OrganizationShowProps = Vue.extend({
   components: {
@@ -68,7 +69,8 @@ export default class OrganizationShow extends OrganizationShowProps {
   get Tops () {
     return this.tops
   }
-  set Tops (value) {
+  set Tops (tops:Record[]) {
+    console.log(tops)
   }
   mounted () {
     this.$store.dispatch('fetchOne', {

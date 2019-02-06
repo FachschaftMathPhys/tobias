@@ -22,6 +22,8 @@ import Vue from 'vue'
 import Component from 'nuxt-class-component'
 import { QueryBuilder, TransformBuilder } from '@orbit/data'
 import { mapFields } from 'vuex-map-fields'
+import {Record} from '@orbit/data'
+import {Commit} from 'vuex'
 const SettingsAccountProps = Vue.extend({
   computed: mapFields({
     pic: 'user.attributes.pic',
@@ -39,7 +41,7 @@ export default class SettingsAccount extends SettingsAccountProps {
       queryOrExpression: (q: QueryBuilder) => {
         return q.findRecord({ type: 'user', id: 'me' })
       },
-      thenable: ({ commit, dispatch }, data) => {
+      thenable: ({ commit }:{commit:Commit}, data:Record) => {
         commit('set', { data, model: 'user' })
       }
     })
@@ -49,7 +51,7 @@ export default class SettingsAccount extends SettingsAccountProps {
     this.$refs.image.click()
   }
   upic: String = ''
-  onFilePicked (event) {
+  onFilePicked (event:any) {
     const files = event.target.files || event.dataTransfer.files
     if (files && files[0]) {
       let filename = files[0].name
@@ -77,7 +79,7 @@ export default class SettingsAccount extends SettingsAccountProps {
           type: 'user'
         })
       },
-      thenable: ({ commit }, data) => {
+      thenable: ({ commit }:{commit:Commit}, data:Record) => {
         commit('set', { data, model: data.type })
       }
     })

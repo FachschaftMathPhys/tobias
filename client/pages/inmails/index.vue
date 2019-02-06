@@ -39,7 +39,7 @@ v-container(grid-list-md=true)
     EmailCreateDialog(:mail="email" :visible="email!=null" @save="sendEmail" @abort="email=null")
 </template>
 <script lang="ts">
-import { mapFields } from 'vuex-map-fields'
+import { mapFields, Commit } from 'vuex-map-fields'
 import Organization from '../../components/organization.vue'
 import TopCreateDialog from '../../components/top-create-dialog.vue'
 import EmailCreateDialog from '../../components/email-create-dialog.vue'
@@ -59,19 +59,19 @@ import { QueryBuilder, Record } from '@orbit/data'
 })
 export default class Inmail extends Vue {
   dialog: boolean = true
-  email: Record= null
+  email: Record|null= null
   created () {
     this.$store.dispatch('fetchAllOf', 'inmail')
     this.$store.dispatch('querying', {
       queryOrExpression: (q: QueryBuilder) => {
         return q.findRecords('organization').sort('title')
       },
-      thenable: ({ commit, dispatch }, data) => {
+      thenable: ({ commit }:{commit:Commit}, data:Record[]) => {
         commit('set', { data, model: 'organizations' })
       }
     })
   }
-  sendEmail (mail) {
+  sendEmail (mail:{body:String,subject:String,address:String, mail:String}) {
     store.update((u) => {
       return u.addRecord({
         type: 'email',

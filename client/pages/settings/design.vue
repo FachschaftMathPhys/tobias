@@ -17,6 +17,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { createHelpers } from 'vuex-map-fields'
 import colors, { Color } from 'vuetify/es5/util/colors'
+
 const { mapFields } = createHelpers({
   getterType: 'settings/getField',
   mutationType: 'settings/updateField'

@@ -112,31 +112,43 @@ div
       v-progress-circular color="accent" indeterminant=true
 </template>
 <script lang="ts">
+import Vue from "vue"
 import Top from '~/components/top.vue'
+
+import Component from 'nuxt-class-component'
 import Meeting from '~/components/meeting.vue'
 import Comment from '~/components/comment.vue'
 import { mapFields } from 'vuex-map-fields'
-export default {
-  name: 'Meetings',
-  data: () => ({
-    menuVisible: false,
-    dialog: false,
-    topdialog: false,
-    linkdialog: false,
-    title: '',
-    content: '',
-    description: '',
-    select: '',
-    items: [],
-    loading: false,
-    search: null
-  }),
-  components: {
+import { Watch } from "nuxt-property-decorator";
+import VueRouter, { Route } from 'vue-router'
+interface WithRouteAndRouter /* can also extend Vue to make sure nothing is colliding */ {
+  $route: Route,
+  $router: VueRouter
+}
+const MeetingProps = Vue.extend({
+   components: {
     Top,
     Comment,
     Meeting
   },
-  methods: {
+  name: 'MeetingView',
+  computed: mapFields({
+    m: 'meeting'
+  })
+})
+@Component
+export default class MeetingView extends MeetingProps implements WithRouteAndRouter {
+    menuVisible= false
+    dialog= false
+    topdialog= false
+    linkdialog= false
+    title= ''
+    content= ''
+    description= ''
+    select= ''
+    items= []
+    loading= false
+    search= null
     submitComment () {
       this.dialog = false
       this.$store.dispatch('meetings/addComment', {
@@ -144,14 +156,14 @@ export default {
         content: this.content,
         commentable: this.m
       })
-    },
+    }
     linkTop () {
       this.linkdialog = false
       this.$store.dispatch('meetings/linkTOP', {
         top: this.select,
         meeting: this.m
       })
-    },
+    }
     submitTOP () {
       this.topdialog = false
       this.$store.dispatch('meetings/addTOP', {
@@ -162,25 +174,20 @@ export default {
         },
         meeting: this.m
       })
-    },
-    querySelections (v) {
+    }
+    querySelections () {
       this.loading = true
       // Simulated ajax query
-      /* api.getTops({organization:this.$route.organization},(data)=>{
+      /* api.getdataTops({organization:this.$route.organization},(data)=>{
         this.items =data
         this.loading=false
       })
       */
     }
-  },
-  watch: {
-    search (val) {
-      val && this.querySelections(val)
+  @Watch('search')
+    searcher (val:String|null) {
+      val && this.querySelections()
     }
-  },
-  computed: mapFields({
-    m: 'meeting'
-  }),
   created () {
     this.$store.dispatch('fetchOne', {
       model: 'meeting',

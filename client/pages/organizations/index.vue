@@ -19,8 +19,8 @@ div
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { mapFields } from 'vuex-map-fields'
-import { QueryBuilder } from '@orbit/data'
+import { mapFields, Commit } from 'vuex-map-fields'
+import { QueryBuilder, Record } from '@orbit/data'
 const IndexOrganizationProps = Vue.extend({
   computed: mapFields({
     organizations: 'organizations'
@@ -36,7 +36,7 @@ export default class IndexOrganization extends IndexOrganizationProps {
   pagination = {
     rowsPerPage: 4
   }
-  deleteOrg (org) {
+  deleteOrg (org:Record) {
     if (confirm('Willst du wirklich diese Organisation entfernen?')) {
       this.$store.dispatch('delete', org)
     }
@@ -46,7 +46,7 @@ export default class IndexOrganization extends IndexOrganizationProps {
       queryOrExpression: (q: QueryBuilder) => {
         return q.findRecords('organization').sort('title')
       },
-      thenable: ({ commit, dispatch }, data) => {
+      thenable: ({ commit }:{commit: Commit}, data:Array<Record>) => {
         commit('set', { data, model: 'organizations' })
       }
     })

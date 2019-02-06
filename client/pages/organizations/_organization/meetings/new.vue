@@ -35,8 +35,7 @@ export default class NewMeeting extends NewMeetingProps implements WithRouteAndR
     moderation: '',
     clerk: ''
   }
-  submit (con) {
-    console.log(con)
+  submit () {
     this.$store
       .dispatch('create', {
         type: 'meeting',
