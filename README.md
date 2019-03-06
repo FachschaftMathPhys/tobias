@@ -16,6 +16,7 @@ Required software: `nginx postgresql rails yarn mkcert`. Google for install inst
 
 1. Change to `server`
 2. Install dependencies `bundle install`
+3. Create and migrate db `rake db:create db:migrate`, make sure to provide super-user rights
 3. Start API server on port 3311: `rails s -p 3311`
 
 ### Proxy server: `nginx`
