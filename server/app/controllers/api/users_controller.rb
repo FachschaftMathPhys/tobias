@@ -4,7 +4,6 @@ class Api::UsersController < JSONAPI::ResourceController
     ob.pic = "" if ob.pic.nil?
     ob.fullname = request.headers['X-Forwarded-User'] if ob.fullname.nil?
     es = JSONAPI::ResourceSerializer.new(Api::UserResource).serialize_to_hash(Api::UserResource.new(ob, nil))
-    es[:data]["id"]="me"
     render json: es , content_type: "application/vnd.api+json"
   end
   def update_me
@@ -13,7 +12,6 @@ class Api::UsersController < JSONAPI::ResourceController
     ob.pic = user_params[:data]["attributes"]["pic"]
     ob.save!
     es = JSONAPI::ResourceSerializer.new(Api::UserResource).serialize_to_hash(Api::UserResource.new(ob, nil))
-    es[:data]["id"]="me"
     render json: es , content_type: "application/vnd.api+json"
   end
   private

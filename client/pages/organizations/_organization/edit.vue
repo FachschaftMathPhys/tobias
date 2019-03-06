@@ -8,10 +8,13 @@ div
     v-btn(@click="submit") submit
 </template>
 <script lang="ts">
-import { mapFields, Commit } from 'vuex-map-fields'
+import { mapFields, Commit } from 'vuex-map-fields';
+
+// `fooModule` is the name of the Vuex module.
+
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {Record} from '@orbit/data'
+import {Record, QueryBuilder} from '@orbit/data'
 import { TransformBuilder } from '@orbit/data'
 const EditProps = Vue.extend({
   name: 'EditOrganization',
@@ -57,9 +60,11 @@ export default class EditOrganization extends EditProps {
       })
   }
   created () {
-    this.$store.dispatch('fetchOne', {
-      model: 'organization',
-      id: this.$route.params.organization
+    this.$store.dispatch('query', {
+      query: (q: QueryBuilder) => {
+        return q.findRecord({type:'organization',id:this.$route.params.organization as string})
+      },
+      setField:"organization"
     })
   }
 }

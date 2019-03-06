@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   v-card
-    v-card-media(:src="pic" height="200px")
+    v-img(:src="pic?pic:''" height="200px")
       v-spacer
       v-btn(fab=true icon=true @click="upload")
         v-icon file_upload
@@ -37,14 +37,7 @@ const SettingsAccountProps = Vue.extend({
 })
 export default class SettingsAccount extends SettingsAccountProps {
   mounted () {
-    this.$store.dispatch('querying', {
-      queryOrExpression: (q: QueryBuilder) => {
-        return q.findRecord({ type: 'user', id: 'me' })
-      },
-      thenable: ({ commit }:{commit:Commit}, data:Record) => {
-        commit('set', { data, model: 'user' })
-      }
-    })
+    //done by layout
   }
   upload () {
     // @ts-ignore
@@ -67,21 +60,20 @@ export default class SettingsAccount extends SettingsAccountProps {
     }
   }
   save () {
-    this.$store.dispatch('updating', {
-      transformOrOperations: (t: TransformBuilder) => {
-        return t.replaceRecord({
-          attributes: {
+    //trying network
+    fetch("/api/users/me", {
+      method: 'PATCH', // or 'PUT'
+      body: JSON.stringify({data:{attributes: {
             pic: this.pic,
             name: this.name,
             fullname: this.fullname
           },
           id: 'me',
-          type: 'user'
-        })
+          type: 'user'}}),
+      headers:{
+        "content-type":"application/vnd.api+json"
       },
-      thenable: ({ commit }:{commit:Commit}, data:Record) => {
-        commit('set', { data, model: data.type })
-      }
+      credentials: "same-origin"
     })
   }
 }

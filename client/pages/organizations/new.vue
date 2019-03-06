@@ -8,33 +8,39 @@ div
     v-btn(@click="submit") submit
 </template>
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'nuxt-class-component'
+import Vue from "vue";
+import Component from "nuxt-class-component";
+import { TransformBuilder } from "@orbit/data";
 
 const OrganizationNewProps = Vue.extend({
-  name: 'Organization'
-})
+  name: "Organization"
+});
 @Component({})
 export default class OrganizationNew extends OrganizationNewProps {
-  description: string = ''
-  title: string = ''
-  meetinginvitationtemplate: string = ''
-  submit () {
+  description: string = "";
+  title: string = "";
+  meetinginvitationtemplate: string = "";
+  submit() {
     this.$store
-      .dispatch('create', {
-        type: 'organization',
-        attributes: {
-          description: this.description,
-          title: this.title,
-          meetinginvitationtemplate: this.meetinginvitationtemplate
+      .dispatch("update", {
+        update: (t: TransformBuilder) => {
+          //@ts-ignore
+          return t.addRecord({
+            type: "organization",
+            attributes: {
+              description: this.description,
+              title: this.title,
+              meetinginvitationtemplate: this.meetinginvitationtemplate
+            }
+          });
         }
       })
       .then(() => {
         // verknüpfen, falls meeting angegeben
         this.$router.push({
-          name: 'organizations'
-        })
-      })
+          name: "organizations"
+        });
+      });
   }
 }
 </script>

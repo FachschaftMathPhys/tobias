@@ -103,18 +103,6 @@ ActiveRecord::Schema.define(version: 20181024114716) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "queue_classic_jobs", force: :cascade do |t|
-    t.text "q_name", null: false
-    t.text "method", null: false
-    t.json "args", null: false
-    t.datetime "locked_at"
-    t.integer "locked_by"
-    t.datetime "created_at", default: -> { "now()" }
-    t.datetime "scheduled_at", default: -> { "now()" }
-    t.index ["q_name", "id"], name: "idx_qc_on_name_only_unlocked", where: "(locked_at IS NULL)"
-    t.index ["scheduled_at", "id"], name: "idx_qc_on_scheduled_at_only_unlocked", where: "(locked_at IS NULL)"
-  end
-
   create_table "tops", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.text "description"

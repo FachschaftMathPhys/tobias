@@ -6,13 +6,14 @@ v-expansion-panel-content
         v-icon remove
       span TOP entfernen
     | {{top.attributes.title}}
-  Top(:top="top")
+  Top(:top="top" :related="action" field="top")
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import Top from './top.vue'
 import Component from 'nuxt-class-component'
-import store from '~/store/api'
+import { QueryBuilder } from '@orbit/data';
+import {store} from '~/store/index'
 const ActionProps = Vue.extend({
   components: {
     Top
@@ -36,6 +37,7 @@ export default class Action extends ActionProps {
   }
   created () {
     console.log(this.action)
+    this.$store.dispatch("query",{query:(q:QueryBuilder) => q.findRelatedRecord(this.action, 'top'),setField:"top"})
     store.query((q) => q.findRelatedRecord(this.action, 'top')).then((data) => { this.top = data })
   }
 }

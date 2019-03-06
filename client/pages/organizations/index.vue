@@ -17,39 +17,48 @@ div
     v-icon add
 </template>
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { mapFields, Commit } from 'vuex-map-fields'
-import { QueryBuilder, Record } from '@orbit/data'
+import Vue from "vue";
+import Component from "vue-class-component";
+import { mapFields } from "vuex-map-fields";
+import { QueryBuilder, Record, TransformBuilder } from "@orbit/data";
 const IndexOrganizationProps = Vue.extend({
   computed: mapFields({
-    organizations: 'organizations'
+    organizations: "organizations"
   })
-})
+});
 
 @Component({
-  name: 'Organizations'
+  name: "Organizations"
 })
 export default class IndexOrganization extends IndexOrganizationProps {
-  menuVisible = false
-  rowsPerPageItems = [4, 8, 12]
+  menuVisible = false;
+  rowsPerPageItems = [4, 8, 12];
   pagination = {
     rowsPerPage: 4
-  }
-  deleteOrg (org:Record) {
-    if (confirm('Willst du wirklich diese Organisation entfernen?')) {
-      this.$store.dispatch('delete', org)
+  };
+  deleteOrg(org: Record) {
+    if (confirm("Willst du wirklich diese Organisation entfernen?")) {
+      this.$store.dispatch("update", {
+        update: (s: TransformBuilder) => s.removeRecord(org),
+        queryParam: {
+          query: (q: QueryBuilder) => {
+            return q.findRecords("organization").sort("title");
+          },
+          setField: "organizations"
+        }
+      });
     }
   }
-  created () {
-    this.$store.dispatch('querying', {
-      queryOrExpression: (q: QueryBuilder) => {
-        return q.findRecords('organization').sort('title')
+  beforeDestroy() {
+    //this.$store.commit('set',{setField:'organization',data:false})
+  }
+  created() {
+    this.$store.dispatch("query", {
+      query: (q: QueryBuilder) => {
+        return q.findRecords("organization").sort("title");
       },
-      thenable: ({ commit }:{commit: Commit}, data:Array<Record>) => {
-        commit('set', { data, model: 'organizations' })
-      }
-    })
+      setField: "organizations"
+    });
   }
 }
 </script>

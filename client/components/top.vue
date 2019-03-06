@@ -17,10 +17,9 @@ div(v-if="top")
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
-import { TransformBuilder, Record } from '@orbit/data'
-import { Commit } from 'vuex-map-fields';
+import { TransformBuilder, Record, QueryBuilder} from '@orbit/data'
 const TopProps = Vue.extend({
-  props: ['top']
+  props: ['top','related']
 })
 @Component({
   name: 'Top'
@@ -29,13 +28,11 @@ export default class Top extends TopProps {
   created () {}
   deleteTop (top:Record) {
     if (confirm('Willst du wirklich diesen TOP entfernen?')) {
-      this.$store.dispatch('updating', {
-        transformOrOperations: (t: TransformBuilder) => {
+      this.$store.dispatch('update', {
+        update: (t: TransformBuilder) => {
           return t.removeRecord(top)
         },
-        thenable: ({ commit }:{commit:Commit}) => {
-          commit('remove', { data: top, model: top.type })
-        }
+        queryParam:{query:(q:QueryBuilder)=>q.findRelatedRecords(this.related,'tops'),setField:"tops"}
       })
       // this.$store.dispatch('delete', top)
     }

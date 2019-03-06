@@ -47,7 +47,8 @@ module.exports = {
     // Workbox options
     wbOptions: {
       credentials: 'same-origin'
-    }
+    },
+    offline:true
   },
   manifest: {
     name: 'Tobias',

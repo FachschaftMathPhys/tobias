@@ -20,67 +20,64 @@ div
         v-icon delete
 </template>
 <script lang="ts">
-import draggable from 'vuedraggable'
-import Action from './action.vue'
-import Component from 'nuxt-class-component'
-import { Watch } from 'nuxt-property-decorator'
-import Vue from 'vue'
-import store from '../store/api'
-import { Record, TransformBuilder } from '@orbit/data'
+import draggable from "vuedraggable";
+import Action from "./action.vue";
+import Component from "nuxt-class-component";
+import { Watch } from "nuxt-property-decorator";
+import Vue from "vue";
+//import store from '../store/api'
+import { Record, TransformBuilder, QueryBuilder } from "@orbit/data";
 
-import {Commit} from 'vuex'
+import { Commit } from "vuex";
 
 const MeetingProps = Vue.extend({
   components: {
     draggable,
     Action
   },
-  methods: {
-  },
-  props: ['meeting', 'organizationview']
-})
+  methods: {},
+  props: ["meeting", "organizationview"]
+});
 
 @Component({
-  name: 'Meeting'
+  name: "Meeting"
 })
 export default class Meeting extends MeetingProps {
-  da (item:Record) {
-    if (confirm('Wirklich aus der Tagesordnung entfernen?')) {
-      store.update((q) => q.removeRecord(item)).then(() => {
-        this.actions = this.actions.filter((i) => item.id !== i.id)
-      })
+  da(item: Record) {
+    if (confirm("Wirklich aus der Tagesordnung entfernen?")) {
+      this.$store.dispatch("update", {
+        update: (q:TransformBuilder) => q.removeRecord(item),
+        queryParam: {
+          query: (q:QueryBuilder) => q.findRelatedRecords(this.meeting, "actions"),
+          setField: "actions"
+        }
+      });
     }
   }
 
-  Actions = []
-  actions :Record[] = []
-  @Watch('meeting')
-  onMeeting (val: Record, oldVal: Record) {
-    console.log(val)
-    console.log(oldVal)
-    store
-      .query(q => q.findRelatedRecords(this.meeting, 'actions'), {
-        label: 'Find all related Actions',
-        sources: {
-          remote: {
-            include: ['top']
-          }
-        }
-      })
-      .then(data => (this.actions = data))
+  Actions = [];
+  actions: Record[] = [];
+  @Watch("meeting")
+  onMeeting(val: Record, oldVal: Record) {
+    console.log(val);
+    console.log(oldVal);
+    this.$store.dispatch("query", {
+      query: (q:QueryBuilder)=> q.findRelatedRecords(this.meeting, "actions"),
+      setField: "actions"
+    });
   }
-  @Watch('Actions')
-  onActions (val: Record[]) {
-
-    if (val.length === 0) return
-    let top: Record
+  @Watch("Actions")
+  onActions(val: Record[]) {
+    if (val.length === 0) return;
+    let top: Record;
     for (let v of val) {
-      if (v.type === 'top') {
-        top = v
+      if (v.type === "top") {
+        top = v;
       }
     }
-    store
-      .update(t =>
+    this.$store.dispatch("api.update", {
+      update: (t: TransformBuilder) =>
+        //@ts-ignore
         t.addRecord({
           relationships: {
             top: {
@@ -90,41 +87,33 @@ export default class Meeting extends MeetingProps {
               data: this.meeting
             }
           },
-          type: 'action'
-        })
-      )
-      .then(() => {
-        store
-          .query(q => q.findRelatedRecords(this.meeting, 'actions'), {
-            label: 'Find all related Actions',
-            sources: {
-              remote: {
-                include: ['top']
-              }
-            }
-          })
-          .then((data:Record[]) => {
-            console.log(data)
-            this.Actions = []
-            this.actions = data
-          })
-      })
+          type: "action"
+        }),
+      queryParam: {
+        query: (q:QueryBuilder) => q.findRelatedRecords(this.meeting, "actions"),
+        setField: "actions"
+      }
+    });
   }
-  removeMeeting (meeting:Record) {
-    if (confirm('Willst du wirklich dieses Treffen entfernen?')) {
-      this.$store.dispatch('updating', {
+  removeMeeting(meeting: Record) {
+    if (confirm("Willst du wirklich dieses Treffen entfernen?")) {
+      //TODO: Umstellen
+      this.$store.dispatch("updating", {
         transformOrOperations: (t: TransformBuilder) => {
-          return t.removeRecord(meeting)
+          return t.removeRecord(meeting);
         },
-        thenable: ({ commit }:{commit:Commit}) => {
-          commit('remove', { data: meeting, model: meeting.type })
+        thenable: ({ commit }: { commit: Commit }) => {
+          commit("remove", { data: meeting, model: meeting.type });
         }
-      })
+      });
       // this.$store.dispatch('delete', top)
     }
   }
-  mounted () {
-    store.query((q) => q.findRelatedRecords(this.meeting, 'actions')).then((data) => { this.actions = data })
+  mounted() {
+    this.$store.dispatch("query", {
+      query: (q: QueryBuilder) => q.findRelatedRecords(this.meeting, "actions"),
+      setField: "actions"
+    });
   }
 }
 </script>

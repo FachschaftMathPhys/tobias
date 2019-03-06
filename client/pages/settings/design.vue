@@ -16,6 +16,7 @@ v-card
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { createHelpers } from 'vuex-map-fields'
+//@ts-ignore
 import colors, { Color } from 'vuetify/es5/util/colors'
 
 const { mapFields } = createHelpers({

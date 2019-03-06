@@ -37,7 +37,7 @@ div(v-if="org")
                   Meeting(:meeting="meeting" :organizationview="true")
 v-container(v-else=true)
   p.text-xs-center
-    v-progress-circular(color="accent" indeterminant=true)
+    v-progress-circular(indeterminate color="primary")
 </template>
 <script lang="ts">
 import draggable from 'vuedraggable'
@@ -47,7 +47,8 @@ import Top from '~/components/top.vue'
 import Meeting from '~/components/meeting.vue'
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {Record} from '@orbit/data'
+import {Record, QueryBuilder} from '@orbit/data'
+//import {Watch} from 'vue-property-decorator'
 
 const OrganizationShowProps = Vue.extend({
   components: {
@@ -58,7 +59,8 @@ const OrganizationShowProps = Vue.extend({
   computed: mapFields({
     org: 'organization',
     tops: 'tops',
-    meetings: 'meetings'
+    meetings: 'meetings',
+    loading: 'loading'
   })
 })
 @Component({
@@ -73,23 +75,26 @@ export default class OrganizationShow extends OrganizationShowProps {
     console.log(tops)
   }
   mounted () {
-    this.$store.dispatch('fetchOne', {
-      model: 'organization',
-      id: this.$route.params.organization
-    })
-    this.$store.dispatch('fetchAllRelatedOf', {
-      data: {
-        type: 'organization',
-        id: this.$route.params.organization
+    this.fetchData()
+  }
+  fetchData() {
+    this.$store.dispatch('query', {
+      query: (q: QueryBuilder) => {
+        return q.findRecord({type:'organization',id:this.$route.params.organization as string})
       },
-      relationship: 'meetings'
+      setField:"organization"
     })
-    this.$store.dispatch('fetchAllRelatedOf', {
-      data: {
-        type: 'organization',
-        id: this.$route.params.organization
+    this.$store.dispatch('query', {
+      query: (q: QueryBuilder) => {
+        return q.findRelatedRecords({type:'organization',id:this.$route.params.organization as string},'meetings')
       },
-      relationship: 'tops'
+      setField:"meetings"
+    })
+    this.$store.dispatch('query', {
+      query: (q: QueryBuilder) => {
+        return q.findRelatedRecords({type:'organization',id:this.$route.params.organization as string},'tops')
+      },
+      setField:"tops"
     })
   }
 }

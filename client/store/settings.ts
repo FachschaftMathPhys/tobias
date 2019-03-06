@@ -1,6 +1,8 @@
 import { getField, updateField } from 'vuex-map-fields'
-const state = {
-  darkTheme: true
+const state = () => {
+  return {
+    darkTheme: true
+  }
 }
 const getters = {
   getField

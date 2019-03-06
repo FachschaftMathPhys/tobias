@@ -39,11 +39,13 @@ v-container(grid-list-md=true)
     EmailCreateDialog(:mail="email" :visible="email!=null" @save="sendEmail" @abort="email=null")
 </template>
 <script lang="ts">
-import { mapFields, Commit } from 'vuex-map-fields'
+import { mapFields } from 'vuex-map-fields'
+
+// `fooModule` is the name of the Vuex module.
+
 import Organization from '../../components/organization.vue'
 import TopCreateDialog from '../../components/top-create-dialog.vue'
 import EmailCreateDialog from '../../components/email-create-dialog.vue'
-import store from '../../store/api'
 import draggable from 'vuedraggable'
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
@@ -62,17 +64,16 @@ export default class Inmail extends Vue {
   email: Record|null= null
   created () {
     this.$store.dispatch('fetchAllOf', 'inmail')
-    this.$store.dispatch('querying', {
-      queryOrExpression: (q: QueryBuilder) => {
+    this.$store.dispatch('query', {
+      query: (q: QueryBuilder) => {
         return q.findRecords('organization').sort('title')
       },
-      thenable: ({ commit }:{commit:Commit}, data:Record[]) => {
-        commit('set', { data, model: 'organizations' })
-      }
+      setField:"organizations"
     })
   }
   sendEmail (mail:{body:String,subject:String,address:String, mail:String}) {
-    store.update((u) => {
+    this.$store.dispatch("api.update",{update:(u:any) => {
+      //@ts-ignore
       return u.addRecord({
         type: 'email',
         attributes: {
@@ -80,16 +81,14 @@ export default class Inmail extends Vue {
           subject: mail.subject,
           address: mail.address
         },
+        //@ts-ignore
         relationships: {
           referencable: {
             data: mail.mail
           }
         }
       })
-    }).then(() => {
-      this.email = null
-      alert('Email versandt.')
-    })
+    }});
   }
 }
 </script>
