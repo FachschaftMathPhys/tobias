@@ -94,7 +94,7 @@ export default class App extends AppProps {
           setField: "user"
         });
       })
-      .catch(error => {});
+      .catch(error => {console.log(error)});
   }
   menuVisible: boolean = false;
 }

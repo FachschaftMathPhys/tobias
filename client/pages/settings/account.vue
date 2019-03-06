@@ -20,10 +20,7 @@ div
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
-import { QueryBuilder, TransformBuilder } from '@orbit/data'
 import { mapFields } from 'vuex-map-fields'
-import {Record} from '@orbit/data'
-import {Commit} from 'vuex'
 const SettingsAccountProps = Vue.extend({
   computed: mapFields({
     pic: 'user.attributes.pic',
