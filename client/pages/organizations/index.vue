@@ -53,6 +53,7 @@ export default class IndexOrganization extends IndexOrganizationProps {
     //this.$store.commit('set',{setField:'organization',data:false})
   }
   created() {
+    console.log(this)
     this.$store.dispatch("query", {
       query: (q: QueryBuilder) => {
         return q.findRecords("organization").sort("title");

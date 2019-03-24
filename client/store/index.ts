@@ -216,6 +216,7 @@ import JSONAPISource from '@orbit/jsonapi'
 import LocalStorageBucket from '@orbit/local-storage-bucket'
 import IndexedDBBucket from '@orbit/indexeddb-bucket'
 import { NetworkError, Transform } from '@orbit/data';
+import {clone} from '@orbit/utils'
 import { Commit, Dispatch } from 'vuex';
 const options = { namespace: 'fs-tobias' }
 const bucket = false//supportsIndexedDB()
@@ -223,11 +224,13 @@ const bucket = false//supportsIndexedDB()
   : new LocalStorageBucket(options)
 
 const backup = new IndexedDBSource({ bucket, schema, name: 'backup', namespace: 'tobias' })
-export const store = new Store({
+const store = new Store({
   name: 'store',
   //bucket,
   schema
 })
+import Vue from "vue"
+Vue.prototype.$orbitstore = store
 
 const remote = new JSONAPISource({
   schema: schema,
@@ -373,7 +376,7 @@ export const actions = {
     commit("set",{data:false,setField})
     store.query(query).then((data) => {
       console.info(data)
-      commit("set", { data, setField })
+      commit("set", { data:clone(data), setField })
     }).catch((reason)=>{
       console.log("Fehler")
       console.log(reason)
