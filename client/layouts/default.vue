@@ -5,14 +5,14 @@
       slot(name="drawer")
         v-toolbar.transparent(flat=true)
           v-list.pa-0
-            v-list-tile(avatar=true)
+            v-list-tile(avatar=true v-if="!$apollo.loading")
               v-list-tile-avatar
-                img(:src="pic" v-if="pic")
+                img(:src="me.pic" v-if="me&&me.pic")
                 v-icon(v-else x-large color="orange") account_circle
               v-list-tile-content
                 v-list-tile-title
-                  span {{fullname}}
-                  i {{name}}
+                  span {{me.fullname}}
+                  i {{me.username}}
               v-list-tile-action
                 v-btn(icon=true @click.native.stop="menuVisible = !menuVisible")
                   v-icon chevron_left
@@ -57,6 +57,7 @@
 </template>
 <script lang='ts'>
 import Vue from "vue";
+import gql from "graphql-tag"
 import Component from "nuxt-class-component";
 import { createHelpers, mapFields } from "vuex-map-fields";
 import { QueryBuilder, Record } from "@orbit/data";
@@ -68,34 +69,24 @@ const helpers = createHelpers({
 const AppProps = Vue.extend({
   name: "Flexible",
   computed: merge(
-    helpers.mapFields({ darkTheme: "darkTheme" }),
-    mapFields({
-      user: "user",
-      name: "user.attributes.name",
-      fullname: "user.attributes.fullname",
-      pic: "user.attributes.pic"
-    })
-  )
+    helpers.mapFields({ darkTheme: "darkTheme" })
+  ),
+  apollo: {
+      me: gql`{
+        me {
+          fullname
+          username,
+          id
+        }
+      }`
+    }
 });
 @Component({})
 export default class App extends AppProps {
   mounted() {
-    fetch("/api/users/me", {
-      credentials: "same-origin"
-    })
-      .then(async(resp: Response) => {
-        //success
-        let {data} = await resp.json()
-        console.log(data)
-        this.$store.dispatch("query", {
-          query: (q: QueryBuilder) => {
-            return q.findRecord({ type: "user", id: (data as Record).id });
-          },
-          setField: "user"
-        });
-      })
-      .catch(error => {console.log(error)});
+    
   }
+  
   menuVisible: boolean = false;
 }
 </script>

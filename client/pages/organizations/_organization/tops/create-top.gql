@@ -1,0 +1,11 @@
+      mutation($organization:ID!,$title:String!,$description:String!,$submitter:ID,$author:ID, $submitted_at:DateTime){
+        createTop(organization:$organization,title:$title, description:$description, submitter:$submitter,author:$author,submitted_at:$submitted_at){
+          id,
+          title,
+          description,
+          submitted_at,
+          organization{
+            id
+          }
+        }
+      }

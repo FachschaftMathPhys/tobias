@@ -6,8 +6,8 @@ div
       v-flex(v-for="organization in organizations" :key="organization.id"  xs12=true sm6=true md4=true lg3=true)
         v-card
           v-card-title(primary-title=true)
-            h3.headline.mb-0 {{organization.attributes.title}}
-          v-card-text {{organization.attributes.description}}
+            h3.headline.mb-0 {{organization.title}}
+          v-card-text {{organization.description}}
           v-card-actions
             v-btn(flat=true color="primary" :to='{name:"organizations-organization",params:{organization:organization.id}}') Anschauen
             v-spacer
@@ -18,13 +18,23 @@ div
 </template>
 <script lang="ts">
 import Vue from "vue";
+import gql from 'graphql-tag'
 import Component from "vue-class-component";
 import { mapFields } from "vuex-map-fields";
 import { QueryBuilder, Record, TransformBuilder } from "@orbit/data";
 const IndexOrganizationProps = Vue.extend({
-  computed: mapFields({
-    organizations: "organizations"
-  })
+  //computed: mapFields({
+ //   organizations: "organizations"
+  //})
+  apollo: {
+      organizations: gql`{
+        organizations {
+          title
+          description,
+          id
+        }
+      }`
+    }
 });
 
 @Component({
@@ -36,6 +46,7 @@ export default class IndexOrganization extends IndexOrganizationProps {
   pagination = {
     rowsPerPage: 4
   };
+  
   deleteOrg(org: Record) {
     if (confirm("Willst du wirklich diese Organisation entfernen?")) {
       this.$store.dispatch("update", {
@@ -53,13 +64,7 @@ export default class IndexOrganization extends IndexOrganizationProps {
     //this.$store.commit('set',{setField:'organization',data:false})
   }
   created() {
-    console.log(this)
-    this.$store.dispatch("query", {
-      query: (q: QueryBuilder) => {
-        return q.findRecords("organization").sort("title");
-      },
-      setField: "organizations"
-    });
+    
   }
 }
 </script>

@@ -14,8 +14,11 @@ div
 <script lang="ts">
 import Vue from 'vue'
 
+import qgl from "graphql-tag"
 import Component from 'nuxt-class-component'
 import VueRouter, { Route } from 'vue-router'
+import QUERY_ORGANIZATION from '../query-organization.gql'
+import CREATE_MEETING from './create-meeting.gql'
 interface WithRouteAndRouter /* can also extend Vue to make sure nothing is colliding */ {
   $route: Route,
   $router: VueRouter
@@ -29,26 +32,35 @@ export default class NewMeeting extends NewMeetingProps implements WithRouteAndR
   model = {
     title: '',
     description: '',
-    date: '',
-    begin: '',
-    end: '',
+    date: null,
+    begin: null,
+    end: null,
     moderation: '',
     clerk: ''
   }
   submit () {
-    this.$store
-      .dispatch('create', {
-        type: 'meeting',
-        attributes: this.model,
-        relationships: {
-          organization: {
-            data: {
-              type: 'organization',
-              id: this.$route.params.organization
-            }
-          }
-        }
-      })
+    this.$apollo.mutate({
+      mutation:CREATE_MEETING,
+      variables:{
+        ...this.model,
+        organization:this.$route.params.organization
+      },
+      // Update the cache with the result
+      // The query will be updated with the optimistic response
+      // and then with the real result of the mutation
+      update: (store, { data: { createMeeting } }) => {
+        // Read the data from our cache for this query.
+        const data = store.readQuery({ query: QUERY_ORGANIZATION, variables:{
+          organization:this.$route.params.organization
+        } })
+        // Add our tag from the mutation to the end
+        data.organization.meetings.push(createMeeting)
+        // Write our data back to the cache.
+        store.writeQuery({ query: QUERY_ORGANIZATION,variables:{
+          organization:this.$route.params.organization
+        } , data })
+      },
+    })
       .then(() =>
         this.$router.push({
           name: 'organizations-organization',

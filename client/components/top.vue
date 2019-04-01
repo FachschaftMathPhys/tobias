@@ -2,14 +2,14 @@
 div(v-if="top")
   v-card
     v-card-title
-      h3.headline {{top.attributes.title}}
-        .right.grey-text @{{top.attributes.author}}
-    v-card-text {{top.attributes.description}}
+      h3.headline {{top.title}}
+        .right.grey-text @{{top.author}}
+    v-card-text {{top.description}}
     v-card-actions
-      v-btn(color="primary" flat=true :to='{name:"organizations-organization-tops-top",params:{top:top.id,organization:top.relationships.organization.data.id}}')
+      v-btn(color="primary" flat=true :to='{name:"organizations-organization-tops-top",params:{top:top.id,organization:top.organization.id}}')
         span Anschauen
       v-spacer
-      v-btn(flat=true color="secondary" icon=true :to='{name:"organizations-organization-tops-top-edit",params:{top:top.id,organization:top.relationships.organization.data.id}}')
+      v-btn(flat=true color="secondary" icon=true :to='{name:"organizations-organization-tops-top-edit",params:{top:top.id,organization:top.organization.id}}')
         v-icon edit
       v-btn(flat=true color="secondary" icon=true @click.native.stop="deleteTop(top)")
         v-icon delete
@@ -17,7 +17,8 @@ div(v-if="top")
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
-import { TransformBuilder, Record, QueryBuilder} from '@orbit/data'
+import gql from "graphql-tag"
+import QUERY_ORGANIZATION from "./query-organization.gql"
 const TopProps = Vue.extend({
   props: ['top','related']
 })
@@ -26,15 +27,29 @@ const TopProps = Vue.extend({
 })
 export default class Top extends TopProps {
   created () {}
-  deleteTop (top:Record) {
-    if (confirm('Willst du wirklich diesen TOP entfernen?')) {
-      this.$store.dispatch('update', {
-        update: (t: TransformBuilder) => {
-          return t.removeRecord(top)
+  deleteTop (top) {
+    if (confirm("Willst du wirklich diesen Top entfernen?")) {
+      this.$apollo.mutate({
+        mutation: gql`
+        mutation($top:ID!){
+          deleteTop(top:$top)
+        }`,
+        variables:{
+          top:this.top.id
         },
-        queryParam:{query:(q:QueryBuilder)=>q.findRelatedRecords(this.related,'tops'),setField:"tops"}
+        update: (store, { data: { deleteTop } }) => {
+       // Read the data from our cache for this query.
+       let orgId = this.top.organization.id
+        const data = store.readQuery({ query: QUERY_ORGANIZATION, variables:{
+          organization:orgId
+        } })
+        data.organization.tops = data.organization.tops.filter((item)=>!(item.id==this.top.id))
+        // Write our data back to the cache.
+        store.writeQuery({ query: QUERY_ORGANIZATION,variables:{
+          organization:orgId
+        } , data })
+      },
       })
-      // this.$store.dispatch('delete', top)
     }
   }
 }

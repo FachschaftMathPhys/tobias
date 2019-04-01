@@ -1,0 +1,11 @@
+
+      mutation($organization:ID!,$title:String!,$description:String!,$date:Date,$begin:DateTime,$end:DateTime,$moderation:ID,$clerk:ID){
+        createMeeting(organization:$organization,title:$title,description:$description,date:$date,begin:$begin,end:$end,moderation:$moderation,clerk:$clerk){
+          id,
+          title,
+          description,
+          organization{
+            id
+          }
+        }
+      }

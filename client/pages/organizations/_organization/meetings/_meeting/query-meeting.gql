@@ -1,0 +1,13 @@
+query($meeting: ID!) {
+  meeting(id: $meeting) {
+    title
+    description
+    id
+    begin
+    end
+    date
+    organization {
+        id
+    }
+  }
+}

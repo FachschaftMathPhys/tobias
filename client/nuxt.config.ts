@@ -41,7 +41,7 @@ module.exports = {
   loading: {
     color: '#990000'
   },
-  modules: [ '@nuxtjs/pwa', '@nuxtjs/vuetify'],
+  modules: [ '@nuxtjs/pwa', '@nuxtjs/vuetify','@nuxtjs/apollo'],
   modulesDir: ['node_modules'],
   workbox: {
     // Workbox options
@@ -66,7 +66,15 @@ module.exports = {
     ],
     transpile: [/^vuetify/]
   },
-
+  // Give apollo module options
+  apollo:{
+    clientConfigs:{
+     default:{
+       httpEndpoint: "http://localhost:4001",
+       wsEndpoint: 'ws://localhost:4001/graphql'
+     }
+    }
+  },
   extractCSS: true
   /*
    ** Run ESLint on save
