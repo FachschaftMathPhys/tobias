@@ -123,7 +123,5 @@ export default class Meeting extends MeetingProps {
       })
     }
   }
-  mounted() {
-  }
 }
 </script>

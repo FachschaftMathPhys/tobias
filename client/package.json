@@ -11,7 +11,6 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@nuxtjs/apollo": "^4.0.0-rc4",
     "@nuxtjs/pwa": "^3.0.0-beta.8",
     "@nuxtjs/vuetify": "^0.5.2",
     "@orbit/data": "^0.16.0-beta.2",
@@ -20,6 +19,11 @@
     "@orbit/jsonapi": "^0.16.0-beta.2",
     "@orbit/local-storage-bucket": "^0.16.0-beta.2",
     "@types/node": "^10.3.1",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link-http": "^1.5.14",
+    "apollo-upload-client": "^10.0.0",
+    "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
     "nuxt": "^2.5.1",
     "nuxt-class-component": "^1.2.1",
@@ -29,6 +33,7 @@
     "pug-plain-loader": "^1.0.0",
     "ts-loader": "^5.3.3",
     "vue": "^2.6.6",
+    "vue-apollo": "^3.0.0-beta.28",
     "vue-class-component": "^6.2.0",
     "vue-property-decorator": "^7.3.0",
     "vue-server-renderer": "^2.5.22",
@@ -42,6 +47,7 @@
     "vuex-orbit": "^0.1.0-alpha3"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@nuxt/typescript": "^2.5.1",
     "fake-indexeddb": "^2.0.5",
     "fork-ts-checker-webpack-plugin": "^0.5.2",

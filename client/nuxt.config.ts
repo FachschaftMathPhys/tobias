@@ -41,7 +41,7 @@ module.exports = {
   loading: {
     color: '#990000'
   },
-  modules: [ '@nuxtjs/pwa', '@nuxtjs/vuetify','@nuxtjs/apollo'],
+  modules: [ '@nuxtjs/pwa', '@nuxtjs/vuetify'],
   modulesDir: ['node_modules'],
   workbox: {
     // Workbox options
@@ -56,23 +56,32 @@ module.exports = {
     mobileAppIOS: true,
     crossorigin: 'use-credentials'
   },
+  plugins:[
+    { src: '@/plugins/vue-apollo', ssr: false}
+  ],
   /*
    ** Build configuration
    */
   build: {
-    parallel: true,
+    parallel: false,
     plugins: [
-      new VuetifyLoaderPlugin(),
+      new VuetifyLoaderPlugin()
     ],
-    transpile: [/^vuetify/]
-  },
-  // Give apollo module options
-  apollo:{
-    clientConfigs:{
-     default:{
-       httpEndpoint: "http://localhost:4001",
-       wsEndpoint: 'ws://localhost:4001/graphql'
-     }
+    transpile: [/^vuetify/,'apollo-upload-client'],
+    babel: {
+      ignore: [/[\/\\]core-js/, /@babel[\/\\]runtime/],
+      plugins: [
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-transform-modules-commonjs'
+      ]
+    },
+    extend(config,ctx){
+      const gqlRules = {
+        test: /\.(graphql|gql)$/,
+        use: 'graphql-tag/loader'
+      }
+      //gqlRules.exclude = /(node_modules)/
+      config.module.rules.push(gqlRules)
     }
   },
   extractCSS: true

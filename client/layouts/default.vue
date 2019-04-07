@@ -7,7 +7,7 @@
           v-list.pa-0
             v-list-tile(avatar=true v-if="!$apollo.loading")
               v-list-tile-avatar
-                img(:src="me.pic" v-if="me&&me.pic")
+                img(:src="`http://localhost:4001/attachments/${me.image}`" v-if="me&&me.image")
                 v-icon(v-else x-large color="orange") account_circle
               v-list-tile-content
                 v-list-tile-title
@@ -74,6 +74,7 @@ const AppProps = Vue.extend({
   apollo: {
       me: gql`{
         me {
+          image,
           fullname
           username,
           id
