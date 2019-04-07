@@ -68,6 +68,28 @@ export default class SettingsAccount extends SettingsAccountProps {
       `,
       variables: {
         file: files[0]
+      },
+      update: (store, { data: { uploadProfilePicture } }) => {
+       // Read the data from our cache for this query.
+        const data = store.readQuery({ query: gql`{
+        me {
+          image,
+          fullname,
+          username,
+          id
+        }
+      }`})
+        data.me.image = uploadProfilePicture.image
+        console.log(data)
+        // Write our data back to the cache.
+        store.writeQuery({ query: gql`{
+        me {
+          image,
+          fullname,
+          username,
+          id
+        }
+      }`, data })
       }
     });
     }
