@@ -95,7 +95,42 @@ export default class SettingsAccount extends SettingsAccountProps {
     }
   }
   save() {
-    
+    this.$apollo.mutate({
+      mutation: gql`
+        mutation($fullname: String!) {
+          updateCurrentUser(fullname: $fullname){
+            username
+            fullname
+            image
+          }
+        }
+      `,
+      variables: {
+        fullname: this.me.fullname
+      },
+      update: (store, { data: { updateCurrentUser } }) => {
+       // Read the data from our cache for this query.
+        const data = store.readQuery({ query: gql`{
+        me {
+          image,
+          fullname,
+          username,
+          id
+        }
+      }`})
+        data.me.fullname = updateCurrentUser.fullname
+        console.log(data)
+        // Write our data back to the cache.
+        store.writeQuery({ query: gql`{
+        me {
+          image,
+          fullname,
+          username,
+          id
+        }
+      }`, data })
+      }
+    });
    
   }
 }
