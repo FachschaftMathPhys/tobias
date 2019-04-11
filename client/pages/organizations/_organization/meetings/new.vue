@@ -7,8 +7,8 @@ div
     v-textarea(label="Beschreibung" v-model="model.description")
     div
       v-date-picker(label="Datum" v-model="model.date" landscape=true full-width=true)
-    v-text-field(label="Moderation" v-model="model.moderation" required=true)
-    v-text-field(label="Protokollant" v-model="model.clerk" required=true)
+    user-autocomplete(label="Moderation" v-model="model.moderation" required=true)
+    user-autocomplete(label="Protokollant" v-model="model.clerk" required=true)
     v-btn(@click="submit") submit
 </template>
 <script lang="ts">
@@ -17,6 +17,7 @@ import Vue from 'vue'
 import qgl from "graphql-tag"
 import Component from 'nuxt-class-component'
 import VueRouter, { Route } from 'vue-router'
+import UserAutocomplete from "~/components/user-autocomplete"
 import QUERY_ORGANIZATION from '../query-organization.gql'
 import CREATE_MEETING from './create-meeting.gql'
 interface WithRouteAndRouter /* can also extend Vue to make sure nothing is colliding */ {
@@ -25,7 +26,10 @@ interface WithRouteAndRouter /* can also extend Vue to make sure nothing is coll
 }
 
 const NewMeetingProps = Vue.extend({
-  name: 'NewMeeting'
+  name: 'NewMeeting',
+  components:{
+    UserAutocomplete
+  }
 })
 @Component
 export default class NewMeeting extends NewMeetingProps implements WithRouteAndRouter {

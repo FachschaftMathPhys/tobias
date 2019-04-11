@@ -38,7 +38,7 @@ export default ({
         defaultClient: apolloClient,
     })
 
-    app.provide = apolloProvider.provide()
+    app.apolloProvider = apolloProvider
 
 
 }
