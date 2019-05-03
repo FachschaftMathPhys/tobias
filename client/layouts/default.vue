@@ -85,7 +85,9 @@ const AppProps = Vue.extend({
 @Component({})
 export default class App extends AppProps {
   mounted() {
-    
+      this.$vuetify.theme.primary = "#990000"
+      this.$vuetify.theme.secondary = "#2929"
+      this.$vuetify.theme.accent = "#EE99"
   }
   
   menuVisible: boolean = false;

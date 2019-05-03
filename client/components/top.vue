@@ -3,7 +3,7 @@ div(v-if="top")
   v-card
     v-card-title
       h3.headline {{top.title}}
-        .right.grey-text @{{top.author}}
+        user-chip(:user="top.author")
     v-card-text {{top.description}}
     v-card-actions
       v-btn(color="primary" flat=true :to='{name:"organizations-organization-tops-top",params:{top:top.id,organization:top.organization.id}}')
@@ -17,10 +17,14 @@ div(v-if="top")
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'nuxt-class-component'
+import UserChip from "./user-chip.vue"
 import gql from "graphql-tag"
 import QUERY_ORGANIZATION from "./query-organization.gql"
 const TopProps = Vue.extend({
-  props: ['top','related']
+  props: ['top','related'],
+  components:{
+    UserChip
+  }
 })
 @Component({
   name: 'Top'

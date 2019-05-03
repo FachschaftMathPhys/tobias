@@ -42,6 +42,17 @@ module.exports = {
     color: '#990000'
   },
   modules: [ '@nuxtjs/pwa', '@nuxtjs/vuetify'],
+  vuetify: {
+      theme: {
+        primary: '#990000',
+        secondary: '#2f985c',
+        accent: '#82B1FF',
+        error: '#FF5252',
+        info: '#2196F3',
+        success: '#4CAF50',
+        warning: '#FFC107'
+      }
+  },
   modulesDir: ['node_modules'],
   workbox: {
     // Workbox options

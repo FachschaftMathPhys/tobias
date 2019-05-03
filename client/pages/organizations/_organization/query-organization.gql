@@ -10,6 +10,16 @@ query($organization: ID!) {
       organization {
         id
       }
+      clerk {
+        fullname
+        username
+        image
+      }
+      moderation {
+        fullname
+        username
+        image
+      }
     }
     tops {
       id
@@ -17,6 +27,16 @@ query($organization: ID!) {
       description
       organization {
         id
+      }
+      author {
+        fullname
+        username
+        image
+      }
+      submitter {
+        fullname
+        username
+        image
       }
     }
   }

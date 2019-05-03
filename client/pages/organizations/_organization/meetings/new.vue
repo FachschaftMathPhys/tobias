@@ -46,7 +46,13 @@ export default class NewMeeting extends NewMeetingProps implements WithRouteAndR
     this.$apollo.mutate({
       mutation:CREATE_MEETING,
       variables:{
-        ...this.model,
+        title:this.model.title,
+        description: this.model.description,
+        date: this.model.date,
+        begin: this.model.begin,
+        end: this.model.end,
+        moderation: this.model.moderation.id,
+        clerk: this.model.clerk.id,
         organization:this.$route.params.organization
       },
       // Update the cache with the result

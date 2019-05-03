@@ -9,5 +9,15 @@ query($meeting: ID!) {
     organization {
         id
     }
+    clerk {
+        id
+        fullname
+        image
+    }
+    moderation {
+        id
+        fullname
+        image
+    }
   }
 }

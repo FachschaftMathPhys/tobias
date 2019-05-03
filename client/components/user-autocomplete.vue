@@ -1,5 +1,5 @@
 <template lang="pug">
-v-autocomplete(@input="$emit('input',$event)" value="value" item-value="id" :loading="$apollo.queries.findUsers.loading" :items="findUsers" :search-input.sync="search"  hide-no-data hide-details :label="label" item-text="fullname")
+v-autocomplete(@input="$emit('input',$event)" cache-items :value="value"  :loading="$apollo.queries.findUsers.loading" :items="findUsers" :search-input.sync="search"  hide-no-data hide-details :label="label" item-text="fullname" return-object)
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -8,7 +8,7 @@ export default Vue.extend({
     props:['label','value'],
     data(){
         return {
-            search:"",
+            search:this.value?this.value.fullname||"":"",
             user_id:""
         }
     },
@@ -27,7 +27,7 @@ export default Vue.extend({
             `,
             variables(){
                 return {
-                    text:this.search
+                    text:this.search||this.value.fullname//hack need to return something
                 }
             }
         }

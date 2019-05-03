@@ -15,7 +15,7 @@ div
                   v-list-tile-sub-title Date
               v-list-tile(avatar=true)
                 v-list-tile-content
-                  v-list-tile-title {{meeting.clerk}}
+                  user-chip(:user="meeting.clerk")
                   v-list-tile-sub-title Protokollant
               v-list-tile(avatar=true)
                 v-list-tile-content
@@ -118,6 +118,7 @@ import Top from '~/components/top.vue'
 import Component from 'nuxt-class-component'
 import Meeting from '~/components/meeting.vue'
 import Comment from '~/components/comment.vue'
+import UserChip from "~/components/user-chip.vue"
 import { mapFields } from 'vuex-map-fields'
 import { Watch } from "nuxt-property-decorator";
 import VueRouter, { Route } from 'vue-router'
@@ -130,7 +131,8 @@ const MeetingProps = Vue.extend({
    components: {
     Top,
     Comment,
-    Meeting
+    Meeting,
+    UserChip
   },
   data(){
     return {

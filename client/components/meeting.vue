@@ -3,7 +3,7 @@ div
   v-card
     v-card-title
       h3.headline {{meeting.title}}
-        .right.grey-text @{{meeting.moderation}}
+        user-chip(:user="meeting.moderation")
     v-card-text {{meeting.description}}
       h4 TOPS
       v-expansion-panel
@@ -22,6 +22,7 @@ div
 <script lang="ts">
 import draggable from "vuedraggable";
 import Action from "./action.vue";
+import UserChip from "./user-chip.vue"
 import gql from "graphql-tag"
 import Component from "nuxt-class-component";
 import { Watch } from "nuxt-property-decorator";
@@ -36,7 +37,8 @@ import { Commit } from "vuex";
 const MeetingProps = Vue.extend({
   components: {
     draggable,
-    Action
+    Action,
+    UserChip
   },
   methods: {},
   props: ["meeting", "organizationview"]

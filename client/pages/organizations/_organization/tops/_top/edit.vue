@@ -4,6 +4,8 @@ div(v-if="top")
   v-form(ref="form")
     v-text-field(label="Titel" v-model="top.title" required=true)
     v-textarea(label="Beschreibung" v-model="top.description")
+    user-autocomplete(label="Autor" v-model="top.author" required=true)
+    user-autocomplete(label="Einreichender" v-model="top.submitter" required=true)
     v-btn(@click="submit") Speichern
 </template>
 <script lang="ts">
@@ -12,9 +14,13 @@ div(v-if="top")
 import { mapFields } from 'vuex-map-fields'
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import UserAutocomplete from "~/components/user-autocomplete.vue"
 import QUERY_TOP from "./query-top.gql"
 import UPDATE_TOP from "./update-top.gql"
 const TopEditProps = Vue.extend({
+  components:{
+    UserAutocomplete
+  },
   data(){
     return {
       tId: this.$route.params.top
@@ -40,7 +46,11 @@ export default class TopEdit extends TopEditProps {
     this.$apollo.mutate({
       mutation:UPDATE_TOP,
       variables:{
-        ...this.top,
+        title:this.top.title,
+        description:this.top.description,
+        submitter: this.top.submitter?this.top.submitter.id:null,
+        submitted_at:this.top.submitted_at,
+        author: this.top.author?this.top.author.id:null,
         top:this.$route.params.top
       },
       // Update the cache with the result
@@ -51,9 +61,9 @@ export default class TopEdit extends TopEditProps {
         const data = store.readQuery({ query: QUERY_TOP, variables:{
           top:this.$route.params.top
         } })
-        data.meeting.title = updateTop.title
-        data.meeting.description = updateTop.description
-        data.meeting.submitted_at = updateTop.submitted_at
+        data.top.title = updateTop.title
+        data.top.description = updateTop.description
+        data.top.submitted_at = updateTop.submitted_at
         // Write our data back to the cache.
         store.writeQuery({ query: QUERY_TOP,variables:{
           meeting:this.$route.params.top

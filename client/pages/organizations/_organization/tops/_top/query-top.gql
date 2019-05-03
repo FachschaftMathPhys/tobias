@@ -7,5 +7,17 @@ query($top: ID!) {
     organization {
         id
     }
+    author {
+        id
+        fullname
+        username
+        image
+      }
+    submitter {
+        id
+        fullname
+        username
+        image
+      }
   }
 }
