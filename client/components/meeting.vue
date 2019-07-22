@@ -7,7 +7,7 @@ div
     v-card-text {{meeting.description}}
       h4 TOPS
       v-expansion-panel
-        draggable(v-model='Actions' :options='{group:"tops"}' style="width:100%")
+        draggable(v-model='Actions' group="tops" style="width:100%")
           div(v-for="action in actions" :key="action.id")
             Action(:action="action" @deleteAction="da")
           v-btn(slot="footer" flat=true) Ziehe TOPs hierhin...
@@ -76,31 +76,37 @@ export default class Meeting extends MeetingProps {
     if (val.length === 0) return;
     let top: Record;
     for (let v of val) {
-      if (v.type === "top") {
+      console.log(v)
+      if (v.__typename === "Top") {
         top = v;
       }
     }
-    this.$store.dispatch("api.update", {
-      update: (t: TransformBuilder) =>
-        //@ts-ignore
-        t.addRecord({
-          relationships: {
-            top: {
-              data: top
-            },
-            meeting: {
-              data: this.meeting
-            }
-          },
-          type: "action"
-        }),
-      queryParam: {
-        query: (q:QueryBuilder) => q.findRelatedRecords(this.meeting, "actions"),
-        setField: "actions"
-      }
-    });
+    this.$apollo.mutate({
+        mutation: gql`
+        mutation($meeting:ID!, $top: ID!){
+          createAction(meeting:$meeting,top:$top){
+            id
+          }
+        }`,
+        variables:{
+          meeting:this.meeting.id
+        },
+        update: (store, { data: { deleteMeeting } }) => {
+       // Read the data from our cache for this query.
+       let orgId = this.meeting.organization.id
+        const data = store.readQuery({ query: QUERY_ORGANIZATION, variables:{
+          organization:orgId
+        } })
+        data.organization.meetings = data.organization.meetings.filter((item)=>!(item.id==this.meeting.id))
+        // Write our data back to the cache.
+        store.writeQuery({ query: QUERY_ORGANIZATION,variables:{
+          organization:orgId
+        } , data })
+      },
+      })
+    
   }
-  removeMeeting(meeting: Record) {
+  removeMeeting(meeting) {
     if (confirm("Willst du wirklich dieses Treffen entfernen?")) {
       this.$apollo.mutate({
         mutation: gql`

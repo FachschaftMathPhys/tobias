@@ -24,7 +24,7 @@ div(v-if="!$apollo.queries.organization.loading||organization")
         v-layout#drag-scope(row=true wrap=true)
           v-flex.top-container(xs6=true)
             h3 Aktuelle Tops
-            draggable(v-model='Tops' :options='{group:"tops"}')
+            draggable(v-model='Tops' group="tops")
               div(v-for="top in Tops")
                 v-flex.top-item.handle(xs12=true)
                   Top(:top="top")

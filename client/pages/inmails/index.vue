@@ -6,7 +6,7 @@ v-container(grid-list-md=true)
         v-card-title(primary-title=true)
           h3.head-line.mb-0 Mails
         v-list(two-line=true)
-          draggable(v-model='inmails' :options='{group:{name:"tops",pull:"clone", put:false}}')
+          draggable(v-model='inmails' :group='{name:"tops",pull:"clone", put:false}')
             v-list-group(:key="mail.header" v-for="(mail, index) in inmails")
               v-subheader(v-if="mail.header" :key="mail.header") {{ mail.header }}
               v-list-tile(avatar=true v-else-if="mail" :key="mail.title" slot="activator")
