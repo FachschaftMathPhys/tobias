@@ -14,14 +14,10 @@ Required software: `nginx postgresql rails yarn mkcert`. Google for install inst
 
 ### API- Server
 
-1. Change to `server`
-2. Install dependencies `bundle install`
-3. Create and migrate db `rake db:create db:migrate`, make sure to provide super-user rights
-3. Start API server on port 3311: `rails s -p 3311`
+1a. Change to 'tobias-apollo-server'
+2a. Install dependencies via `yarn`
+3a. Create database mongodb (google it)
+4a. Start Build-process via `NODE_ENV=development yarn build`
+5a. Start-up server via `yarn start:env`
 
-### Proxy server: `nginx`
 
-1. Generate local certs using `mkcert`
-2. Copy `client.conf` to your `nginx/servers`. Modify ssl-certs paths to reflect your local systems
-3. (Re)start `nginx`
-4. Optional: Add your domain to `/etc/hosts`
