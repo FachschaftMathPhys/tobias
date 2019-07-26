@@ -1,0 +1,7 @@
+      mutation($title:String!,$description:String!){
+        createOrganization(title:$title,description:$description){
+          id,
+          title,
+          description
+        }
+      }

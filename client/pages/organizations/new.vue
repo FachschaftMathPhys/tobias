@@ -12,6 +12,9 @@ import Vue from "vue";
 import Component from "nuxt-class-component";
 import { TransformBuilder } from "@orbit/data";
 
+
+import gql from 'graphql-tag'
+import CREATE_ORGANIZATION from './create-organization.gql'
 const OrganizationNewProps = Vue.extend({
   name: "Organization"
 });
@@ -20,27 +23,42 @@ export default class OrganizationNew extends OrganizationNewProps {
   description: string = "";
   title: string = "";
   meetinginvitationtemplate: string = "";
-  submit() {
-    this.$store
-      .dispatch("update", {
-        update: (t: TransformBuilder) => {
-          //@ts-ignore
-          return t.addRecord({
-            type: "organization",
-            attributes: {
-              description: this.description,
-              title: this.title,
-              meetinginvitationtemplate: this.meetinginvitationtemplate
-            }
-          });
+  submit () {
+    this.$apollo.mutate({
+      mutation:CREATE_ORGANIZATION,
+      variables:{
+        title:this.title,
+        description: this.description
+      },
+      // Update the cache with the result
+      // The query will be updated with the optimistic response
+      // and then with the real result of the mutation
+      update: (store, { data: { createOrganization } }) => {
+        // Read the data from our cache for this query.
+        const data = store.readQuery({ query: gql`{
+        organizations {
+          title
+          description,
+          id
         }
-      })
-      .then(() => {
-        // verknüpfen, falls meeting angegeben
+      }`})
+        // Add our tag from the mutation to the end
+        data.organizations.push(createOrganization)
+        // Write our data back to the cache.
+        store.writeQuery({ query:  gql`{
+        organizations {
+          title
+          description,
+          id
+        }
+      }`,  data })
+      },
+    })
+      .then(() =>
         this.$router.push({
-          name: "organizations"
-        });
-      });
+          name: 'organizations'
+        })
+      )
   }
 }
 </script>
