@@ -13,7 +13,6 @@ import Vue from 'vue'
 import Top from './top.vue'
 import Component from 'nuxt-class-component'
 import { QueryBuilder } from '@orbit/data';
-import {store} from '~/store/index'
 const ActionProps = Vue.extend({
   components: {
     Top

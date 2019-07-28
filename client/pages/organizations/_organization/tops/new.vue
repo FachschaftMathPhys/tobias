@@ -12,6 +12,8 @@ div
 import {mapFields} from 'vuex-map-fields'
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import CREATE_TOP from "./create-top.gql"
+import QUERY_ORGANIZATION from "../query-organization.gql"
 const TopNewProps = Vue.extend({
   computed: mapFields({
     t: 'top'
@@ -26,18 +28,28 @@ export default class TopNew extends TopNewProps {
       description: ''
     }
     submit () {
-      this.$store.dispatch('create', {
-        type: 'top',
-        attributes: this.model,
-        relationships: {
-          organization: {
-            data: {
-              type: 'organization',
-              id: this.$route.params.organization
-            }
-          }
-        }
-      }).then(() => {
+      this.$apollo.mutate({
+      mutation:CREATE_TOP,
+      variables:{
+        ...this.model,
+        organization:this.$route.params.organization
+      },
+      // Update the cache with the result
+      // The query will be updated with the optimistic response
+      // and then with the real result of the mutation
+      update: (store, { data: { createTop } }) => {
+        // Read the data from our cache for this query.
+        const data = store.readQuery({ query: QUERY_ORGANIZATION, variables:{
+          organization:this.$route.params.organization
+        } })
+        // Add our tag from the mutation to the end
+        data.organization.tops.push(createTop)
+        // Write our data back to the cache.
+        store.writeQuery({ query: QUERY_ORGANIZATION,variables:{
+          organization:this.$route.params.organization
+        } , data })
+      },
+    }).then(() => {
         // verknüpfen, falls meeting angegeben
         if (this.$route.params.meeting) {
           alert('Füge zu ' + this.$route.params.meeting)

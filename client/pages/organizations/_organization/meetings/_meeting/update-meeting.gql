@@ -1,0 +1,12 @@
+      # you cannot update the organization
+      mutation($meeting:ID!,$title:String!,$description:String!,$date:Date,$begin:DateTime,$end:DateTime,$moderation:ID,$clerk:ID){
+        updateMeeting(meeting:$meeting,title:$title,description:$description,date:$date,begin:$begin,end:$end,moderation:$moderation,clerk:$clerk){
+          id,
+          title,
+          description,
+          date,
+          organization{
+            id
+          }
+        }
+      }

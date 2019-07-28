@@ -1,0 +1,10 @@
+mutation($top:ID!,$title:String!, $description:String!, $submitter:ID,$author:ID,$submitted_at:DateTime){
+    updateTop(top:$top,title:$title, description:$description, submitter:$submitter,author:$author,submitted_at:$submitted_at){
+      id
+      title
+      description
+      organization {
+        id
+      }
+    }
+}

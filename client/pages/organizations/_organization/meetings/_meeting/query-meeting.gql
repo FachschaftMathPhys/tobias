@@ -1,0 +1,23 @@
+query($meeting: ID!) {
+  meeting(id: $meeting) {
+    title
+    description
+    id
+    begin
+    end
+    date
+    organization {
+        id
+    }
+    clerk {
+        id
+        fullname
+        image
+    }
+    moderation {
+        id
+        fullname
+        image
+    }
+  }
+}

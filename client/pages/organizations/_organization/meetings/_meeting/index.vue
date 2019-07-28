@@ -1,9 +1,9 @@
 <template lang="pug">
 div
-  v-container(grid-list-md=true v-if="m")
+  v-container(grid-list-md=true v-if="!$apollo.queries.meeting.loading||meeting")
     v-layout(row=true wrap=true)
       v-flex(sm6=true)
-        Meeting(:meeting="m")
+        Meeting(:meeting="meeting")
       v-flex(sm6=true)
         v-card
           v-card-title.headline Sonstige Informationen
@@ -11,26 +11,26 @@ div
             v-list(two-line=true subheader=true)
               v-list-tile(avatar=true)
                 v-list-tile-content
-                  v-list-tile-title {{m.attributes.date}}
+                  v-list-tile-title {{meeting.date}}
                   v-list-tile-sub-title Date
               v-list-tile(avatar=true)
                 v-list-tile-content
-                  v-list-tile-title {{m.attributes.clerk}}
+                  user-chip(:user="meeting.clerk")
                   v-list-tile-sub-title Protokollant
               v-list-tile(avatar=true)
                 v-list-tile-content
-                  v-list-tile-title {{m.attributes.begin}}
+                  v-list-tile-title {{meeting.begin}}
                   v-list-tile-sub-title Beginn
               v-list-tile(avatar=true)
                 v-list-tile-content
-                  v-list-tile-title {{m.attributes.end}}
+                  v-list-tile-title {{meeting.end}}
                   v-list-tile-sub-title Ende
     v-speed-dial(bottom=true right=true direction="top" fixed=true open-on-hover=true)
       v-btn(slot="activator" color="blue darken-2" dark=true fab=true hover=true)
         v-icon menu
         v-icon close
       v-tooltip(left=true)
-        v-btn(fab=true dark=true small=true color="green" slot="activator" :href='"data:text/plain;base64,"+m.attributes.download' download="einladung.tex")
+        v-btn(fab=true dark=true small=true color="green" slot="activator" :href='"data:text/plain;base64,"+meeting.description' download="einladung.tex")
           v-icon file_download
         span Herunterladen
       v-tooltip(left=true)
@@ -53,13 +53,13 @@ div
       v-layout(row=true wrap=true)
         v-flex(md6=true)
           h3 Aktuelle Tops
-          div(v-for="action in m.actions")
+          div(v-for="action in meeting.actions")
             v-flex(xs12=true)
               Top(:top="action.top")
-        v-flex(md6=true v-if="m.relationships")
+        v-flex(md6=true v-if="meeting")
           h3 Aktuelle Kommentare (zur Zeit deaktiviert)
           v-expansion-panel(popout=true)
-            v-expansion-panel-content(hide-actions=true v-if="m.relationships.comments" v-for="(comment, i) in m.relationships.comments" :key="i")
+            v-expansion-panel-content(hide-actions=true v-if="meeting.comments" v-for="(comment, i) in meeting.comments" :key="i")
               v-layout(align-center=true row=true spacer=true slot="header")
                 v-flex(xs4=true sm2=true md1=true)
                   v-avatar(size="36px" slot="activator")
@@ -102,14 +102,14 @@ div
                   v-container(fluid=true)
                     v-layout
                       v-flex
-                        v-select(label="Name des TOPs" autocomplete=true :loading="loading" cache-items=true required=true :items="items" :search-input.sync="search" v-model="select" item-text="title" item-value="id" return-object=true)
+                        v-autocomplete(label="Name des TOPs" autocomplete=true :loading="loading" cache-items=true required=true :items="items" :search-input.sync="search" v-model="select" item-text="title" item-value="id" return-object=true)
                 v-card-actions
                   v-spacer
                   v-btn(color="green darken-1" flat=true @click.native="linkdialog = false") Abbrechen
                   v-btn(color="green darken-1" flat=true @click="linkTop") Hinzufügen
-  v-container v-else=true
+  v-container(v-else)
     p.text-xs-center
-      v-progress-circular color="accent" indeterminant=true
+      v-progress-circular(color="accent" indeterminant=true)
 </template>
 <script lang="ts">
 import Vue from "vue"
@@ -118,9 +118,11 @@ import Top from '~/components/top.vue'
 import Component from 'nuxt-class-component'
 import Meeting from '~/components/meeting.vue'
 import Comment from '~/components/comment.vue'
+import UserChip from "~/components/user-chip.vue"
 import { mapFields } from 'vuex-map-fields'
 import { Watch } from "nuxt-property-decorator";
 import VueRouter, { Route } from 'vue-router'
+import QUERY_MEETING from "./query-meeting.gql"
 interface WithRouteAndRouter /* can also extend Vue to make sure nothing is colliding */ {
   $route: Route,
   $router: VueRouter
@@ -129,12 +131,26 @@ const MeetingProps = Vue.extend({
    components: {
     Top,
     Comment,
-    Meeting
+    Meeting,
+    UserChip
+  },
+  data(){
+    return {
+      mId:this.$route.params.meeting
+    }
   },
   name: 'MeetingView',
-  computed: mapFields({
-    m: 'meeting'
-  })
+  //@ts-ignore
+  apollo: {
+        meeting: { 
+          query: QUERY_MEETING,
+        variables(){
+          return {
+            meeting: this.mId
+          }
+        }
+      }
+    }
 })
 @Component
 export default class MeetingView extends MeetingProps implements WithRouteAndRouter {
@@ -189,10 +205,7 @@ export default class MeetingView extends MeetingProps implements WithRouteAndRou
       val && this.querySelections()
     }
   created () {
-    this.$store.dispatch('fetchOne', {
-      model: 'meeting',
-      id: this.$route.params.meeting
-    })
+    
   }
 }
 </script>

@@ -1,0 +1,44 @@
+query($organization: ID!) {
+  organization(id: $organization) {
+    title
+    description
+    id
+    meetings {
+      id
+      title
+      description
+      organization {
+        id
+      }
+      clerk {
+        fullname
+        username
+        image
+      }
+      moderation {
+        fullname
+        username
+        image
+      }
+    }
+    tops {
+      id
+      title
+      description
+      organization {
+        id
+      }
+      author {
+        fullname
+        username
+        image
+      }
+      submitter {
+        fullname
+        username
+        image
+      }
+    }
+  }
+}
+

@@ -1,12 +1,12 @@
 <template lang="pug">
 div
   h1 Sitzung 
-  v-form
-    v-text-field(label="Titel" v-model="title" required=true)
-    v-textarea(label="Beschreibung" v-model="description")
-    v-date-picker(label="Datum" v-model="date" landscape=true full-width=true)
-    v-text-field(label="Moderation" v-model="moderation" required=true)
-    v-text-field(label="Protokollant" v-model="clerk" required=true)
+  v-form(v-if="meeting")
+    v-text-field(label="Titel" v-model="meeting.title" required=true)
+    v-textarea(label="Beschreibung" v-model="meeting.description")
+    v-date-picker(label="Datum" v-model="meeting.date" landscape=true full-width=true)
+    user-autocomplete(label="Moderation" v-model="meeting.moderation" required=true)
+    user-autocomplete(label="Protokollant" v-model="meeting.clerk" required=true)
     v-btn(@click="submit") submit
 </template>
 <script lang="ts">
@@ -15,44 +15,73 @@ import {Commit} from 'vuex'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { TransformBuilder, Record } from '@orbit/data'
-
+import QUERY_MEETING from "./query-meeting.gql"
+import UPDATE_MEETING from "./update-meeting.gql"
+import UserAutocomplete from "~/components/user-autocomplete.vue"
 const EditProps = Vue.extend({
   name: 'EditMeeting',
-  computed: mapFields({
-    description: 'meeting.attributes.description',
-    title: 'meeting.attributes.title',
-    date: 'meeting.attributes.date',
-    begin: 'meeting.attributes.begin',
-    end: 'meeting.attributes.end',
-    moderation: 'meeting.attributes.moderation',
-    clerk: 'meeting.attributes.clerk'
-  })
+  components:{
+    UserAutocomplete
+  },
+  data(){
+    return {
+      mId:this.$route.params.meeting
+    }
+  },
+  //@ts-ignore
+  apollo: {
+        meeting: { 
+          query: QUERY_MEETING,
+        variables(){
+          return {
+            meeting: this.mId
+          }
+        }
+      }
+    }
 })
 
 @Component({})
 export default class EditMeeting extends EditProps {
   submit () {
-    this.$store
-      .dispatch('updating', {
-        transformOrOperations: (t: TransformBuilder) => {
-          return t.replaceRecord({
-            attributes: {
-              title: this.title,
-              description: this.description,
-              date: this.date,
-              begin: this.begin,
-              end: this.end,
-              moderation: this.moderation,
-              clerk: this.clerk
-            },
-            id: this.$route.params.meeting,
-            type: 'meeting'
-          })
+    this.$apollo.mutate({
+      mutation:UPDATE_MEETING,
+      variables:{
+        title:this.meeting.title,
+        description: this.meeting.description,
+        date: this.meeting.date,
+        begin: this.meeting.begin,
+        end: this.meeting.end,
+        moderation: this.meeting.moderation.id,
+        clerk: this.meeting.clerk.id,
+        meeting:this.$route.params.meeting
+      },
+      // Update the cache with the result
+      // The query will be updated with the optimistic response
+      // and then with the real result of the mutation
+      update: (store, { data: { updateMeeting } }) => {
+       // Read the data from our cache for this query.
+        const data = store.readQuery({ query: QUERY_MEETING, variables:{
+          meeting:this.$route.params.meeting
+        } })
+        data.meeting.title = updateMeeting.title
+        data.meeting.description = updateMeeting.description
+        data.meeting.date = updateMeeting.date
+        console.log(data)
+        // Write our data back to the cache.
+        store.writeQuery({ query: QUERY_MEETING,variables:{
+          meeting:this.$route.params.meeting
+        } , data })
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        updateMeeting: {
+          __typename: 'Meeting',
+          ...this.meeting,
+          id:this.$route.params.meeting
         },
-        thenable: ({ commit }:{commit:Commit}, data:Record) => {
-          commit('set', { data, model: data.type })
-        }
-      })
+      },
+    })
       .then(() => {
         this.$router.push({
           name: 'organizations-organization-meetings-meeting',
@@ -64,10 +93,6 @@ export default class EditMeeting extends EditProps {
       })
   }
   created () {
-    this.$store.dispatch('fetchOne', {
-      model: 'meeting',
-      id: this.$route.params.meeting
-    })
   }
 }
 </script>

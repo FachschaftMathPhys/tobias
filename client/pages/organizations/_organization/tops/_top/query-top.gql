@@ -1,0 +1,23 @@
+query($top: ID!) {
+  top(id: $top) {
+    title
+    description
+    id
+    submitted_at
+    organization {
+        id
+    }
+    author {
+        id
+        fullname
+        username
+        image
+      }
+    submitter {
+        id
+        fullname
+        username
+        image
+      }
+  }
+}

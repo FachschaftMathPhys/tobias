@@ -5,7 +5,7 @@ v-card(v-if="loading")
   v-card-text {{organization.attributes.description}}
     h3 TOPS
     v-expansion-panel
-      draggable(v-model='Tops' :options='{group:"tops"}' style="width:100%")
+      draggable(v-model='Tops' group="tops" style="width:100%")
         v-expansion-panel-content(v-for="top in Tops" :key="top.id")
           div(slot="header")
             v-tooltip(bottom=true)
