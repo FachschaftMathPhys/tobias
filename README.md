@@ -14,10 +14,10 @@ Required software: `nginx postgresql rails yarn mkcert`. Google for install inst
 
 ### API- Server
 
-1a. Change to 'tobias-apollo-server'
-2a. Install dependencies via `yarn`
-3a. Create database mongodb (google it)
-4a. Start Build-process via `NODE_ENV=development yarn build`
-5a. Start-up server via `yarn start:env`
+1. Change to 'server'
+2. Install dependencies via `yarn`
+3. Create database mongodb (google it)
+4. Start Build-process via `NODE_ENV=development yarn build`
+5. Start-up server via `yarn start:env`
 
 
